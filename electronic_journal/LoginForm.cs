@@ -6,14 +6,8 @@ using System.Configuration;
 using System.Text;
 
 namespace electronic_journal
-{
-    public interface IConnection
-    {
-        SqlConnection ConnectionSQL();
-        SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection);
-    }
-
-    public partial class LoginForm : Form
+{ 
+    public partial class LoginForm : Form, IConnection
     { 
         public static string str { get; set; }
 
@@ -29,12 +23,6 @@ namespace electronic_journal
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        }
-
-        private SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
-        {
-            sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
-            return sqlDataAdapter;
         }
 
         private void btnEntry_Click_1(object sender, EventArgs e)
@@ -85,10 +73,16 @@ namespace electronic_journal
             }
         }
 
-        private SqlConnection ConnectionSQL()
+        public SqlConnection ConnectionSQL()
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             return sqlConnection;
+        }
+
+        public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
+        {
+            sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
+            return sqlDataAdapter;
         }
 
         private void btnEntry_KeyDown(object sender, KeyEventArgs e)
@@ -97,7 +91,6 @@ namespace electronic_journal
             {
                 btnEntry_Click_1(sender, e);
             }
-
         }
     }
 }

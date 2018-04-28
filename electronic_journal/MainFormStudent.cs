@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace electronic_journal
 {
-    public partial class MainFormStudent : Form, IConnection
+    public partial class MainFormStudent : Form, IConnection, IDataGridModes
     {
         public string connectionString;
         DataTable dataTable;
@@ -38,11 +38,8 @@ namespace electronic_journal
                            "inner join[Subject] on Progress.[Subject] = [Subject].SubjectId where [Subject].SubjectName = '" + subjectComboBoxStudent.Text.Trim() + "' and Person.IdPerson = '" + LoginForm.idPerson + "'";
             dataTable = new DataTable();
             SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = dataTable;
-            dataGridNote.DataSource = bindingSource;
-            sqlDataAdapter.Update(dataTable);
-            DataGridReadOnly();
+            dataGridNote.DataSource = dataTable;
+            DataGridMode();
         }
 
         private void subjectComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,11 +100,6 @@ namespace electronic_journal
             return sqlConnection;
         }
 
-        private void DataGridReadOnly()
-        {
-            dataGridNote.ReadOnly = true;
-        }
-
         private void userRoomButton_Click(object sender, EventArgs e)
         {
             UserRoomStudent userRoomStudent = new UserRoomStudent();
@@ -117,6 +109,34 @@ namespace electronic_journal
         private void MainFormStudent_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        public void DataGridMode()
+        {
+            DataGridColumnsSize();
+            DataGridAligment();
+            DataGridReadOnly();
+        }
+
+        public void DataGridAligment()
+        {
+            dataGridNote.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridNote.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        public void DataGridColumnsSize()
+        {
+            dataGridNote.Columns[0].Width = 250;
+        }
+
+        public void DataGridReadOnly()
+        {
+            dataGridNote.ReadOnly = true;
+        }
+
+        public void DataGridAllowUserToAddRows()
+        {
+            dataGridNote.AllowUserToAddRows = false;
         }
     }
 }

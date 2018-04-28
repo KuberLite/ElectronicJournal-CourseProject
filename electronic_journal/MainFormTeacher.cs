@@ -8,25 +8,20 @@ using System.Windows.Forms;
 
 namespace electronic_journal
 {
-    public partial class MainFormTeacher : Form, IConnection
+    public partial class MainFormTeacher : Form, IConnection, IDataGridModes
     {
         string connectionString;
         SqlDataAdapter sqlDataAdapter;
         DataTable dataTable;
 
-        private void DataGridMode()
+        public void DataGridMode()
         {
             DataGridAligment();
             DataGridColumnsSize();
             DataGridReadOnly();
         }
 
-        private void lol(DataGridViewCellEventHandler e)
-        {
-
-        }
-
-        private void DataGridColumnsSize()
+        public void DataGridColumnsSize()
         {
             dataGridNote.Columns[0].Width = 250;
             dataGridNote.Columns[1].Width = 80;
@@ -36,10 +31,24 @@ namespace electronic_journal
             dataGridNote.Columns[5].Width = 50;
         }
 
-        private void DataGridAligment()
+        public void DataGridAligment()
         {
             dataGridNote.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridNote.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        public void DataGridReadOnly()
+        {
+            dataGridNote.Columns[0].ReadOnly = true;
+            dataGridNote.Columns[1].ReadOnly = true;
+            dataGridNote.Columns[2].ReadOnly = true;
+            dataGridNote.Columns[3].ReadOnly = true;
+            dataGridNote.Columns[5].ReadOnly = true;
+        }
+
+        public void DataGridAllowUserToAddRows()
+        {
+            dataGridNote.AllowUserToAddRows = false;
         }
 
         public MainFormTeacher()
@@ -124,15 +133,6 @@ namespace electronic_journal
             bindingSource.DataSource = dataTable;
             dataGridNote.DataSource = bindingSource;
             sqlDataAdapter.Update(dataTable);
-        }
-
-        private void DataGridReadOnly()
-        {
-            dataGridNote.Columns[0].ReadOnly = true;
-            dataGridNote.Columns[1].ReadOnly = true;
-            dataGridNote.Columns[2].ReadOnly = true;
-            dataGridNote.Columns[3].ReadOnly = true;
-            dataGridNote.Columns[5].ReadOnly = true;
         }
 
         private void LoadDB_Click(object sender, EventArgs e)
