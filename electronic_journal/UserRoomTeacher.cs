@@ -134,6 +134,5 @@ namespace electronic_journal
             else
             { this.Close(); }
         }
-
     }
 }

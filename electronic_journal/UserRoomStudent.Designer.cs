@@ -52,7 +52,7 @@
             this.birthdayTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.birthdayTextBox.Location = new System.Drawing.Point(249, 214);
             this.birthdayTextBox.Name = "birthdayTextBox";
-            this.birthdayTextBox.Size = new System.Drawing.Size(241, 29);
+            this.birthdayTextBox.Size = new System.Drawing.Size(361, 29);
             this.birthdayTextBox.TabIndex = 23;
             // 
             // label6
@@ -73,13 +73,14 @@
             this.loadImageButton.TabIndex = 21;
             this.loadImageButton.Text = "Загрузить изображение";
             this.loadImageButton.UseVisualStyleBackColor = true;
+            this.loadImageButton.Click += new System.EventHandler(this.LoadImageButton_Click);
             // 
             // genderTextBox
             // 
             this.genderTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.genderTextBox.Location = new System.Drawing.Point(249, 144);
             this.genderTextBox.Name = "genderTextBox";
-            this.genderTextBox.Size = new System.Drawing.Size(241, 29);
+            this.genderTextBox.Size = new System.Drawing.Size(361, 29);
             this.genderTextBox.TabIndex = 20;
             // 
             // label5
@@ -97,7 +98,7 @@
             this.groupTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupTextBox.Location = new System.Drawing.Point(249, 73);
             this.groupTextBox.Name = "groupTextBox";
-            this.groupTextBox.Size = new System.Drawing.Size(241, 29);
+            this.groupTextBox.Size = new System.Drawing.Size(361, 29);
             this.groupTextBox.TabIndex = 18;
             // 
             // label4
@@ -125,7 +126,7 @@
             this.fullNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fullNameTextBox.Location = new System.Drawing.Point(249, 37);
             this.fullNameTextBox.Name = "fullNameTextBox";
-            this.fullNameTextBox.Size = new System.Drawing.Size(241, 29);
+            this.fullNameTextBox.Size = new System.Drawing.Size(361, 29);
             this.fullNameTextBox.TabIndex = 15;
             // 
             // label2
@@ -161,7 +162,7 @@
             this.courseTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.courseTextBox.Location = new System.Drawing.Point(249, 109);
             this.courseTextBox.Name = "courseTextBox";
-            this.courseTextBox.Size = new System.Drawing.Size(241, 29);
+            this.courseTextBox.Size = new System.Drawing.Size(361, 29);
             this.courseTextBox.TabIndex = 24;
             // 
             // label7
@@ -179,7 +180,7 @@
             this.professionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.professionTextBox.Location = new System.Drawing.Point(249, 179);
             this.professionTextBox.Name = "professionTextBox";
-            this.professionTextBox.Size = new System.Drawing.Size(241, 29);
+            this.professionTextBox.Size = new System.Drawing.Size(361, 29);
             this.professionTextBox.TabIndex = 26;
             // 
             // label8
@@ -196,7 +197,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(502, 290);
+            this.ClientSize = new System.Drawing.Size(622, 290);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.professionTextBox);
             this.Controls.Add(this.label7);
@@ -213,10 +214,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Label1);
             this.Controls.Add(this.picture);
-            this.MaximumSize = new System.Drawing.Size(518, 329);
-            this.MinimumSize = new System.Drawing.Size(518, 329);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "UserRoomStudent";
             this.Text = "Личный кабинет";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UserRoomStudent_FormClosing);
             this.Load += new System.EventHandler(this.UserRoomStudent_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.ResumeLayout(false);
