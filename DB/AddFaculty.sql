@@ -1,0 +1,7 @@
+insert into Faculty (IdFaculty, FacultyName) values ('ИДиП', 'Издателькое дело и полиграфия')
+insert into Faculty (IdFaculty, FacultyName) values ('ХТиТ', 'Химическая технология и техника')
+insert into Faculty (IdFaculty, FacultyName) values ('ЛХФ', 'Лесохозяйственный факультет')
+insert into Faculty (IdFaculty, FacultyName) values ('ИЭФ', 'Инженерно-экономический факультет')
+insert into Faculty (IdFaculty, FacultyName) values ('ТТЛП', 'Технология и техника лесной промышленности')
+insert into Faculty (IdFaculty, FacultyName) values ('ТОВ', 'Технология органических веществ')
+insert into Faculty (IdFaculty, FacultyName) values ('ИТ', 'Факультет информационных технологий')
