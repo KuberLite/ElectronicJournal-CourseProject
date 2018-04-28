@@ -15,3 +15,31 @@ inner join Groups on Person.IdGroup = Groups.IdGroup
 inner join [Subject] on Progress.[Subject] = [Subject].SubjectId where SubjectName = 'Основы алгоритмизации и программирования' and Course = 1 and NumberGroup = 1
 
 update Progress set Note = 6 where IdStudent = '51062c0f-4a62-4186-930d-62b0a6c7633a'
+
+select SubjectName
+	from Person inner join Progress on Person.IdPerson = Progress.IdStudent 
+	            inner join [Subject] on Progress.[Subject] = [Subject].SubjectId where Person.IdPerson = '51062c0f-4a62-4186-930d-62b0a6c7633a'
+go
+select IdPerson from Person inner join [User] on Person.IdPerson = [User].Id where Username = 'qwerty'
+select Pulpit from Person where IdPerson = 'd997a46e-bf2b-46e4-96ba-0bf83f1234d6'
+
+select SubjectName from Person inner join Progress on Person.IdPerson = Progress.IdStudent inner join [Subject] on Progress.[Subject] = [Subject].SubjectId where Person.IdPerson = '51062c0f-4a62-4186-930d-62b0a6c7633a'
+select IdPerson from Person inner join [User] on Person.IdPerson = [User].Id where Username = 'log'		
+
+select [Name], Gender, NumberGroup, ProfessionName, Course, Birthday, Photo
+from Person inner join Groups on Person.IdGroup = Groups.IdGroup 
+            inner join Profession on Groups.Profession = Profession.IdProfession
+			where Person.IdPerson = '51062c0f-4a62-4186-930d-62b0a6c7633a'
+go
+
+select SubjectName[Дисциплина], 
+       NoteFirst[I Аттестация], 
+	   NoteSecond[II Аттестация],
+	   round((Progress.NoteFirst + Progress.NoteSecond)/2, 2)[Среднее],
+       case 
+           when ((Progress.NoteFirst + Progress.NoteSecond)/2) >= 4 then 'н. а.' 
+           else 'н.а.' 
+       end[Принято] 
+from Person inner join Progress on Person.IdPerson = Progress.IdStudent 
+inner join[Subject] on Progress.[Subject] = [Subject].SubjectId 
+where Person.IdPerson = '51062c0f-4a62-4186-930d-62b0a6c7633a'

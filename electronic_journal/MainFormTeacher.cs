@@ -19,6 +19,9 @@ namespace electronic_journal
             DataGridAligment();
             DataGridColumnsSize();
             DataGridReadOnly();
+            DataGridAllowUserToAddRows();
+            DataGridRowHeadersVisible();
+            DataGridAllowUserToResize();
         }
 
         public void DataGridColumnsSize()
@@ -49,6 +52,17 @@ namespace electronic_journal
         public void DataGridAllowUserToAddRows()
         {
             dataGridNote.AllowUserToAddRows = false;
+        }
+
+        public void DataGridRowHeadersVisible()
+        {
+            dataGridNote.RowHeadersVisible = false;
+        }
+
+        public void DataGridAllowUserToResize()
+        {
+            dataGridNote.AllowUserToResizeColumns = false;
+            dataGridNote.AllowUserToResizeRows = false; ;
         }
 
         public MainFormTeacher()
@@ -117,7 +131,7 @@ namespace electronic_journal
 
         private void LoadDataGrid()
         {
-            string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], Note[Оценка]," +
+            string query= "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], Note[Оценка]," +
                            "case " +
                            "when Progress.Note >= 4 then '+' " + 
                            "else '-' " + 

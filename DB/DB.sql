@@ -29,7 +29,7 @@ CREATE TABLE Faculty
     IdFaculty nvarchar(50) primary key,
 	FacultyName nvarchar(50) default 'NULL'    
 )
-
+  
 select * from Faculty
 
 CREATE TABLE Pulpit
@@ -86,7 +86,8 @@ CREATE TABLE Progress
 (
     [Subject] nvarchar(50) foreign key references [Subject](SubjectId),
 	IdStudent varchar(50) foreign key references Person(IdPerson),
-	Note int check (Note between 1 and 10)
+	NoteFirst int check (NoteFirst between 1 and 10),
+	NoteSecond int check (NoteSecond between 1 and 10)
 )
 
 

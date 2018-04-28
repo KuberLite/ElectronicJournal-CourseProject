@@ -30,7 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridNote = new System.Windows.Forms.DataGridView();
-            this.subjectComboBoxStudent = new System.Windows.Forms.ComboBox();
             this.userRoomButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNote)).BeginInit();
             this.SuspendLayout();
@@ -48,21 +47,10 @@
             // dataGridNote
             // 
             this.dataGridNote.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridNote.Location = new System.Drawing.Point(125, 48);
+            this.dataGridNote.Location = new System.Drawing.Point(125, 12);
             this.dataGridNote.Name = "dataGridNote";
-            this.dataGridNote.Size = new System.Drawing.Size(553, 390);
+            this.dataGridNote.Size = new System.Drawing.Size(553, 426);
             this.dataGridNote.TabIndex = 1;
-            // 
-            // subjectComboBoxStudent
-            // 
-            this.subjectComboBoxStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.subjectComboBoxStudent.FormattingEnabled = true;
-            this.subjectComboBoxStudent.Location = new System.Drawing.Point(124, 9);
-            this.subjectComboBoxStudent.Name = "subjectComboBoxStudent";
-            this.subjectComboBoxStudent.Size = new System.Drawing.Size(553, 33);
-            this.subjectComboBoxStudent.TabIndex = 2;
-            this.subjectComboBoxStudent.Text = "<Выберите предмет>";
-            this.subjectComboBoxStudent.SelectedIndexChanged += new System.EventHandler(this.subjectComboBox_SelectedIndexChanged);
             // 
             // userRoomButton
             // 
@@ -80,7 +68,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 450);
             this.Controls.Add(this.userRoomButton);
-            this.Controls.Add(this.subjectComboBoxStudent);
             this.Controls.Add(this.dataGridNote);
             this.Controls.Add(this.label1);
             this.MaximumSize = new System.Drawing.Size(706, 489);
@@ -99,7 +86,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridNote;
-        private System.Windows.Forms.ComboBox subjectComboBoxStudent;
         private System.Windows.Forms.Button userRoomButton;
     }
 }

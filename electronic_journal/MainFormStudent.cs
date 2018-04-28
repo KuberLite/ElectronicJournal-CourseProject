@@ -22,76 +22,28 @@ namespace electronic_journal
 
         private void MainFormStudent_Load(object sender, EventArgs e)
         {
-            GetSubject();
-            subjectComboBoxStudent.Text = MyResource.selectSubject;
-            subjectComboBoxStudent.DropDownStyle = ComboBoxStyle.DropDownList;
+            LoadInfo();
         }
 
         private void LoadInfo()
         {
-            string query = "select SubjectName[Дисциплина], Note[Оценка], " +
-                           "case " +
-                           "when Progress.Note >= 4 then '+' " +
-                           "else '-' " +
-                           "end[Зачёт] " +
+            string query = "select SubjectName[Дисциплина], NoteFirst[I Аттестация], NoteSecond[II Аттестация], round((Progress.NoteFirst + Progress.NoteSecond) / 2, 2)[Среднее], " +
+                           "case " + 
+                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
+                           "else 'н.а.' " + 
+                           "end[Принято] " +
                            "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                           "inner join[Subject] on Progress.[Subject] = [Subject].SubjectId where [Subject].SubjectName = '" + subjectComboBoxStudent.Text.Trim() + "' and Person.IdPerson = '" + LoginForm.idPerson + "'";
+                           "inner join[Subject] on Progress.[Subject] = [Subject].SubjectId where Person.IdPerson = '" + LoginForm.idPerson + "'";
             dataTable = new DataTable();
             SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
             dataGridNote.DataSource = dataTable;
             DataGridMode();
         }
 
-        private void subjectComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadInfo();
-        }
-
         public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
         {
             sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
             return sqlDataAdapter;
-        }
-
-        private void GetSubject()
-        {
-            try
-            {
-                dataTable = new DataTable();
-                string query = "select SubjectName from Person inner join Progress on Person.IdPerson = Progress.IdStudent inner join [Subject] on Progress.[Subject] = [Subject].SubjectId where Person.IdPerson = '" + LoginForm.idPerson + "'";
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
-                MessageBox.Show(LoginForm.idPerson.ToString());
-                MessageBox.Show(dataTable.Rows.Count.ToString());
-                for (int i = 0; i < dataTable.Rows.Count; i++)
-                {
-                    subjectComboBoxStudent.Items.Add(dataTable.Rows[i][0].ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void LoadDataGridInfo()
-        {
-            string query = "select [Subject][Дисциплина], Note[Оценка]," +
-                           "case " +
-                           "when Progress.Note >= 4 then '+' " + 
-                           "else '-' " + 
-                           "end[Зачёт] " +
-                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                           "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                           "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                           "where SubjectName = '" + subjectComboBoxStudent.Text.Trim();
-            DataTable dataTable = new DataTable();
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
-            sqlDataAdapter.Fill(dataTable);
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = dataTable;
-            dataGridNote.DataSource = bindingSource;
-            sqlDataAdapter.Update(dataTable);
-            DataGridReadOnly();
         }
 
         public SqlConnection ConnectionSQL()
@@ -116,6 +68,9 @@ namespace electronic_journal
             DataGridColumnsSize();
             DataGridAligment();
             DataGridReadOnly();
+            DataGridAllowUserToAddRows();
+            DataGridRowHeadersVisible();
+            DataGridAllowUserToResize();
         }
 
         public void DataGridAligment()
@@ -126,7 +81,11 @@ namespace electronic_journal
 
         public void DataGridColumnsSize()
         {
-            dataGridNote.Columns[0].Width = 250;
+            dataGridNote.Columns[0].Width = 300;
+            dataGridNote.Columns[1].Width = 70;
+            dataGridNote.Columns[2].Width = 70;
+            dataGridNote.Columns[3].Width = 55;
+            dataGridNote.Columns[4].Width = 55;
         }
 
         public void DataGridReadOnly()
@@ -137,6 +96,17 @@ namespace electronic_journal
         public void DataGridAllowUserToAddRows()
         {
             dataGridNote.AllowUserToAddRows = false;
+        }
+
+        public void DataGridRowHeadersVisible()
+        {
+            dataGridNote.RowHeadersVisible = false;
+        }
+
+        public void DataGridAllowUserToResize()
+        {
+            dataGridNote.AllowUserToResizeColumns = false;
+            dataGridNote.AllowUserToResizeRows = false; ;
         }
     }
 }

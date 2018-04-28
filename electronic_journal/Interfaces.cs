@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 
 namespace electronic_journal
 {
@@ -14,6 +9,8 @@ namespace electronic_journal
         void DataGridColumnsSize();
         void DataGridReadOnly();
         void DataGridAllowUserToAddRows();
+        void DataGridRowHeadersVisible();
+        void DataGridAllowUserToResize();
     }
 
     public interface IConnection
