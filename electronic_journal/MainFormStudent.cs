@@ -58,7 +58,7 @@ namespace electronic_journal
             userRoomStudent.Show();
         }
 
-        private void MainFormStudent_FormClosed(object sender, FormClosedEventArgs e)
+        private void MainFormStudent_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
@@ -92,7 +92,7 @@ namespace electronic_journal
         {
             dataGridNote.ReadOnly = true;
         }
-
+        
         public void DataGridAllowUserToAddRows()
         {
             dataGridNote.AllowUserToAddRows = false;
@@ -107,6 +107,13 @@ namespace electronic_journal
         {
             dataGridNote.AllowUserToResizeColumns = false;
             dataGridNote.AllowUserToResizeRows = false; ;
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
         }
     }
 }

@@ -28,21 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFormStudent));
             this.dataGridNote = new System.Windows.Forms.DataGridView();
             this.userRoomButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNote)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe Script", 8.25F);
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
             // 
             // dataGridNote
             // 
@@ -62,30 +53,41 @@
             this.userRoomButton.UseVisualStyleBackColor = true;
             this.userRoomButton.Click += new System.EventHandler(this.userRoomButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 415);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(106, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Выход";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.closeButton_Click);
+            // 
             // MainFormStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(690, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.userRoomButton);
             this.Controls.Add(this.dataGridNote);
-            this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(706, 489);
             this.MinimumSize = new System.Drawing.Size(706, 489);
             this.Name = "MainFormStudent";
             this.Text = "Журнал: Студент";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormStudent_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormStudent_FormClosing);
             this.Load += new System.EventHandler(this.MainFormStudent_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNote)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridNote;
         private System.Windows.Forms.Button userRoomButton;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -37,7 +37,7 @@ select SubjectName[Дисциплина],
 	   NoteSecond[II Аттестация],
 	   round((Progress.NoteFirst + Progress.NoteSecond)/2, 2)[Среднее],
        case 
-           when ((Progress.NoteFirst + Progress.NoteSecond)/2) >= 4 then 'н. а.' 
+           when (Progress.NoteFirst + Progress.NoteSecond)/2 >= 5 then '+' 
            else 'н.а.' 
        end[Принято] 
 from Person inner join Progress on Person.IdPerson = Progress.IdStudent 

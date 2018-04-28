@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFormTeacher));
             this.subjectComboBox = new System.Windows.Forms.ComboBox();
             this.groupComboBox = new System.Windows.Forms.ComboBox();
             this.courseComboBox = new System.Windows.Forms.ComboBox();
@@ -43,9 +44,9 @@
             // 
             this.subjectComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.subjectComboBox.FormattingEnabled = true;
-            this.subjectComboBox.Location = new System.Drawing.Point(176, 12);
+            this.subjectComboBox.Location = new System.Drawing.Point(166, 12);
             this.subjectComboBox.Name = "subjectComboBox";
-            this.subjectComboBox.Size = new System.Drawing.Size(269, 28);
+            this.subjectComboBox.Size = new System.Drawing.Size(279, 28);
             this.subjectComboBox.TabIndex = 2;
             this.subjectComboBox.Text = "<Выберите предмет>";
             // 
@@ -128,16 +129,22 @@
             // 
             // dataGridNote
             // 
+            this.dataGridNote.BackgroundColor = System.Drawing.Color.Aqua;
             this.dataGridNote.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridNote.Location = new System.Drawing.Point(176, 46);
+            this.dataGridNote.Location = new System.Drawing.Point(166, 46);
+            this.dataGridNote.MultiSelect = false;
             this.dataGridNote.Name = "dataGridNote";
-            this.dataGridNote.Size = new System.Drawing.Size(631, 404);
+            this.dataGridNote.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridNote.Size = new System.Drawing.Size(641, 404);
             this.dataGridNote.TabIndex = 9;
+            this.dataGridNote.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellClick);
             // 
             // MainFormTeacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(819, 463);
             this.Controls.Add(this.dataGridNote);
             this.Controls.Add(this.UpdateButton);
@@ -149,6 +156,7 @@
             this.Controls.Add(this.subjectComboBox);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainFormTeacher";
             this.Text = "Журнал: Преподаватель";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormTeacher_FormClosed);

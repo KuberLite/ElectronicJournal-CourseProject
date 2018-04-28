@@ -28,8 +28,9 @@ namespace electronic_journal
         private void btnEntry_Click_1(object sender, EventArgs e)
         {
             string loginQuery = "select RoleName from Roles " +
-                "inner join UserRoles on Roles.IdRole = UserRoles.RoleId " +
-                "inner join [User] on UserRoles.UserId = [User].Id where Username ='" + login_textBox.Text.Trim() + "' and PasswordHash = '" + password_textBox.Text.Trim() + "'";
+                                "inner join UserRoles on Roles.IdRole = UserRoles.RoleId " +
+                                "inner join [User] on UserRoles.UserId = [User].Id where Username ='" +
+                                login_textBox.Text.Trim() + "' and PasswordHash = '" + password_textBox.Text.Trim() + "'";
             dataTable = new DataTable();
             SqlDataAdapter(loginQuery, ConnectionSQL()).Fill(dataTable);
             if (dataTable.Rows.Count == 1)

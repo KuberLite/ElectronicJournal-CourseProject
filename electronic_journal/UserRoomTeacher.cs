@@ -19,6 +19,7 @@ namespace electronic_journal
         public UserRoomTeacher()
         {
             InitializeComponent();
+            MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             TextBoxEnabled();
@@ -31,7 +32,6 @@ namespace electronic_journal
             SqlDataAdapter("select [Name], Gender, Pulpit, Birthday, Photo from Person where IdPerson = '" + LoginForm.idPerson + "'", ConnectionSQL()).Fill(dataTable);
             TextBoxLoadInfo(dataTable);
             LoadImage(dataTable);
-            
         }
 
         private void LoadImage(DataTable dataTable)
@@ -68,7 +68,6 @@ namespace electronic_journal
             textBox2.Enabled = false;
             textBox3.Enabled = false;
             textBox4.Enabled = false;
-  
         }
 
         public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
@@ -132,7 +131,7 @@ namespace electronic_journal
                 else if (dialogResult == DialogResult.No) { }
             }
             else
-            { this.Close(); }
+            { this.Hide(); }
         }
     }
 }

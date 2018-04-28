@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserRoomTeacher));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.picture = new System.Windows.Forms.PictureBox();
             this.Label1 = new System.Windows.Forms.Label();
@@ -64,6 +65,7 @@
             // Label1
             // 
             this.Label1.AutoSize = true;
+            this.Label1.BackColor = System.Drawing.Color.Transparent;
             this.Label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Label1.Location = new System.Drawing.Point(118, 40);
             this.Label1.Name = "Label1";
@@ -90,6 +92,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(187, 6);
             this.label3.Name = "label3";
@@ -100,6 +103,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(118, 112);
             this.label4.Name = "label4";
@@ -118,6 +122,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(118, 76);
             this.label5.Name = "label5";
@@ -146,6 +151,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label6.Location = new System.Drawing.Point(71, 148);
             this.label6.Name = "label6";
@@ -165,6 +171,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(502, 202);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label6);
@@ -178,6 +186,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Label1);
             this.Controls.Add(this.picture);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(518, 241);
             this.MinimumSize = new System.Drawing.Size(518, 241);
             this.Name = "UserRoomTeacher";
@@ -190,7 +199,6 @@
         }
 
         #endregion
-
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox picture;
         private System.Windows.Forms.Label Label1;

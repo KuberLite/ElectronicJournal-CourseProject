@@ -104,7 +104,6 @@ namespace electronic_journal
                 DialogResult dialogResult = MessageBox.Show(MyResource.saveСhanges, MyResource.personalArea, MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    MessageBox.Show("not null");
                     byte[] img = null;
                     FileStream fileStream = new FileStream(imgLoc, FileMode.Open, FileAccess.Read);
                     BinaryReader binaryReader = new BinaryReader(fileStream);
@@ -120,7 +119,7 @@ namespace electronic_journal
                 else if (dialogResult == DialogResult.No) { }
             }
             else
-            { this.Close(); }
+            { this.Hide(); }
         }
 
         private void LoadImageButton_Click(object sender, EventArgs e)

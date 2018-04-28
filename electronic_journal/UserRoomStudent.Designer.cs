@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserRoomStudent));
             this.birthdayTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.loadImageButton = new System.Windows.Forms.Button();
@@ -58,6 +59,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label6.Location = new System.Drawing.Point(62, 216);
             this.label6.Name = "label6";
@@ -86,8 +88,9 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(118, 75);
+            this.label5.Location = new System.Drawing.Point(145, 75);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 25);
             this.label5.TabIndex = 19;
@@ -104,8 +107,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(118, 146);
+            this.label4.Location = new System.Drawing.Point(177, 148);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 25);
             this.label4.TabIndex = 17;
@@ -140,8 +144,9 @@
             // Label1
             // 
             this.Label1.AutoSize = true;
+            this.Label1.BackColor = System.Drawing.Color.Transparent;
             this.Label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Label1.Location = new System.Drawing.Point(118, 39);
+            this.Label1.Location = new System.Drawing.Point(167, 39);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(67, 25);
             this.Label1.TabIndex = 13;
@@ -152,7 +157,7 @@
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.picture.Location = new System.Drawing.Point(12, 38);
             this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(100, 100);
+            this.picture.Size = new System.Drawing.Size(127, 140);
             this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picture.TabIndex = 12;
             this.picture.TabStop = false;
@@ -168,8 +173,9 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(118, 111);
+            this.label7.Location = new System.Drawing.Point(168, 111);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 25);
             this.label7.TabIndex = 25;
@@ -186,6 +192,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label8.Location = new System.Drawing.Point(62, 181);
             this.label8.Name = "label8";
@@ -197,6 +204,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(622, 290);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.professionTextBox);
@@ -215,6 +224,7 @@
             this.Controls.Add(this.Label1);
             this.Controls.Add(this.picture);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UserRoomStudent";
             this.Text = "Личный кабинет";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UserRoomStudent_FormClosing);
@@ -226,22 +236,21 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox birthdayTextBox;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button loadImageButton;
-        private System.Windows.Forms.TextBox genderTextBox;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox groupTextBox;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox fullNameTextBox;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Label1;
-        private System.Windows.Forms.PictureBox picture;
-        private System.Windows.Forms.TextBox courseTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox professionTextBox;
         private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.TextBox birthdayTextBox;
+        public System.Windows.Forms.Button loadImageButton;
+        public System.Windows.Forms.TextBox genderTextBox;
+        public System.Windows.Forms.TextBox groupTextBox;
+        public System.Windows.Forms.TextBox fullNameTextBox;
+        public System.Windows.Forms.PictureBox picture;
+        public System.Windows.Forms.TextBox courseTextBox;
+        public System.Windows.Forms.TextBox professionTextBox;
     }
 }
