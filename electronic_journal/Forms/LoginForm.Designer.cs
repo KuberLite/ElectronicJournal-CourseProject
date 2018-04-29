@@ -55,7 +55,7 @@
             this.login_textBox.Name = "login_textBox";
             this.login_textBox.Size = new System.Drawing.Size(194, 29);
             this.login_textBox.TabIndex = 1;
-            this.login_textBox.Text = "qwerty";
+            this.login_textBox.Text = "admin";
             this.login_textBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnEntry_KeyDown);
             // 
             // password_textBox
@@ -66,7 +66,7 @@
             this.password_textBox.PasswordChar = '*';
             this.password_textBox.Size = new System.Drawing.Size(194, 29);
             this.password_textBox.TabIndex = 2;
-            this.password_textBox.Text = "qwerty";
+            this.password_textBox.Text = "admin";
             this.password_textBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnEntry_KeyDown);
             // 
             // login_label
@@ -93,6 +93,7 @@
             // 
             // btnEntry
             // 
+            this.btnEntry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntry.Location = new System.Drawing.Point(114, 176);
             this.btnEntry.Name = "btnEntry";
             this.btnEntry.Size = new System.Drawing.Size(194, 23);
@@ -115,11 +116,13 @@
             this.Controls.Add(this.password_textBox);
             this.Controls.Add(this.login_textBox);
             this.Controls.Add(this.label_entry);
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(376, 304);
             this.MinimumSize = new System.Drawing.Size(376, 304);
             this.Name = "LoginForm";
             this.Text = "Вход";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

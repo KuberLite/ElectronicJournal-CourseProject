@@ -89,6 +89,7 @@
             // 
             // openUserTeacherRoomButton
             // 
+            this.openUserTeacherRoomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.openUserTeacherRoomButton.Location = new System.Drawing.Point(12, 46);
             this.openUserTeacherRoomButton.Name = "openUserTeacherRoomButton";
             this.openUserTeacherRoomButton.Size = new System.Drawing.Size(139, 43);
@@ -99,6 +100,7 @@
             // 
             // closeButton
             // 
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeButton.Location = new System.Drawing.Point(13, 427);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(138, 23);
@@ -109,6 +111,7 @@
             // 
             // button2
             // 
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(13, 95);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 23);
@@ -119,6 +122,7 @@
             // 
             // UpdateButton
             // 
+            this.UpdateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UpdateButton.Location = new System.Drawing.Point(13, 124);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(138, 23);
@@ -137,7 +141,8 @@
             this.dataGridNote.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridNote.Size = new System.Drawing.Size(641, 404);
             this.dataGridNote.TabIndex = 9;
-            this.dataGridNote.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellClick);
+            this.dataGridNote.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellClick);
+            this.dataGridNote.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellDoubleClick);
             // 
             // MainFormTeacher
             // 
@@ -156,6 +161,7 @@
             this.Controls.Add(this.subjectComboBox);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainFormTeacher";
             this.Text = "Журнал: Преподаватель";

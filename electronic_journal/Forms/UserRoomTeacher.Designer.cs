@@ -55,6 +55,9 @@
             // picture
             // 
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.picture.ErrorImage = global::electronic_journal.MyResource.no_image;
+            this.picture.ImageLocation = "";
+            this.picture.InitialImage = global::electronic_journal.MyResource.no_image;
             this.picture.Location = new System.Drawing.Point(12, 39);
             this.picture.Name = "picture";
             this.picture.Size = new System.Drawing.Size(100, 100);
@@ -140,6 +143,7 @@
             // 
             // loadImageButton
             // 
+            this.loadImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadImageButton.Location = new System.Drawing.Point(12, 176);
             this.loadImageButton.Name = "loadImageButton";
             this.loadImageButton.Size = new System.Drawing.Size(150, 23);

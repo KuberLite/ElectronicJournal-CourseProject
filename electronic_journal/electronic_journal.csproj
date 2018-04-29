@@ -62,51 +62,60 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces.cs" />
-    <Compile Include="MainFormStudent.cs">
+    <Compile Include="Forms\AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainFormStudent.Designer.cs">
+    <Compile Include="Forms\AdminForm.Designer.cs">
+      <DependentUpon>AdminForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces.cs" />
+    <Compile Include="Forms\MainFormStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainFormStudent.Designer.cs">
       <DependentUpon>MainFormStudent.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainFormTeacher.cs">
+    <Compile Include="Forms\MainFormTeacher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainFormTeacher.Designer.cs">
+    <Compile Include="Forms\MainFormTeacher.Designer.cs">
       <DependentUpon>MainFormTeacher.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginForm.cs">
+    <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MyResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MyResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserRoomStudent.cs">
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Forms\UserRoomStudent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserRoomStudent.Designer.cs">
+    <Compile Include="Forms\UserRoomStudent.Designer.cs">
       <DependentUpon>UserRoomStudent.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserRoomTeacher.cs">
+    <Compile Include="Forms\UserRoomTeacher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserRoomTeacher.Designer.cs">
+    <Compile Include="Forms\UserRoomTeacher.Designer.cs">
       <DependentUpon>UserRoomTeacher.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MainFormStudent.resx">
+    <EmbeddedResource Include="Forms\AdminForm.resx">
+      <DependentUpon>AdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainFormStudent.resx">
       <DependentUpon>MainFormStudent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainFormTeacher.resx">
+    <EmbeddedResource Include="Forms\MainFormTeacher.resx">
       <DependentUpon>MainFormTeacher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -122,10 +131,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MyResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserRoomStudent.resx">
+    <EmbeddedResource Include="Forms\UserRoomStudent.resx">
       <DependentUpon>UserRoomStudent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserRoomTeacher.resx">
+    <EmbeddedResource Include="Forms\UserRoomTeacher.resx">
       <DependentUpon>UserRoomTeacher.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -144,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Background.jpg" />
+    <None Include="Resources\no-image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -71,11 +71,30 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Проверьте введённые данные.
+        /// </summary>
+        internal static string checkInformation {
+            get {
+                return ResourceManager.GetString("checkInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вход.
         /// </summary>
         internal static string entry {
             get {
                 return ResourceManager.GetString("entry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap no_image {
+            get {
+                object obj = ResourceManager.GetObject("no_image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

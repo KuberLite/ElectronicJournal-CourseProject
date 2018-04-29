@@ -69,6 +69,7 @@
             // 
             // loadImageButton
             // 
+            this.loadImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadImageButton.Location = new System.Drawing.Point(12, 255);
             this.loadImageButton.Name = "loadImageButton";
             this.loadImageButton.Size = new System.Drawing.Size(150, 23);
@@ -118,6 +119,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(187, 5);
             this.label3.Name = "label3";
@@ -155,6 +157,9 @@
             // picture
             // 
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.picture.ErrorImage = global::electronic_journal.MyResource.no_image;
+            this.picture.ImageLocation = "";
+            this.picture.InitialImage = global::electronic_journal.MyResource.no_image;
             this.picture.Location = new System.Drawing.Point(12, 38);
             this.picture.Name = "picture";
             this.picture.Size = new System.Drawing.Size(127, 140);

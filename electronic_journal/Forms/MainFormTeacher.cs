@@ -10,10 +10,10 @@ namespace electronic_journal
 {
     public partial class MainFormTeacher : Form, IConnection, IDataGridModes
     {
-        string connectionString;
+        string connectionString, valueUpdate, idPerson;
         SqlDataAdapter sqlDataAdapter;
         DataTable dataTable;
-        DataGridViewCell cell;
+        DataGridViewCell cell, cellUpdate;
         UserRoomStudent userRoomStudent;
 
         public void DataGridMode()
@@ -134,41 +134,32 @@ namespace electronic_journal
 
         private void LoadDataGrid()
         {
-            string query= "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                           "case " +
-                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                           "else 'н.а.' " +
-                           "end[Принято] " +
-                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                           "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                           "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                           "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) + 
-                           " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + "";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
-            dataGridNote.DataSource = dataTable;
-            DataGridMode();
+            try
+            {
+                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
+                               "case " +
+                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
+                               "else 'н.а.' " +
+                               "end[Принято] " +
+                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
+                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
+                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
+                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
+                               " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + "";
+                dataTable = new DataTable();
+                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                dataGridNote.DataSource = dataTable;
+                DataGridMode();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void LoadDB_Click(object sender, EventArgs e)
         {
             LoadDataGrid();
-            DataGridMode();
-        }
-
-        private void UpdateButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DataTable Table = new DataTable();
-                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(sqlDataAdapter);
-                sqlDataAdapter.Update(Table);
-                MessageBox.Show(MyResource.updateInformation, MyResource.update, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void MainFormTeacher_FormClosed(object sender, FormClosedEventArgs e)
@@ -176,12 +167,13 @@ namespace electronic_journal
             Application.Exit();
         }
 
-        private void dataGridNote_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridNote_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             cell = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
             userRoomStudent = new UserRoomStudent();
             userRoomStudent.Show();
             UserRoomStudent_Load();
+            
         }
 
         private void UserRoomStudent_Load()
@@ -244,6 +236,44 @@ namespace electronic_journal
                 userRoomStudent.professionTextBox.Text = dataTable.Rows[0][3].ToString();
                 userRoomStudent.courseTextBox.Text = dataTable.Rows[0][4].ToString();
                 userRoomStudent.birthdayTextBox.Text = dataTable.Rows[0][5].ToString();
+            }
+        }
+
+        private void dataGridNote_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            cellUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
+            valueUpdate = cellUpdate.Value.ToString();
+        }
+
+        private void GetIdPerson()
+        {
+            string query = "select IdPerson from Person where [Name] = '" + valueUpdate.Trim() + "'";
+            DataTable data = new DataTable();
+            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            idPerson = data.Rows[0][0].ToString();
+        }
+
+        private void UpdateButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    GetIdPerson();
+                    string queryUpdate = "update Progress set NoteFirst = @NoteFirst, NoteSecond = @NoteSecond " +
+                                   "where IdStudent = '" + idPerson + "' " +
+                                   "and [Subject] = 'ООП'";
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.UpdateCommand = new SqlCommand(queryUpdate, conn);//5-6
+                    adapter.UpdateCommand.Parameters.Add("@NoteFirst", SqlDbType.Int).SourceColumn = "I Аттестация";
+                    adapter.UpdateCommand.Parameters.Add("@NoteSecond", SqlDbType.Int).SourceColumn = "II Аттестация";
+                    adapter.Update(dataTable);
+                }
+                MessageBox.Show(MyResource.updateInformation, "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

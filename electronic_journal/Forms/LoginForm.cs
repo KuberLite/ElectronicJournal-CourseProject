@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Text;
+using electronic_journal.Forms;
 
 namespace electronic_journal
 { 
@@ -42,11 +43,18 @@ namespace electronic_journal
                     mainFormTeacher.Show();
                     this.Hide();
                 }
-                else
+                else if (dataTable.Rows[0][0].ToString() == "Student")
                 {
                     GetIdPerson();
                     MainFormStudent mainFormStudent = new MainFormStudent();
                     mainFormStudent.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    GetIdPerson();
+                    AdminForm admin = new AdminForm();
+                    admin.Show();
                     this.Hide();
                 }
             }
@@ -92,6 +100,11 @@ namespace electronic_journal
             {
                 btnEntry_Click_1(sender, e);
             }
+        }
+
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

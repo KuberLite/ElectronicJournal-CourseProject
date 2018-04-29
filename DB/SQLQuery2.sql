@@ -43,3 +43,6 @@ select SubjectName[Дисциплина],
 from Person inner join Progress on Person.IdPerson = Progress.IdStudent 
 inner join[Subject] on Progress.[Subject] = [Subject].SubjectId 
 where Person.IdPerson = '51062c0f-4a62-4186-930d-62b0a6c7633a'
+
+update Progress set NoteFirst = 2, NoteSecond = 3 where IdStudent = '51062c0f-4a62-4186-930d-62b0a6c7633a' and [Subject] = 'ООП'
+select * from Progress
