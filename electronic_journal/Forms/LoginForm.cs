@@ -36,27 +36,25 @@ namespace electronic_journal
         private void btnEntry_Click_1(object sender, EventArgs e)
         {
             User user = _database.UserManager.SignIn(login_textBox.Text.Trim(), password_textBox.Text);
-            if (user == null) {
+            if (user == null)
+            { 
                 MessageBox.Show(MyResource.wrongPass, MyResource.entry, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (_database.UserManager.IsInRole(user.Id, "Teacher"))
-            {
-                //GetIdPerson();
+            { 
                 MainFormTeacher mainFormTeacher = new MainFormTeacher();
                 mainFormTeacher.Show();
                 this.Hide();
             }
-            else if (dataTable.Rows[0][0].ToString() == "Student")
+            else if (_database.UserManager.IsInRole(user.Id, "Student"))
             {
-                GetIdPerson();
                 MainFormStudent mainFormStudent = new MainFormStudent();
                 mainFormStudent.Show();
                 this.Hide();
             }
             else
             {
-                GetIdPerson();
                 AdminForm admin = new AdminForm();
                 admin.Show();
                 this.Hide();

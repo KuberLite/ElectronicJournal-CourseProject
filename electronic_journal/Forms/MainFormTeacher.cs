@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Collections.Generic;
 using electronic_journal.Helpers;
 using electronic_journal.Singleton;
+using electronic_journal.DAL.Interfaces;
+using electronic_journal.DAL.Repositories;
 
 namespace electronic_journal
 {
@@ -15,8 +17,11 @@ namespace electronic_journal
     {
         private readonly string connectionString;
 
+        private readonly IUnitOfWork _database;
+
         private Database database;
         private UpdateHelper<string> updateHelper;
+
         SqlDataAdapter sqlDataAdapter;
         DataTable dataTable;
         DataGridViewCell cell;
@@ -26,10 +31,20 @@ namespace electronic_journal
         {
             InitializeComponent();
             database = Database.GetInstance();
+            _database = UnitOfWork.GetInstance();
             updateHelper = new UpdateHelper<string>("Person", "idPerson", "Name");
             MaximizeBox = false;
             connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            MessageBox.Show("Id\n" + _database.UserManager.CurrentUser.Id.ToString() +
+                            "\nUsername\n" + _database.UserManager.CurrentUser.Username.ToString() + 
+                            "\nPasswordHash\n" + _database.UserManager.CurrentUser.PasswordHash.ToString());
+            //GetTeacherPulpit(dataTable);
+            //GetSubjectForSubjectComboBox();
         }
 
         public void DataGridMode()
@@ -82,12 +97,6 @@ namespace electronic_journal
         {
             dataGridNote.AllowUserToResizeColumns = false;
             dataGridNote.AllowUserToResizeRows = false; ;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {  
-            GetTeacherPulpit(dataTable);
-            GetSubjectForSubjectComboBox();
         }
 
         private string GetTeacherPulpit(DataTable dataTable)

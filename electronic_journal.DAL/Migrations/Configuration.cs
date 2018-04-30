@@ -50,6 +50,15 @@ namespace electronic_journal.DAL.Migrations
 
             context.UserRoles.Add(GetUserRole(admin.Id, adminRole.RoleId));
             context.SaveChanges();
+
+            Person kate = GetPerson("Хартановчи Екатерина", "ж", "NULL", ");
+        }
+
+        private string GetPasswordHash(string password)
+        {
+            var bytes = new UTF8Encoding().GetBytes(password);
+            var hashBytes = System.Security.Cryptography.SHA512.Create().ComputeHash(bytes);
+            return Convert.ToBase64String(hashBytes);
         }
 
         private User GetUser(string username, string password)
@@ -60,13 +69,6 @@ namespace electronic_journal.DAL.Migrations
                 Username = username,
                 PasswordHash = GetPasswordHash(password)
             };
-        }
-
-        private string GetPasswordHash(string password)
-        {
-            var bytes = new UTF8Encoding().GetBytes(password);
-            var hashBytes = System.Security.Cryptography.SHA512.Create().ComputeHash(bytes);
-            return Convert.ToBase64String(hashBytes);
         }
 
         private Role GetRole(string roleName)
@@ -85,6 +87,83 @@ namespace electronic_journal.DAL.Migrations
                 Id = Guid.NewGuid(),
                 UserId = userId,
                 RoleId = roleId
+            };
+        }
+
+        private Person GetPerson(string personName, string gender, Guid pulpit, Guid groupId, DateTime birthday)
+        {
+            return new Person
+            {
+                PersonId = Guid.NewGuid(),
+                PersonName = personName,
+                Gender = gender,
+                PulpitId = pulpit,
+                GroupId = groupId,
+                Birthday = birthday
+            };
+        }
+
+        private Group GetGroup(int course, int numberGroup, Guid facultyId, Guid professionId)
+        {
+            return new Group
+            {
+                GroupId = Guid.NewGuid(),
+                Course = course,
+                NumberGroup = numberGroup,
+                FacultyId = facultyId,
+                ProfessionId = professionId
+            };
+        }
+
+        private Profession GetProfession(Guid facultyId, string professionName, string qualification)
+        {
+            return new Profession
+            {
+                ProfessionId = Guid.NewGuid(),
+                FacultyId = facultyId,
+                ProfessionName = professionName,
+                Qualification = qualification
+            };
+        }
+
+        private Progress GetProgress(Guid subjectId, Guid personId, int noteFitst, int noteSecond)
+        {
+            return new Progress
+            {
+                ProgressId = Guid.NewGuid(),
+                SubjectId = subjectId,
+                PersonId = personId,
+                NoteFirst = noteFitst,
+                NoteSecond = noteFitst
+            };
+        }
+
+        private Pulpit GetPulpit(string pulpitName, Guid facultyId)
+        {
+            return new Pulpit
+            {
+                PulpitId = Guid.NewGuid(),
+                PulpitName = pulpitName,
+                FacultyId = facultyId
+            };
+        }
+
+        private Subject GetSubject(string subjectName, Guid pulpitId)
+        {
+            return new Subject
+            {
+                SubjectId = Guid.NewGuid(),
+                SubjectName = subjectName,
+                PulpitId = pulpitId
+            };
+        }
+
+        private Faculty GetFaculty(string facultyName)
+        {
+            return new Faculty
+            {
+                FacultyId = Guid.NewGuid(),
+                FacultyName = facultyName
             };
         }
     }

@@ -42,8 +42,8 @@ namespace electronic_journal.DAL.Repositories
         public User SignIn(string userName, string password)
         {
             string passwordHash = GetPasswordHash(password);
-            User user = _context.Users.FirstOrDefault(u => u.Username.Equals(userName) && u.PasswordHash.Equals(passwordHash));
-            return user;
+            _currentUser = _context.Users.FirstOrDefault(u => u.Username.Equals(userName) && u.PasswordHash.Equals(passwordHash));
+            return _currentUser;
         }
 
         public User SignOut()
