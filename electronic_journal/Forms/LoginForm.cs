@@ -5,11 +5,16 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Text;
 using electronic_journal.Forms;
+using electronic_journal.DAL.Interfaces;
+using electronic_journal.DAL.Repositories;
+using electronic_journal.DAL.Models;
 
 namespace electronic_journal
 { 
     public partial class LoginForm : Form, IConnection
-    { 
+    {
+        private readonly IUnitOfWork _database;
+
         public static string str { get; set; }
 
         public static string idPerson { get; set; }
@@ -24,43 +29,37 @@ namespace electronic_journal
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+            _database = UnitOfWork.GetInstance();
         }
 
         private void btnEntry_Click_1(object sender, EventArgs e)
         {
-            string loginQuery = "select RoleName from Roles " +
-                                "inner join UserRoles on Roles.IdRole = UserRoles.RoleId " +
-                                "inner join [User] on UserRoles.UserId = [User].Id where Username ='" +
-                                login_textBox.Text.Trim() + "' and PasswordHash = '" + password_textBox.Text.Trim() + "'";
-            dataTable = new DataTable();
-            SqlDataAdapter(loginQuery, ConnectionSQL()).Fill(dataTable);
-            if (dataTable.Rows.Count == 1)
+            User user = _database.UserManager.SignIn(login_textBox.Text.Trim(), password_textBox.Text);
+            if (user == null) {
+                MessageBox.Show(MyResource.wrongPass, MyResource.entry, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (_database.UserManager.IsInRole(user.Id, "Teacher"))
             {
-                if (dataTable.Rows[0][0].ToString() == "Teacher")
-                {
-                    GetIdPerson();
-                    MainFormTeacher mainFormTeacher = new MainFormTeacher();
-                    mainFormTeacher.Show();
-                    this.Hide();
-                }
-                else if (dataTable.Rows[0][0].ToString() == "Student")
-                {
-                    GetIdPerson();
-                    MainFormStudent mainFormStudent = new MainFormStudent();
-                    mainFormStudent.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    GetIdPerson();
-                    AdminForm admin = new AdminForm();
-                    admin.Show();
-                    this.Hide();
-                }
+                //GetIdPerson();
+                MainFormTeacher mainFormTeacher = new MainFormTeacher();
+                mainFormTeacher.Show();
+                this.Hide();
+            }
+            else if (dataTable.Rows[0][0].ToString() == "Student")
+            {
+                GetIdPerson();
+                MainFormStudent mainFormStudent = new MainFormStudent();
+                mainFormStudent.Show();
+                this.Hide();
             }
             else
             {
-                MessageBox.Show(MyResource.wrongPass, MyResource.entry, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                GetIdPerson();
+                AdminForm admin = new AdminForm();
+                admin.Show();
+                this.Hide();
             }
         }
 

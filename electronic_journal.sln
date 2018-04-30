@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "electronic_journal", "electronic_journal\electronic_journal.csproj", "{4FE2F18A-99FD-49C6-A6C9-1D925317E49F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "electronic_journal.DAL", "electronic_journal.DAL\electronic_journal.DAL.csproj", "{36D564C1-64E5-422E-B70A-9A3CEDE7111F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4FE2F18A-99FD-49C6-A6C9-1D925317E49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FE2F18A-99FD-49C6-A6C9-1D925317E49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FE2F18A-99FD-49C6-A6C9-1D925317E49F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36D564C1-64E5-422E-B70A-9A3CEDE7111F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36D564C1-64E5-422E-B70A-9A3CEDE7111F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36D564C1-64E5-422E-B70A-9A3CEDE7111F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36D564C1-64E5-422E-B70A-9A3CEDE7111F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

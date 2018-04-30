@@ -5,16 +5,32 @@ using System.Data;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Collections.Generic;
+using electronic_journal.Helpers;
+using electronic_journal.Singleton;
 
 namespace electronic_journal
 {
     public partial class MainFormTeacher : Form, IConnection, IDataGridModes
     {
-        string connectionString, valueUpdate, idPerson;
+        private readonly string connectionString;
+
+        private Database database;
+        private UpdateHelper<string> updateHelper;
         SqlDataAdapter sqlDataAdapter;
         DataTable dataTable;
-        DataGridViewCell cell, cellUpdate;
+        DataGridViewCell cell;
         UserRoomStudent userRoomStudent;
+
+        public MainFormTeacher()
+        {
+            InitializeComponent();
+            database = Database.GetInstance();
+            updateHelper = new UpdateHelper<string>("Person", "idPerson", "Name");
+            MaximizeBox = false;
+            connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            StartPosition = FormStartPosition.CenterScreen;
+        }
 
         public void DataGridMode()
         {
@@ -66,14 +82,6 @@ namespace electronic_journal
         {
             dataGridNote.AllowUserToResizeColumns = false;
             dataGridNote.AllowUserToResizeRows = false; ;
-        }
-
-        public MainFormTeacher()
-        {
-            InitializeComponent();
-            MaximizeBox = false;
-            connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -241,40 +249,38 @@ namespace electronic_journal
 
         private void dataGridNote_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            cellUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
-            valueUpdate = cellUpdate.Value.ToString();
-        }
-
-        private void GetIdPerson()
-        {
-            string query = "select IdPerson from Person where [Name] = '" + valueUpdate.Trim() + "'";
-            DataTable data = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
-            idPerson = data.Rows[0][0].ToString();
+            var cellToUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
+            var valueHeader = cellToUpdate.Value.ToString();
+            updateHelper.AddValue(valueHeader);
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            try
+            List<string> keys = updateHelper.GetCellsIds();
+            foreach (var key in keys)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    GetIdPerson();
-                    string queryUpdate = "update Progress set NoteFirst = @NoteFirst, NoteSecond = @NoteSecond " +
-                                   "where IdStudent = '" + idPerson + "' " +
-                                   "and [Subject] = 'ООП'";
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    adapter.UpdateCommand = new SqlCommand(queryUpdate, conn);//5-6
-                    adapter.UpdateCommand.Parameters.Add("@NoteFirst", SqlDbType.Int).SourceColumn = "I Аттестация";
-                    adapter.UpdateCommand.Parameters.Add("@NoteSecond", SqlDbType.Int).SourceColumn = "II Аттестация";
-                    adapter.Update(dataTable);
-                }
-                MessageBox.Show(MyResource.updateInformation, "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string query = GenerateUpdateQuery(key);
+                ExecuteUpdateQuery(query);
             }
-            catch (Exception)
-            {
-                MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            MessageBox.Show(MyResource.updateInformation, "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private string GenerateUpdateQuery(string key)
+        {
+            return "update [Progress] "
+                + "set [NoteFirst] = @NoteFirst, [NoteSecond] = @NoteSecond "
+                + "where [IdStudent] = '" + key + "' "
+                + "and [Subject] = '" + "ООП" + "' ";
+        }
+
+        private void ExecuteUpdateQuery(string query)
+        {
+            SqlConnection connection = database.GetConnection();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.UpdateCommand = new SqlCommand(query, connection);//5-6
+            adapter.UpdateCommand.Parameters.Add("@NoteFirst", SqlDbType.Int).SourceColumn = "I Аттестация";
+            adapter.UpdateCommand.Parameters.Add("@NoteSecond", SqlDbType.Int).SourceColumn = "II Аттестация";
+            adapter.Update(dataTable);
         }
     }
 }

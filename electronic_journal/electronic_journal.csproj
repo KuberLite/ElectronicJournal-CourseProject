@@ -68,6 +68,7 @@
     <Compile Include="Forms\AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\UpdateHelper.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Forms\MainFormStudent.cs">
       <SubType>Form</SubType>
@@ -106,6 +107,7 @@
     <Compile Include="Forms\UserRoomTeacher.Designer.cs">
       <DependentUpon>UserRoomTeacher.cs</DependentUpon>
     </Compile>
+    <Compile Include="Singleton\Database.cs" />
     <EmbeddedResource Include="Forms\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +156,12 @@
   <ItemGroup>
     <Content Include="Resources\Background.jpg" />
     <None Include="Resources\no-image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\electronic_journal.DAL\electronic_journal.DAL.csproj">
+      <Project>{36d564c1-64e5-422e-b70a-9a3cede7111f}</Project>
+      <Name>electronic_journal.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
