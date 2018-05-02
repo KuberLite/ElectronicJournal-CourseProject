@@ -1,4 +1,5 @@
-﻿using System;
+﻿using electronic_journal.Interfaces;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,7 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace electronic_journal
+namespace electronic_journal.Forms
 {
     public partial class UserRoomTeacher : Form, IConnection
     {

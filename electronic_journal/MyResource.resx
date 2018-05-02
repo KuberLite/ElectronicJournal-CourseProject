@@ -134,7 +134,7 @@
     <comment>in UserRoomTeacher OpenFileDialog</comment>
   </data>
   <data name="selectSubject" xml:space="preserve">
-    <value>&lt;Выберите предмет&gt;</value>
+    <value>&lt;Предмет&gt;</value>
     <comment>in MainFormTeacher.cs</comment>
   </data>
   <data name="String1" xml:space="preserve">
@@ -173,5 +173,29 @@
   </data>
   <data name="checkInformation" xml:space="preserve">
     <value>Проверьте введённые данные</value>
+  </data>
+  <data name="selectFaculty" xml:space="preserve">
+    <value>&lt;Факультет&gt;</value>
+  </data>
+  <data name="selectPulpit" xml:space="preserve">
+    <value>&lt;Кафедра&gt;</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="selectGender" xml:space="preserve">
+    <value>&lt;Пол&gt;</value>
+  </data>
+  <data name="selectGroup" xml:space="preserve">
+    <value>&lt;Группа&gt;</value>
+  </data>
+  <data name="selectProfession" xml:space="preserve">
+    <value>&lt;Специальность&gt;</value>
+  </data>
+  <data name="addStudent" xml:space="preserve">
+    <value>Добавление студента</value>
+  </data>
+  <data name="correctlyAdd" xml:space="preserve">
+    <value>Добавление прошло успешно</value>
   </data>
 </root>

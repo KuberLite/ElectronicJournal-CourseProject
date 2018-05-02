@@ -62,13 +62,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\AdminForm.cs">
+    <Compile Include="AdministratorForm\AddNewStudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AdminForm.Designer.cs">
+    <Compile Include="AdministratorForm\AddNewStudentForm.Designer.cs">
+      <DependentUpon>AddNewStudentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdministratorForm\AddNewTeacherForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministratorForm\AddNewTeacherForm.Designer.cs">
+      <DependentUpon>AddNewTeacherForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdministratorForm\AdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministratorForm\AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces.cs" />
+    <Compile Include="AdministratorForm\EditAllForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministratorForm\EditAllForm.Designer.cs">
+      <DependentUpon>EditAllForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdministratorForm\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministratorForm\ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdministratorForm\EditGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministratorForm\EditGroupForm.Designer.cs">
+      <DependentUpon>EditGroupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainFormStudent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +116,8 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IConnection.cs" />
+    <Compile Include="Interfaces\IDataGridModes.cs" />
     <Compile Include="MyResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -106,8 +137,23 @@
     <Compile Include="Forms\UserRoomTeacher.Designer.cs">
       <DependentUpon>UserRoomTeacher.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\AdminForm.resx">
+    <EmbeddedResource Include="AdministratorForm\AddNewStudentForm.resx">
+      <DependentUpon>AddNewStudentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdministratorForm\AddNewTeacherForm.resx">
+      <DependentUpon>AddNewTeacherForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdministratorForm\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdministratorForm\EditAllForm.resx">
+      <DependentUpon>EditAllForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdministratorForm\ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdministratorForm\EditGroupForm.resx">
+      <DependentUpon>EditGroupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainFormStudent.resx">
       <DependentUpon>MainFormStudent.cs</DependentUpon>
@@ -155,5 +201,6 @@
     <Content Include="Resources\Background.jpg" />
     <None Include="Resources\no-image.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

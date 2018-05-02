@@ -8,20 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace electronic_journal.Forms
+namespace electronic_journal.AdministratorForm
 {
-    public partial class AdminForm : Form
+    public partial class EditAllForm : Form
     {
-        public AdminForm()
+        public EditAllForm()
         {
             InitializeComponent();
-            this.HelpButton = true;
+            MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void editGroupButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            EditGroupForm editGroupForm = new EditGroupForm();
+            editGroupForm.Show();
         }
     }
 }

@@ -5,28 +5,39 @@ using System.Data;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Drawing;
+using electronic_journal.Interfaces;
 
-namespace electronic_journal
+namespace electronic_journal.Forms
 {
     public partial class MainFormTeacher : Form, IConnection, IDataGridModes
     {
-        string connectionString, valueUpdate, idPerson;
+        string valueUpdate, idPerson;
+        private readonly string connectionString;
+
         SqlDataAdapter sqlDataAdapter;
         DataTable dataTable;
-        DataGridViewCell cell, cellUpdate;
+        DataGridViewCell cell;
         UserRoomStudent userRoomStudent;
+
+        public MainFormTeacher()
+        {
+            InitializeComponent();
+            MaximizeBox = false;
+            connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            StartPosition = FormStartPosition.CenterScreen;
+        }
 
         public void DataGridMode()
         {
-            DataGridAligment();
-            DataGridColumnsSize();
-            DataGridReadOnly();
-            DataGridAllowUserToAddRows();
-            DataGridRowHeadersVisible();
-            DataGridAllowUserToResize();
+            DataGridAligment(dataGridNote);
+            DataGridColumnsSize(dataGridNote);
+            DataGridReadOnly(dataGridNote);
+            DataGridAllowUserToAddRows(dataGridNote);
+            DataGridRowHeadersVisible(dataGridNote);
+            DataGridAllowUserToResize(dataGridNote);
         }
 
-        public void DataGridColumnsSize()
+        public void DataGridColumnsSize(DataGridView dataGridNote)
         {
             dataGridNote.Columns[0].Width = 250;
             dataGridNote.Columns[1].Width = 80;
@@ -37,13 +48,13 @@ namespace electronic_journal
             dataGridNote.Columns[6].Width = 58;
         }
 
-        public void DataGridAligment()
+        public void DataGridAligment(DataGridView dataGridNote)
         {
             dataGridNote.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridNote.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
-        public void DataGridReadOnly()
+        public void DataGridReadOnly(DataGridView dataGridNote)
         {
             dataGridNote.Columns[0].ReadOnly = true;
             dataGridNote.Columns[1].ReadOnly = true;
@@ -52,31 +63,23 @@ namespace electronic_journal
             dataGridNote.Columns[6].ReadOnly = true;
         }
 
-        public void DataGridAllowUserToAddRows()
+        public void DataGridAllowUserToAddRows(DataGridView dataGridNote)
         {
             dataGridNote.AllowUserToAddRows = false;
         }
 
-        public void DataGridRowHeadersVisible()
+        public void DataGridRowHeadersVisible(DataGridView dataGridNote)
         {
             dataGridNote.RowHeadersVisible = false;
         }
 
-        public void DataGridAllowUserToResize()
+        public void DataGridAllowUserToResize(DataGridView dataGridNote)
         {
             dataGridNote.AllowUserToResizeColumns = false;
-            dataGridNote.AllowUserToResizeRows = false; ;
+            dataGridNote.AllowUserToResizeRows = false; 
         }
 
-        public MainFormTeacher()
-        {
-            InitializeComponent();
-            MaximizeBox = false;
-            connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            StartPosition = FormStartPosition.CenterScreen;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainFormTeacher_Load(object sender, EventArgs e)
         {  
             GetTeacherPulpit(dataTable);
             GetSubjectForSubjectComboBox();
@@ -162,18 +165,12 @@ namespace electronic_journal
             LoadDataGrid();
         }
 
-        private void MainFormTeacher_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void dataGridNote_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             cell = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
             userRoomStudent = new UserRoomStudent();
             userRoomStudent.Show();
             UserRoomStudent_Load();
-            
         }
 
         private void UserRoomStudent_Load()
@@ -241,8 +238,26 @@ namespace electronic_journal
 
         private void dataGridNote_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            cellUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
+            DataGridViewCell cellUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
             valueUpdate = cellUpdate.Value.ToString();
+        }
+
+        private void GetUpdate()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                GetIdPerson();
+                MessageBox.Show(idPerson);
+                string queryUpdate = "update Progress set NoteFirst = @NoteFirst, NoteSecond = @NoteSecond " +
+                                     "where IdStudent = '" + idPerson + "' " +
+                                     "and [Subject] = 'ООП'";
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.UpdateCommand = new SqlCommand(queryUpdate, conn);//5-6
+                adapter.UpdateCommand.Parameters.Add("@NoteFirst", SqlDbType.Int).SourceColumn = "I Аттестация";
+                adapter.UpdateCommand.Parameters.Add("@NoteSecond", SqlDbType.Int).SourceColumn = "II Аттестация";
+                adapter.Update(dataTable);
+                MessageBox.Show(MyResource.updateInformation, MyResource.update, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }            
         }
 
         private void GetIdPerson()
@@ -255,26 +270,22 @@ namespace electronic_journal
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    GetIdPerson();
-                    string queryUpdate = "update Progress set NoteFirst = @NoteFirst, NoteSecond = @NoteSecond " +
-                                   "where IdStudent = '" + idPerson + "' " +
-                                   "and [Subject] = 'ООП'";
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    adapter.UpdateCommand = new SqlCommand(queryUpdate, conn);//5-6
-                    adapter.UpdateCommand.Parameters.Add("@NoteFirst", SqlDbType.Int).SourceColumn = "I Аттестация";
-                    adapter.UpdateCommand.Parameters.Add("@NoteSecond", SqlDbType.Int).SourceColumn = "II Аттестация";
-                    adapter.Update(dataTable);
-                }
-                MessageBox.Show(MyResource.updateInformation, "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            GetUpdate();            
+        }
+
+        private void dataGridNote_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void dataGridNote_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridNote.EndEdit();
+            GetUpdate();
+        }
+
+        private void MainFormTeacher_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

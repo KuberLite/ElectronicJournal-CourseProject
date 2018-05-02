@@ -1,6 +1,6 @@
-﻿namespace electronic_journal.Forms
+﻿namespace electronic_journal.AdministratorForm
 {
-    partial class AdminForm
+    partial class EditAllForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,38 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminForm));
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditAllForm));
+            this.editGroupButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // editGroupButton
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(133, 83);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(655, 355);
-            this.dataGridView1.TabIndex = 0;
+            this.editGroupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editGroupButton.Location = new System.Drawing.Point(12, 12);
+            this.editGroupButton.Name = "editGroupButton";
+            this.editGroupButton.Size = new System.Drawing.Size(115, 36);
+            this.editGroupButton.TabIndex = 0;
+            this.editGroupButton.Text = "Изменить группы";
+            this.editGroupButton.UseVisualStyleBackColor = true;
+            this.editGroupButton.Click += new System.EventHandler(this.editGroupButton_Click);
             // 
-            // AdminForm
+            // EditAllForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::electronic_journal.MyResource.Background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.editGroupButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AdminForm";
-            this.Text = "AdminForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminForm_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Name = "EditAllForm";
+            this.Text = "Администратор: Внести изменения";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button editGroupButton;
     }
 }

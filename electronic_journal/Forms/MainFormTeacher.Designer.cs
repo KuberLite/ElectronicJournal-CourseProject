@@ -1,4 +1,4 @@
-﻿namespace electronic_journal
+﻿namespace electronic_journal.Forms
 {
     partial class MainFormTeacher
     {
@@ -143,6 +143,8 @@
             this.dataGridNote.TabIndex = 9;
             this.dataGridNote.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellClick);
             this.dataGridNote.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellDoubleClick);
+            this.dataGridNote.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellEndEdit);
+            this.dataGridNote.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellValueChanged);
             // 
             // MainFormTeacher
             // 
@@ -166,7 +168,7 @@
             this.Name = "MainFormTeacher";
             this.Text = "Журнал: Преподаватель";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormTeacher_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainFormTeacher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNote)).EndInit();
             this.ResumeLayout(false);
 

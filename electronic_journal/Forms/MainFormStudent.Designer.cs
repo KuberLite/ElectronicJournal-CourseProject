@@ -1,4 +1,4 @@
-﻿namespace electronic_journal
+﻿namespace electronic_journal.Forms
 {
     partial class MainFormStudent
     {

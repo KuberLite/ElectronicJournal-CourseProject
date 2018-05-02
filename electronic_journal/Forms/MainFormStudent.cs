@@ -1,10 +1,11 @@
-﻿using System;
+﻿using electronic_journal.Interfaces;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace electronic_journal
+namespace electronic_journal.Forms
 {
     public partial class MainFormStudent : Form, IConnection, IDataGridModes
     {
@@ -65,21 +66,21 @@ namespace electronic_journal
 
         public void DataGridMode()
         {
-            DataGridColumnsSize();
-            DataGridAligment();
-            DataGridReadOnly();
-            DataGridAllowUserToAddRows();
-            DataGridRowHeadersVisible();
-            DataGridAllowUserToResize();
+            DataGridColumnsSize(dataGridNote);
+            DataGridAligment(dataGridNote);
+            DataGridReadOnly(dataGridNote);
+            DataGridAllowUserToAddRows(dataGridNote);
+            DataGridRowHeadersVisible(dataGridNote);
+            DataGridAllowUserToResize(dataGridNote);
         }
 
-        public void DataGridAligment()
+        public void DataGridAligment(DataGridView dataGridNote)
         {
             dataGridNote.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridNote.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
-        public void DataGridColumnsSize()
+        public void DataGridColumnsSize(DataGridView dataGridNote)
         {
             dataGridNote.Columns[0].Width = 300;
             dataGridNote.Columns[1].Width = 70;
@@ -88,22 +89,22 @@ namespace electronic_journal
             dataGridNote.Columns[4].Width = 55;
         }
 
-        public void DataGridReadOnly()
+        public void DataGridReadOnly(DataGridView dataGridNote)
         {
             dataGridNote.ReadOnly = true;
         }
         
-        public void DataGridAllowUserToAddRows()
+        public void DataGridAllowUserToAddRows(DataGridView dataGridNote)
         {
             dataGridNote.AllowUserToAddRows = false;
         }
 
-        public void DataGridRowHeadersVisible()
+        public void DataGridRowHeadersVisible(DataGridView dataGridNote)
         {
             dataGridNote.RowHeadersVisible = false;
         }
 
-        public void DataGridAllowUserToResize()
+        public void DataGridAllowUserToResize(DataGridView dataGridNote)
         {
             dataGridNote.AllowUserToResizeColumns = false;
             dataGridNote.AllowUserToResizeRows = false; ;

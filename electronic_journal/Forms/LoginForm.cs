@@ -4,9 +4,10 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Text;
-using electronic_journal.Forms;
+using electronic_journal.Interfaces;
+using electronic_journal.AdministratorForm;
 
-namespace electronic_journal
+namespace electronic_journal.Forms
 { 
     public partial class LoginForm : Form, IConnection
     { 
@@ -14,7 +15,7 @@ namespace electronic_journal
 
         public static string idPerson { get; set; }
 
-        string connectionString;
+        private readonly string connectionString;
         DataTable dataTable;
         SqlDataAdapter sqlDataAdapter;
 
@@ -31,7 +32,7 @@ namespace electronic_journal
             string loginQuery = "select RoleName from Roles " +
                                 "inner join UserRoles on Roles.IdRole = UserRoles.RoleId " +
                                 "inner join [User] on UserRoles.UserId = [User].Id where Username ='" +
-                                login_textBox.Text.Trim() + "' and PasswordHash = '" + password_textBox.Text.Trim() + "'";
+                                login_textBox.Text.Trim() + "' and PasswordHash = '" + UnHash(password_textBox.Text.Trim()) + "'";
             dataTable = new DataTable();
             SqlDataAdapter(loginQuery, ConnectionSQL()).Fill(dataTable);
             if (dataTable.Rows.Count == 1)
@@ -64,6 +65,7 @@ namespace electronic_journal
             }
         }
 
+        #region HashPassword
         public string Hash(string password)
         {
             var bytes = new UTF8Encoding().GetBytes(password);
@@ -71,17 +73,19 @@ namespace electronic_journal
             return Convert.ToBase64String(hashBytes);
         }
 
-        private void GetIdPerson()
+        private string UnHash(string password)
         {
-            string query = "select IdPerson from Person inner join [User] on Person.IdPerson = [User].Id where Username = '" + login_textBox.Text.Trim() + "'";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
-            if (dataTable.Rows.Count == 1)
+            var bytes = new UTF8Encoding().GetBytes(password);
+            byte[] hashBytes;
+            using (var algorithm = new System.Security.Cryptography.SHA512Managed())
             {
-                idPerson = dataTable.Rows[0][0].ToString();
+                hashBytes = algorithm.ComputeHash(bytes);
             }
+            return Convert.ToBase64String(hashBytes);
         }
+        #endregion
 
+        #region Connection to DataBase
         public SqlConnection ConnectionSQL()
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -92,6 +96,18 @@ namespace electronic_journal
         {
             sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
             return sqlDataAdapter;
+        }
+        #endregion
+
+        private void GetIdPerson()
+        {
+            string query = "select IdPerson from Person inner join [User] on Person.IdPerson = [User].Id where Username = '" + login_textBox.Text.Trim() + "'";
+            dataTable = new DataTable();
+            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            if (dataTable.Rows.Count == 1)
+            {
+                idPerson = dataTable.Rows[0][0].ToString();
+            }
         }
 
         private void btnEntry_KeyDown(object sender, KeyEventArgs e)

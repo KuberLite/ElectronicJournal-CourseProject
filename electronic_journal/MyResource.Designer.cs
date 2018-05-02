@@ -61,6 +61,15 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавление студента.
+        /// </summary>
+        internal static string addStudent {
+            get {
+                return ResourceManager.GetString("addStudent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Background {
@@ -80,11 +89,29 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавление прошло успешно.
+        /// </summary>
+        internal static string correctlyAdd {
+            get {
+                return ResourceManager.GetString("correctlyAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вход.
         /// </summary>
         internal static string entry {
             get {
                 return ResourceManager.GetString("entry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка.
+        /// </summary>
+        internal static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
             }
         }
         
@@ -117,6 +144,33 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Факультет&gt;.
+        /// </summary>
+        internal static string selectFaculty {
+            get {
+                return ResourceManager.GetString("selectFaculty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Пол&gt;.
+        /// </summary>
+        internal static string selectGender {
+            get {
+                return ResourceManager.GetString("selectGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Группа&gt;.
+        /// </summary>
+        internal static string selectGroup {
+            get {
+                return ResourceManager.GetString("selectGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите изображение.
         /// </summary>
         internal static string selectImage {
@@ -126,7 +180,25 @@ namespace electronic_journal {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на &lt;Выберите предмет&gt;.
+        ///   Ищет локализованную строку, похожую на &lt;Специальность&gt;.
+        /// </summary>
+        internal static string selectProfession {
+            get {
+                return ResourceManager.GetString("selectProfession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Кафедра&gt;.
+        /// </summary>
+        internal static string selectPulpit {
+            get {
+                return ResourceManager.GetString("selectPulpit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Предмет&gt;.
         /// </summary>
         internal static string selectSubject {
             get {
