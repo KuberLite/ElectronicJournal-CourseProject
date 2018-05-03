@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddNewStudentForm));
             this.label8 = new System.Windows.Forms.Label();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
@@ -45,6 +46,10 @@
             this.facultyComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.emailTextBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // label8
@@ -52,7 +57,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(83, 276);
+            this.label8.Location = new System.Drawing.Point(80, 313);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(87, 28);
             this.label8.TabIndex = 63;
@@ -61,7 +66,7 @@
             // passwordTextBox
             // 
             this.passwordTextBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.passwordTextBox.Location = new System.Drawing.Point(201, 273);
+            this.passwordTextBox.Location = new System.Drawing.Point(201, 310);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(365, 31);
             this.passwordTextBox.TabIndex = 62;
@@ -69,7 +74,7 @@
             // usernameTextBox
             // 
             this.usernameTextBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.usernameTextBox.Location = new System.Drawing.Point(201, 236);
+            this.usernameTextBox.Location = new System.Drawing.Point(201, 273);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(365, 31);
             this.usernameTextBox.TabIndex = 61;
@@ -79,7 +84,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(93, 239);
+            this.label5.Location = new System.Drawing.Point(90, 276);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 28);
             this.label5.TabIndex = 60;
@@ -88,7 +93,7 @@
             // birthdayDateTimePicker
             // 
             this.birthdayDateTimePicker.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.birthdayDateTimePicker.Location = new System.Drawing.Point(201, 199);
+            this.birthdayDateTimePicker.Location = new System.Drawing.Point(201, 236);
             this.birthdayDateTimePicker.Name = "birthdayDateTimePicker";
             this.birthdayDateTimePicker.Size = new System.Drawing.Size(200, 31);
             this.birthdayDateTimePicker.TabIndex = 59;
@@ -122,7 +127,7 @@
             // 
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Sitka Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addButton.Location = new System.Drawing.Point(444, 310);
+            this.addButton.Location = new System.Drawing.Point(444, 347);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(122, 31);
             this.addButton.TabIndex = 56;
@@ -135,7 +140,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(7, 202);
+            this.label7.Location = new System.Drawing.Point(7, 239);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(163, 28);
             this.label7.TabIndex = 55;
@@ -212,13 +217,42 @@
             this.nameTextBox.Size = new System.Drawing.Size(365, 31);
             this.nameTextBox.TabIndex = 48;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkRate = 0;
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
+            // 
+            // emailTextBox
+            // 
+            this.emailTextBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.emailTextBox.Location = new System.Drawing.Point(201, 199);
+            this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.Size = new System.Drawing.Size(314, 31);
+            this.emailTextBox.TabIndex = 65;
+            this.emailTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.emailTextBox_Validating);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(100, 202);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(70, 28);
+            this.label9.TabIndex = 64;
+            this.label9.Text = "Email:";
+            // 
             // AddNewStudentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::electronic_journal.MyResource.Background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(578, 350);
+            this.ClientSize = new System.Drawing.Size(578, 389);
+            this.Controls.Add(this.emailTextBox);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.usernameTextBox);
@@ -238,9 +272,12 @@
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(594, 428);
+            this.MinimumSize = new System.Drawing.Size(594, 428);
             this.Name = "AddNewStudentForm";
             this.Text = "Администратор: Добавление студента";
             this.Load += new System.EventHandler(this.AddNewStudentForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,5 +301,8 @@
         private System.Windows.Forms.ComboBox facultyComboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.TextBox emailTextBox;
+        private System.Windows.Forms.Label label9;
     }
 }

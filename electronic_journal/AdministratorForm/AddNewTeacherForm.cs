@@ -1,10 +1,13 @@
 ﻿using electronic_journal.Interfaces;
 using System;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace electronic_journal.AdministratorForm
@@ -112,11 +115,36 @@ namespace electronic_journal.AdministratorForm
             sqlCommand.Parameters.AddWithValue("@PersonId", Guid.NewGuid().ToString());
             sqlCommand.Parameters.AddWithValue("@Username", usernameTextBox.Text.Trim());
             sqlCommand.Parameters.AddWithValue("@PasswordHash", Hash(passwordTextBox.Text.Trim()));
+            sqlCommand.Parameters.AddWithValue("@Email", emailTextBox.Text.Trim());
+        }
+
+        public bool IsValidEmailAddress(string email)
+        {
+            try
+            {
+                MailAddress ma = new MailAddress(email);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void ValidateEmail(string email)
+        {
+            if (IsValidEmailAddress(email)) errorProviderOk.SetError(emailTextBox, "OK");
+            else errorProviderWrong.SetError(emailTextBox, "Not Valid Email");
+        }
+
+        private void emailTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateEmail(emailTextBox.Text);
         }
 
         private string Hash(string password)
         {
-            var bytes = new UTF8Encoding().GetBytes(password); 
+            var bytes = new UTF8Encoding().GetBytes(password);
             var hashBytes = SHA512.Create().ComputeHash(bytes);
             return Convert.ToBase64String(hashBytes);
         }

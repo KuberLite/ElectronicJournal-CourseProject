@@ -126,6 +126,25 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ok_icon {
+            get {
+                object obj = ResourceManager.GetObject("Ok_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на DenisKubera.
+        /// </summary>
+        internal static string passwordMail {
+            get {
+                return ResourceManager.GetString("passwordMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Личный кабинет.
         /// </summary>
         internal static string personalArea {

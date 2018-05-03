@@ -208,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Background.jpg" />
+    <None Include="Resources\Ok-icon.png" />
     <None Include="Resources\no-image.png" />
   </ItemGroup>
   <ItemGroup />

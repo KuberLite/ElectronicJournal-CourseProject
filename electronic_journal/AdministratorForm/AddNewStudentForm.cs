@@ -1,14 +1,12 @@
 ﻿using electronic_journal.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace electronic_journal.AdministratorForm
@@ -77,6 +75,8 @@ namespace electronic_journal.AdministratorForm
         private void addButton_Click(object sender, EventArgs e)
         {
             AddNewStudent();
+            SendData();
+            MessageBox.Show("Сообщение отправлено");
             ClearWindow();
         }
 
@@ -120,11 +120,54 @@ namespace electronic_journal.AdministratorForm
             sqlCommand.Parameters.AddWithValue("@PasswordHash", Hash(passwordTextBox.Text.Trim()));
         }
 
+        public bool IsValidEmailAddress(string email)
+        {
+            try
+            {
+                MailAddress ma = new MailAddress(email);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void ValidateEmail(string email)
+        {
+            if (IsValidEmailAddress(email)) errorProvider.SetError(emailTextBox, "OK");
+            else errorProvider.SetError(emailTextBox, "Not Valid Email");
+        }
+
+        private void emailTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            ValidateEmail(emailTextBox.Text);
+        }
+
         private string Hash(string password)
         {
             var bytes = new UTF8Encoding().GetBytes(password);
             var hashBytes = System.Security.Cryptography.SHA512.Create().ComputeHash(bytes);
             return Convert.ToBase64String(hashBytes);
+        }
+
+        private void SendData()
+        {
+            MailAddress fromMailAddress = new MailAddress("kursachgrahovskiy@mail.ru", "Denis Grahovskiy(admin)");
+            MailAddress toMailAddress = new MailAddress(emailTextBox.Text.Trim());
+
+            using (MailMessage mailMessage = new MailMessage(fromMailAddress, toMailAddress))
+            using (SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", 587))
+            {
+                string messageForMail = "Здравствуйте, " + nameTextBox.Text + " Вы зарегистрированы в системе 'Электронный журнал БГТУ'\nДанные для входа в систему:\nВаш логин: " + usernameTextBox.Text + "\nВаш пароль: " + passwordTextBox.Text;
+                mailMessage.Subject = "Данные для входа";
+                mailMessage.Body = messageForMail;
+                smtpClient.EnableSsl = true;
+                smtpClient.UseDefaultCredentials = true;
+                smtpClient.Credentials = new NetworkCredential(fromMailAddress.Address, "49atagaf");
+
+                smtpClient.Send(mailMessage);
+            }
         }
     }
 }
