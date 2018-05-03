@@ -116,6 +116,7 @@
             this.Controls.Add(this.password_textBox);
             this.Controls.Add(this.login_textBox);
             this.Controls.Add(this.label_entry);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(376, 304);

@@ -12,7 +12,7 @@ namespace electronic_journal.AdministratorForm
 {
     public partial class EditAllForm : Form
     {
-        public EditAllForm()
+        public EditAllForm()    
         {
             InitializeComponent();
             MaximizeBox = false;
@@ -23,6 +23,17 @@ namespace electronic_journal.AdministratorForm
         {
             EditGroupForm editGroupForm = new EditGroupForm();
             editGroupForm.Show();
+        }
+
+        private void editUserButton_Click(object sender, EventArgs e)
+        {
+            EditUserForm editUserForm = new EditUserForm();
+            editUserForm.Show();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

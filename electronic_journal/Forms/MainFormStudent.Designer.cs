@@ -75,6 +75,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.userRoomButton);
             this.Controls.Add(this.dataGridNote);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(706, 489);
             this.MinimumSize = new System.Drawing.Size(706, 489);

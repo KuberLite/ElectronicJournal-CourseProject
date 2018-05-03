@@ -19,6 +19,7 @@ namespace electronic_journal.AdministratorForm
         SqlDataAdapter dataAdapterForUpdate;
         private readonly string connectionString;
         string querySubject;
+        int count = 0;
 
         public EditGroupForm()
         {
@@ -145,7 +146,6 @@ namespace electronic_journal.AdministratorForm
 
         private void facultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int count = 0;
             if (count != 0)
             {
                 pulpitComboBox.Items.Clear();

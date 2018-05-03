@@ -71,6 +71,7 @@
             // backButton
             // 
             this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.backButton.Location = new System.Drawing.Point(12, 409);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(100, 29);

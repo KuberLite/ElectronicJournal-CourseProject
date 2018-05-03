@@ -97,9 +97,11 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(12, 414);
+            this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.backButton.Location = new System.Drawing.Point(12, 408);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(75, 23);
+            this.backButton.Size = new System.Drawing.Size(75, 30);
             this.backButton.TabIndex = 4;
             this.backButton.Text = "Назад";
             this.backButton.UseVisualStyleBackColor = true;

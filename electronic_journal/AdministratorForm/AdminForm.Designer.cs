@@ -40,17 +40,18 @@
             // resultDataGrid
             // 
             this.resultDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultDataGrid.Location = new System.Drawing.Point(133, 51);
+            this.resultDataGrid.Location = new System.Drawing.Point(133, 63);
             this.resultDataGrid.Name = "resultDataGrid";
-            this.resultDataGrid.Size = new System.Drawing.Size(655, 387);
+            this.resultDataGrid.Size = new System.Drawing.Size(655, 375);
             this.resultDataGrid.TabIndex = 0;
             // 
             // progressButton
             // 
             this.progressButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.progressButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.progressButton.Location = new System.Drawing.Point(133, 4);
             this.progressButton.Name = "progressButton";
-            this.progressButton.Size = new System.Drawing.Size(129, 41);
+            this.progressButton.Size = new System.Drawing.Size(129, 53);
             this.progressButton.TabIndex = 1;
             this.progressButton.Text = "Успеваемость";
             this.progressButton.UseVisualStyleBackColor = true;
@@ -59,9 +60,10 @@
             // updateButton
             // 
             this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.updateButton.Location = new System.Drawing.Point(268, 4);
             this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(129, 41);
+            this.updateButton.Size = new System.Drawing.Size(129, 53);
             this.updateButton.TabIndex = 2;
             this.updateButton.Text = "Внести изменения";
             this.updateButton.UseVisualStyleBackColor = true;
@@ -70,9 +72,10 @@
             // addTeacherButton
             // 
             this.addTeacherButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addTeacherButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addTeacherButton.Location = new System.Drawing.Point(403, 4);
             this.addTeacherButton.Name = "addTeacherButton";
-            this.addTeacherButton.Size = new System.Drawing.Size(129, 41);
+            this.addTeacherButton.Size = new System.Drawing.Size(129, 53);
             this.addTeacherButton.TabIndex = 3;
             this.addTeacherButton.Text = "Добавить преподавателя";
             this.addTeacherButton.UseVisualStyleBackColor = true;
@@ -81,9 +84,10 @@
             // addStudentButton
             // 
             this.addStudentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addStudentButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addStudentButton.Location = new System.Drawing.Point(538, 4);
             this.addStudentButton.Name = "addStudentButton";
-            this.addStudentButton.Size = new System.Drawing.Size(129, 41);
+            this.addStudentButton.Size = new System.Drawing.Size(129, 53);
             this.addStudentButton.TabIndex = 4;
             this.addStudentButton.Text = "Добавить студента";
             this.addStudentButton.UseVisualStyleBackColor = true;

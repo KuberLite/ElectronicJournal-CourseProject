@@ -69,10 +69,10 @@
             // 
             this.Label1.AutoSize = true;
             this.Label1.BackColor = System.Drawing.Color.Transparent;
-            this.Label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Label1.Location = new System.Drawing.Point(118, 40);
+            this.Label1.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Label1.Location = new System.Drawing.Point(159, 36);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(67, 25);
+            this.Label1.Size = new System.Drawing.Size(66, 30);
             this.Label1.TabIndex = 1;
             this.Label1.Text = "ФИО:";
             // 
@@ -96,10 +96,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(187, 6);
+            this.label3.Font = new System.Drawing.Font("Sitka Text", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(244, 7);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(135, 24);
+            this.label3.Size = new System.Drawing.Size(138, 28);
             this.label3.TabIndex = 4;
             this.label3.Text = "Информация";
             // 
@@ -107,10 +107,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(118, 112);
+            this.label4.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(159, 108);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 25);
+            this.label4.Size = new System.Drawing.Size(61, 30);
             this.label4.TabIndex = 5;
             this.label4.Text = "Пол:";
             // 
@@ -126,10 +126,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(118, 76);
+            this.label5.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(113, 72);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(109, 25);
+            this.label5.Size = new System.Drawing.Size(107, 30);
             this.label5.TabIndex = 7;
             this.label5.Text = "Кафедра:";
             // 
@@ -156,10 +156,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(71, 148);
+            this.label6.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(41, 144);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(172, 25);
+            this.label6.Size = new System.Drawing.Size(179, 30);
             this.label6.TabIndex = 10;
             this.label6.Text = "Дата рождения:";
             // 

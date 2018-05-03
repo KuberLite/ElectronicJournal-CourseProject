@@ -50,7 +50,7 @@
             // addButton
             // 
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addButton.Font = new System.Drawing.Font("Sitka Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addButton.Location = new System.Drawing.Point(443, 311);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(122, 31);
@@ -234,6 +234,7 @@
             this.Controls.Add(this.facultyComboBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nameTextBox);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddNewTeacherForm";

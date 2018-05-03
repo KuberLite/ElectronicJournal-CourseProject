@@ -234,6 +234,24 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Студент.
+        /// </summary>
+        internal static string student {
+            get {
+                return ResourceManager.GetString("student", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Преподаватель.
+        /// </summary>
+        internal static string teacher {
+            get {
+                return ResourceManager.GetString("teacher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на JPG Files (*.jpg)|*.jpg|All Files (*.*)|*.*.
         /// </summary>
         internal static string typeImage {

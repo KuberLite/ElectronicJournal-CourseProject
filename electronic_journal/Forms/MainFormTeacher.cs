@@ -27,6 +27,17 @@ namespace electronic_journal.Forms
             StartPosition = FormStartPosition.CenterScreen;
         }
 
+        int DropDownWidth(ComboBox myCombo)
+        {
+            int maxWidth = 0;
+
+            foreach (var obj in myCombo.Items)
+            {
+                maxWidth = 500;
+            }
+            return maxWidth;
+        }
+
         public void DataGridMode()
         {
             DataGridAligment(dataGridNote);
@@ -83,6 +94,29 @@ namespace electronic_journal.Forms
         {  
             GetTeacherPulpit(dataTable);
             GetSubjectForSubjectComboBox();
+            SortedEnabled();
+        }
+
+        private void TextBoxNoteValidating(TextBox textBox)
+        {
+            if (textBox.Text != "") {
+                textBox.MaxLength = 2;
+                textBox.MaxLength = 2;
+                if (Convert.ToInt32(textBox.Text) >= 10)
+                {
+                    textBox.Text = "10";
+                }
+            }
+        }
+
+        private void SortedEnabled()
+        {
+            if (dataGridNote.DataSource == null)
+            {
+                firstNoteTextBox.Enabled = false;
+                secondNoteTextBox.Enabled = false;
+                plusMinusСomboBox.Enabled = false;
+            }
         }
 
         private string GetTeacherPulpit(DataTable dataTable)
@@ -103,6 +137,7 @@ namespace electronic_journal.Forms
                 {
                     subjectComboBox.Items.Add(dataTable.Rows[i][0].ToString());
                 }
+                subjectComboBox.DropDownWidth = DropDownWidth(subjectComboBox);
             }
             catch (Exception ex)
             {
@@ -142,8 +177,8 @@ namespace electronic_journal.Forms
                 string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
                                "case " +
                                "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                               "else 'н.а.' " +
-                               "end[Принято] " +
+                               "else '-' " +
+                               "end[Допуск] " +
                                "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
                                "inner join Groups on Person.IdGroup = Groups.IdGroup " +
                                "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
@@ -158,11 +193,6 @@ namespace electronic_journal.Forms
             {
                 MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
-
-        private void LoadDB_Click(object sender, EventArgs e)
-        {
-            LoadDataGrid();
         }
 
         private void dataGridNote_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -247,7 +277,6 @@ namespace electronic_journal.Forms
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 GetIdPerson();
-                MessageBox.Show(idPerson);
                 string queryUpdate = "update Progress set NoteFirst = @NoteFirst, NoteSecond = @NoteSecond " +
                                      "where IdStudent = '" + idPerson + "' " +
                                      "and [Subject] = 'ООП'";
@@ -270,7 +299,8 @@ namespace electronic_journal.Forms
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            GetUpdate();            
+            GetUpdate();
+            LoadDataGrid();
         }
 
         private void dataGridNote_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -279,13 +309,167 @@ namespace electronic_journal.Forms
 
         private void dataGridNote_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridNote.EndEdit();
-            GetUpdate();
+            //dataGridNote.EndEdit();
+            //GetUpdate();
+        }
+
+        private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDataGrid();
+            firstNoteTextBox.Enabled = true;
+            secondNoteTextBox.Enabled = true;
+            plusMinusСomboBox.Enabled = true;
+        }
+
+        private void firstNoteTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (firstNoteTextBox.Text == "")
+            {
+                LoadDataGrid();
+                TextBoxNoteValidating(firstNoteTextBox);
+            }
+            else
+            {
+                SortMethodByFirstNote(Convert.ToInt32(firstNoteTextBox.Text.Trim()));
+                TextBoxNoteValidating(firstNoteTextBox);
+            }
+        }
+
+        private void secondNoteTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (secondNoteTextBox.Text == "")
+            {
+                LoadDataGrid();
+                TextBoxNoteValidating(secondNoteTextBox);
+            }
+            else
+            {
+                SortMethodByFirstNote(Convert.ToInt32(secondNoteTextBox.Text.Trim()));
+                TextBoxNoteValidating(secondNoteTextBox);
+            }
+        }
+
+        private void SortMethodByFirstNote(int note)
+        {
+            try
+            {
+                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
+                               "case " +
+                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
+                               "else '-' " +
+                               "end[Допуск] " +
+                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
+                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
+                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
+                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
+                               " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + " " +
+                               "and NoteFirst >= '" + note + "'";
+                dataTable = new DataTable();
+                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                dataGridNote.DataSource = dataTable;
+                DataGridMode();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void SortMethodBySecondNote(int note)
+        {
+            try
+            {
+                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
+                               "case " +
+                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
+                               "else '-' " +
+                               "end[Допуск] " +
+                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
+                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
+                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
+                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
+                               " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + " " +
+                               "and NoteSecond >= '" + note + "'";
+                dataTable = new DataTable();
+                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                dataGridNote.DataSource = dataTable;
+                DataGridMode();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void MainFormTeacher_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void plusMinusСomboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (plusMinusСomboBox.Text == "+")
+            {
+                SortMethodByAttestationPlus();
+            }
+            else if (plusMinusСomboBox.Text == "-")
+            {
+                SortMethodByAttestationMinus();
+            }
+            else
+            {
+                LoadDataGrid();
+            }
+        }
+
+        private void SortMethodByAttestationPlus()
+        {
+            string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
+                           "case " +
+                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
+                           "else '-' " +
+                           "end[Допуск] " +
+                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
+                           "inner join Groups on Person.IdGroup = Groups.IdGroup " +
+                           "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
+                           "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
+                           " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + " " +
+                           "and (Progress.NoteFirst + Progress.NoteSecond)/2 >= 4";
+            dataTable = new DataTable();
+            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            dataGridNote.DataSource = dataTable;
+            DataGridMode();
+        }
+
+        private void firstNoteTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void secondNoteTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void SortMethodByAttestationMinus()
+        {
+            string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
+                           "case " +
+                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
+                           "else '-' " +
+                           "end[Допуск] " +
+                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
+                           "inner join Groups on Person.IdGroup = Groups.IdGroup " +
+                           "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
+                           "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
+                           " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + " " +
+                           "and (Progress.NoteFirst + Progress.NoteSecond)/2 < 4";
+            dataTable = new DataTable();
+            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            dataGridNote.DataSource = dataTable;
+            DataGridMode();
         }
     }
 }

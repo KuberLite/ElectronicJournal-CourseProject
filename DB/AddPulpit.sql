@@ -1,4 +1,4 @@
-insert into Pulpit (IdPulpit, PulpitName, Faculty) values ('ИСиТ', 'Информационных систем и технологий', 'ИДиП')
+insert into Pulpit (IdPulpit, PulpitName, Faculty) values ('ИСиТ', 'Информационных систем и технологий', 'ИТ')
 insert into Pulpit (IdPulpit, PulpitName, Faculty) values ('ПОиСОИ', 'Полиграфического оборудования и систем обработки информации', 'ИДиП')
 insert into Pulpit (IdPulpit, PulpitName, Faculty) values ('БФ', 'Белорусской филологии', 'ИДиП')
 insert into Pulpit (IdPulpit, PulpitName, Faculty) values ('РИТ', 'Редакционно-издательских тенологий', 'ИДиП')            
