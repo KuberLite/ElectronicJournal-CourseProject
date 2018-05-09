@@ -74,9 +74,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImage = global::electronic_journal.MyResource.background4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(361, 186);
+            this.ClientSize = new System.Drawing.Size(471, 186);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.editUserButton);
             this.Controls.Add(this.editGroupButton);

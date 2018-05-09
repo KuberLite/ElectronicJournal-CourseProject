@@ -80,6 +80,36 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Background2 {
+            get {
+                object obj = ResourceManager.GetObject("Background2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Background3 {
+            get {
+                object obj = ResourceManager.GetObject("Background3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap background4 {
+            get {
+                object obj = ResourceManager.GetObject("background4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Проверьте введённые данные.
         /// </summary>
         internal static string checkInformation {
@@ -98,6 +128,15 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Данные для входа.
+        /// </summary>
+        internal static string dataForLogin {
+            get {
+                return ResourceManager.GetString("dataForLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вход.
         /// </summary>
         internal static string entry {
@@ -112,6 +151,52 @@ namespace electronic_journal {
         internal static string error {
             get {
                 return ResourceManager.GetString("error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на smtp.mail.ru.
+        /// </summary>
+        internal static string host {
+            get {
+                return ResourceManager.GetString("host", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap images {
+            get {
+                object obj = ResourceManager.GetObject("images", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Проблемы с интернет соединением!.
+        /// </summary>
+        internal static string InternetConnectionLost {
+            get {
+                return ResourceManager.GetString("InternetConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на kursachgrahovskiy@mail.ru.
+        /// </summary>
+        internal static string mail {
+            get {
+                return ResourceManager.GetString("mail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Denis Grahovskiy(admin).
+        /// </summary>
+        internal static string NameSenderAdmin {
+            get {
+                return ResourceManager.GetString("NameSenderAdmin", resourceCulture);
             }
         }
         
@@ -136,7 +221,7 @@ namespace electronic_journal {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на DenisKubera.
+        ///   Ищет локализованную строку, похожую на 49atagaf.
         /// </summary>
         internal static string passwordMail {
             get {
@@ -226,29 +311,11 @@ namespace electronic_journal {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на update Person set Photo = @img where [Name] = &apos;&quot; + LoginForm.nameTeacher + &quot;&apos;.
+        ///   Ищет локализованную строку, похожую на Сообщение отправлено.
         /// </summary>
-        internal static string String1 {
+        internal static string SendMessage {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на select [Name] from Person inner join [User] on Person.IdPerson = [User].Id where Username = &apos;&quot; + login_textBox.Text.Trim() + &quot;&apos;.
-        /// </summary>
-        internal static string String2 {
-            get {
-                return ResourceManager.GetString("String2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на select RoleName from Roles inner join UserRoles on Roles.IdRole = UserRoles.RoleId inner join [User] on UserRoles.UserId = [User].Id where Username =&apos;&quot; + login_textBox.Text.Trim() + &quot;&apos; and PasswordHash = &apos;&quot; + password_textBox.Text.Trim() + &quot;&apos;.
-        /// </summary>
-        internal static string String3 {
-            get {
-                return ResourceManager.GetString("String3", resourceCulture);
+                return ResourceManager.GetString("SendMessage", resourceCulture);
             }
         }
         
@@ -285,6 +352,15 @@ namespace electronic_journal {
         internal static string update {
             get {
                 return ResourceManager.GetString("update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Данные добавлены в базу данных.
+        /// </summary>
+        internal static string UpdateDB {
+            get {
+                return ResourceManager.GetString("UpdateDB", resourceCulture);
             }
         }
         

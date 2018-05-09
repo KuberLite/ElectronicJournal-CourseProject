@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -14,6 +15,7 @@ namespace electronic_journal.AdministratorForm
     public partial class AddNewStudentForm : Form, IConnection
     {
         private readonly string connectionString;
+        string groupId;
 
         public AddNewStudentForm()
         {
@@ -21,6 +23,12 @@ namespace electronic_journal.AdministratorForm
             MaximizeBox = false;
             connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        private void AddNewStudentForm_Load(object sender, EventArgs e)
+        {
+            GetFacultyForFacultyCombobox();
+            groupComboBox.Text = MyResource.selectGroup;
         }
 
         public SqlConnection ConnectionSQL()
@@ -35,6 +43,15 @@ namespace electronic_journal.AdministratorForm
             return dataAdapter;
         }
 
+        [DllImport("wininet.dll")]
+        private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
+
+        public static bool IsConnectedToInternet()
+        {
+            int Desc;
+            return InternetGetConnectedState(out Desc, 0);
+        } 
+
         private void GetFacultyForFacultyCombobox()
         {
             DataTable data = new DataTable();
@@ -47,18 +64,12 @@ namespace electronic_journal.AdministratorForm
             }
         }
 
-        private void facultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            GetGroupForGroupComboBox();
-            MessageBox.Show("123");
-        }
-
         private void GetGroupForGroupComboBox()
         {
             DataTable data = new DataTable();
-            string query = "select IdGroup from Groups inner join Faculty " +
+            string query = "select numberGroup from Groups inner join Faculty " +
                            "on Groups.Faculty = Faculty.IdFaculty " +
-                           "where Faculty.IdFaculty = '" + facultyComboBox.Text.Trim() + "'";
+                           "where Faculty.IdFaculty = '" + facultyComboBox.Text.Trim() + "' and Groups.Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) + "";
             SqlDataAdapter(query, ConnectionSQL()).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
@@ -66,18 +77,20 @@ namespace electronic_journal.AdministratorForm
             }
         }
 
-        private void AddNewStudentForm_Load(object sender, EventArgs e)
-        {
-            GetFacultyForFacultyCombobox();
-            groupComboBox.Text = MyResource.selectGroup;
-        }
-
         private void addButton_Click(object sender, EventArgs e)
         {
-            AddNewStudent();
-            SendData();
-            MessageBox.Show("Сообщение отправлено");
-            ClearWindow();
+            if(IsConnectedToInternet() == true)
+            {
+                AddNewStudent();
+                SendData();
+                MessageBox.Show(MyResource.SendMessage, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearWindow();
+                MessageBox.Show(MyResource.UpdateDB, MyResource.update, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(MyResource.InternetConnectionLost, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ClearWindow()
@@ -112,12 +125,13 @@ namespace electronic_journal.AdministratorForm
         private void GetSqlCommand(SqlCommand sqlCommand)
         {
             sqlCommand.Parameters.AddWithValue("@Name", nameTextBox.Text.Trim());
-            sqlCommand.Parameters.AddWithValue("@IdGroup", groupComboBox.Text.Trim());
+            sqlCommand.Parameters.AddWithValue("@IdGroup", groupId);
             sqlCommand.Parameters.AddWithValue("@Gender", genderComboBox.Text.Trim());
             sqlCommand.Parameters.AddWithValue("@Birthday", Convert.ToDateTime(birthdayDateTimePicker.Text));
             sqlCommand.Parameters.AddWithValue("@PersonId", Guid.NewGuid().ToString());
             sqlCommand.Parameters.AddWithValue("@Username", usernameTextBox.Text.Trim());
             sqlCommand.Parameters.AddWithValue("@PasswordHash", Hash(passwordTextBox.Text.Trim()));
+            sqlCommand.Parameters.AddWithValue("@email", emailTextBox.Text.Trim());
         }
 
         public bool IsValidEmailAddress(string email)
@@ -153,21 +167,37 @@ namespace electronic_journal.AdministratorForm
 
         private void SendData()
         {
-            MailAddress fromMailAddress = new MailAddress("kursachgrahovskiy@mail.ru", "Denis Grahovskiy(admin)");
+            MailAddress fromMailAddress = new MailAddress(MyResource.mail, MyResource.NameSenderAdmin);
             MailAddress toMailAddress = new MailAddress(emailTextBox.Text.Trim());
 
             using (MailMessage mailMessage = new MailMessage(fromMailAddress, toMailAddress))
-            using (SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", 587))
+            using (SmtpClient smtpClient = new SmtpClient(MyResource.host, 587))
             {
-                string messageForMail = "Здравствуйте, " + nameTextBox.Text + " Вы зарегистрированы в системе 'Электронный журнал БГТУ'\nДанные для входа в систему:\nВаш логин: " + usernameTextBox.Text + "\nВаш пароль: " + passwordTextBox.Text;
-                mailMessage.Subject = "Данные для входа";
+                string messageForMail = "Здравствуйте, " + nameTextBox.Text + ", Вы зарегистрированы в системе 'Электронный журнал БГТУ'\nДанные для входа в систему:\nВаш логин: " + usernameTextBox.Text + "\nВаш пароль: " + passwordTextBox.Text;
+                mailMessage.Subject = MyResource.dataForLogin;
                 mailMessage.Body = messageForMail;
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = true;
-                smtpClient.Credentials = new NetworkCredential(fromMailAddress.Address, "49atagaf");
+                smtpClient.Credentials = new NetworkCredential(fromMailAddress.Address, MyResource.passwordMail);
 
                 smtpClient.Send(mailMessage);
             }
+        }
+
+        private void courseComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetGroupForGroupComboBox();
+        }
+
+        private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable tableData = new DataTable();
+            string query = "select IdGroup from Groups inner join Faculty " +
+                           "on Groups.Faculty = Faculty.IdFaculty " +
+                           "where Faculty.IdFaculty = '" + facultyComboBox.Text.Trim() + "' and Groups.Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) + " " +
+                           "and Groups.NumberGroup  = " + Convert.ToInt32(groupComboBox.Text.Trim()) + "";
+            SqlDataAdapter(query, ConnectionSQL()).Fill(tableData);
+            groupId = tableData.Rows[0][0].ToString();
         }
     }
 }

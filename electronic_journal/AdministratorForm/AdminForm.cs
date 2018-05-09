@@ -1,6 +1,8 @@
-﻿using electronic_journal.Interfaces;
+﻿using electronic_journal.Forms;
+using electronic_journal.Interfaces;
 using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
@@ -18,15 +20,20 @@ namespace electronic_journal.AdministratorForm
             StartPosition = FormStartPosition.CenterScreen;
         }
 
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+            LoadDataGrid();
+        }
+
         public SqlConnection ConnectionSQL()
         {
-            SqlConnection sqlConnection = new SqlConnection();
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
             return sqlConnection;
         }
 
         public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
         {
-            SqlDataAdapter sqlData = new SqlDataAdapter();
+            SqlDataAdapter sqlData = new SqlDataAdapter(query, ConnectionSQL());
             return sqlData;
         }
 
@@ -37,6 +44,7 @@ namespace electronic_journal.AdministratorForm
             DataGridAllowUserToResize(resultDataGrid);
             DataGridColumnsSize(resultDataGrid);
             DataGridReadOnly(resultDataGrid);
+            DataGridRowHeadersVisible(resultDataGrid);
         }
 
         public void DataGridAligment(DataGridView dataGridView)
@@ -58,11 +66,14 @@ namespace electronic_journal.AdministratorForm
 
         public void DataGridColumnsSize(DataGridView dataGridView)
         {
+            resultDataGrid.Columns[0].Width = 200;
+            resultDataGrid.Columns[1].Width = 350;
+            resultDataGrid.Columns[2].Width = 102;
         }
 
         public void DataGridReadOnly(DataGridView dataGridView)
         {
-            
+            dataGridView.ReadOnly = true;
         }
 
         public void DataGridRowHeadersVisible(DataGridView dataGridView)
@@ -87,7 +98,6 @@ namespace electronic_journal.AdministratorForm
             editAllForm.Show();
         }
 
-
         private void addTeacherButton_Click(object sender, EventArgs e)
         {
             AddNewTeacherForm addNewTeacher = new AddNewTeacherForm();
@@ -98,6 +108,28 @@ namespace electronic_journal.AdministratorForm
         {
             AddNewStudentForm studentForm = new AddNewStudentForm();
             studentForm.Show();
+        }
+
+        private void addPulpitButton_Click(object sender, EventArgs e)
+        {
+            AddNewPulpitForm pulpitForm = new AddNewPulpitForm();
+            pulpitForm.Show();
+        }
+
+        private void LoadDataGrid()
+        {
+            string query = "select PersonName[Имя преподавателя], NameTable[Таблица], DateUpdate[Дата обновления] from TimeUpdate";
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            resultDataGrid.DataSource = dataTable;
+            DataGridMode();
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LoginForm login = new LoginForm();
+            login.Show();
         }
     }
 }

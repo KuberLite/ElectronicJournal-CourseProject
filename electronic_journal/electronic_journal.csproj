@@ -62,6 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministratorForm\AddNewPulpitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministratorForm\AddNewPulpitForm.Designer.cs">
+      <DependentUpon>AddNewPulpitForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdministratorForm\AddNewStudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     <Compile Include="Forms\UserRoomTeacher.Designer.cs">
       <DependentUpon>UserRoomTeacher.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AdministratorForm\AddNewPulpitForm.resx">
+      <DependentUpon>AddNewPulpitForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdministratorForm\AddNewStudentForm.resx">
       <DependentUpon>AddNewStudentForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +217,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Background.jpg" />
+    <None Include="Resources\background4.jpg" />
+    <None Include="Resources\images.jpg" />
+    <None Include="Resources\Background3.jpg" />
+    <None Include="Resources\Background2.jpg" />
     <None Include="Resources\Ok-icon.png" />
     <None Include="Resources\no-image.png" />
   </ItemGroup>

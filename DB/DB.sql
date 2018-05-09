@@ -79,7 +79,8 @@ CREATE TABLE Person
 	Pulpit nvarchar(50) foreign key references Pulpit(IdPulpit),
 	IdGroup int foreign key references Groups(IdGroup),
 	Birthday date,
-	Photo image
+	Photo image,
+	Email varchar(100)
 )
 
 CREATE TABLE Progress

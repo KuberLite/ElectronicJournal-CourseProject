@@ -34,6 +34,8 @@
             this.updateButton = new System.Windows.Forms.Button();
             this.addTeacherButton = new System.Windows.Forms.Button();
             this.addStudentButton = new System.Windows.Forms.Button();
+            this.addPulpitButton = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.resultDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,13 +95,37 @@
             this.addStudentButton.UseVisualStyleBackColor = true;
             this.addStudentButton.Click += new System.EventHandler(this.addStudentButton_Click);
             // 
+            // addPulpitButton
+            // 
+            this.addPulpitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addPulpitButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addPulpitButton.Location = new System.Drawing.Point(673, 4);
+            this.addPulpitButton.Name = "addPulpitButton";
+            this.addPulpitButton.Size = new System.Drawing.Size(115, 53);
+            this.addPulpitButton.TabIndex = 5;
+            this.addPulpitButton.Text = "Добавить кафедру";
+            this.addPulpitButton.UseVisualStyleBackColor = true;
+            this.addPulpitButton.Click += new System.EventHandler(this.addPulpitButton_Click);
+            // 
+            // exitButton
+            // 
+            this.exitButton.Location = new System.Drawing.Point(12, 406);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(115, 32);
+            this.exitButton.TabIndex = 6;
+            this.exitButton.Text = "Выход";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImage = global::electronic_journal.MyResource.background4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.exitButton);
+            this.Controls.Add(this.addPulpitButton);
             this.Controls.Add(this.addStudentButton);
             this.Controls.Add(this.addTeacherButton);
             this.Controls.Add(this.updateButton);
@@ -110,6 +136,7 @@
             this.Name = "AdminForm";
             this.Text = "Журнал: Администратор";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminForm_FormClosing);
+            this.Load += new System.EventHandler(this.AdminForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.resultDataGrid)).EndInit();
             this.ResumeLayout(false);
 
@@ -122,5 +149,7 @@
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Button addTeacherButton;
         private System.Windows.Forms.Button addStudentButton;
+        private System.Windows.Forms.Button addPulpitButton;
+        private System.Windows.Forms.Button exitButton;
     }
 }

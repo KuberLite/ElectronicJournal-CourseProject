@@ -46,3 +46,30 @@ where Person.IdPerson = '51062c0f-4a62-4186-930d-62b0a6c7633a'
 
 update Progress set NoteFirst = 2, NoteSecond = 3 where IdStudent = '51062c0f-4a62-4186-930d-62b0a6c7633a' and [Subject] = 'ООП'
 select * from Progress
+
+select IdPerson[ID], [Name][ФИО], NumberGroup[Группа], Gender[Пол], Birthday[Дата рождения]
+                           from Person inner join Groups on Person.IdGroup = Groups.IdGroup
+						   inner join Faculty on Groups.Faculty = Faculty.IdFaculty
+						   where Faculty.IdFaculty = 'ИТ'
+
+go
+
+select IdGroup from Groups inner join Faculty 
+on Groups.Faculty = Faculty.IdFaculty where Faculty.IdFaculty = 'ИТ'
+
+select Faculty from Groups inner join Faculty 
+on Groups.Faculty = Faculty.IdFaculty where Groups.IdGroup = 211
+
+select * from [Subject]
+select * from Groups
+select * from Person order by [Name]
+select * from [User]
+
+select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация],
+case 
+when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+'
+else 'н.а.' 
+end[Принято]
+from Person 
+inner join Pulpit on P
+where Pulpit.Faculty = 'ИТ'

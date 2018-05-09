@@ -35,6 +35,13 @@
             this.courseComboBox = new System.Windows.Forms.ComboBox();
             this.backButton = new System.Windows.Forms.Button();
             this.facultyComboBox = new System.Windows.Forms.ComboBox();
+            this.plusMinusСomboBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.secondNoteTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.firstNoteTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProgress)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,13 +124,99 @@
             this.facultyComboBox.TabIndex = 6;
             this.facultyComboBox.SelectedIndexChanged += new System.EventHandler(this.facultyComboBox_SelectedIndexChanged);
             // 
+            // plusMinusСomboBox
+            // 
+            this.plusMinusСomboBox.Font = new System.Drawing.Font("Sitka Text", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.plusMinusСomboBox.FormattingEnabled = true;
+            this.plusMinusСomboBox.Items.AddRange(new object[] {
+            "+/-",
+            "+",
+            "-"});
+            this.plusMinusСomboBox.Location = new System.Drawing.Point(90, 285);
+            this.plusMinusСomboBox.Name = "plusMinusСomboBox";
+            this.plusMinusСomboBox.Size = new System.Drawing.Size(87, 27);
+            this.plusMinusСomboBox.TabIndex = 24;
+            this.plusMinusСomboBox.Text = "+/-";
+            this.plusMinusСomboBox.SelectedIndexChanged += new System.EventHandler(this.plusMinusСomboBox_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Sitka Text", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(29, 294);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 19);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Допуск";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Sitka Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(38, 185);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(122, 23);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "СОРТИРОВКА";
+            // 
+            // secondNoteTextBox
+            // 
+            this.secondNoteTextBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.secondNoteTextBox.Location = new System.Drawing.Point(148, 248);
+            this.secondNoteTextBox.Name = "secondNoteTextBox";
+            this.secondNoteTextBox.Size = new System.Drawing.Size(29, 31);
+            this.secondNoteTextBox.TabIndex = 21;
+            this.secondNoteTextBox.TextChanged += new System.EventHandler(this.secondNoteTextBox_TextChanged);
+            this.secondNoteTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NoteTextBox_KeyPress);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Sitka Text", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(29, 258);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(118, 19);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "II Аттестация >=";
+            // 
+            // firstNoteTextBox
+            // 
+            this.firstNoteTextBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.firstNoteTextBox.Location = new System.Drawing.Point(148, 211);
+            this.firstNoteTextBox.Name = "firstNoteTextBox";
+            this.firstNoteTextBox.Size = new System.Drawing.Size(29, 31);
+            this.firstNoteTextBox.TabIndex = 19;
+            this.firstNoteTextBox.TextChanged += new System.EventHandler(this.firstNoteTextBox_TextChanged);
+            this.firstNoteTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NoteTextBox_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Sitka Text", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(29, 221);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 19);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "I Аттестация >=";
+            // 
             // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImage = global::electronic_journal.MyResource.background4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.plusMinusСomboBox);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.secondNoteTextBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.firstNoteTextBox);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.facultyComboBox);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.courseComboBox);
@@ -137,6 +230,7 @@
             this.Load += new System.EventHandler(this.ProgressForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProgress)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -148,5 +242,12 @@
         private System.Windows.Forms.ComboBox courseComboBox;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.ComboBox facultyComboBox;
+        private System.Windows.Forms.ComboBox plusMinusСomboBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox secondNoteTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox firstNoteTextBox;
+        private System.Windows.Forms.Label label1;
     }
 }

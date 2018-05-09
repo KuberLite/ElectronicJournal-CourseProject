@@ -27,7 +27,7 @@ namespace electronic_journal.Forms
             connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
 
-        private void btnEntry_Click_1(object sender, EventArgs e)
+        private void btnEntry_Click(object sender, EventArgs e)
         {
             string loginQuery = "select RoleName from Roles " +
                                 "inner join UserRoles on Roles.IdRole = UserRoles.RoleId " +
@@ -114,7 +114,7 @@ namespace electronic_journal.Forms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                btnEntry_Click_1(sender, e);
+                btnEntry_Click(sender, e);
             }
         }
 

@@ -100,14 +100,14 @@
             this.btnEntry.TabIndex = 5;
             this.btnEntry.Text = "Войти";
             this.btnEntry.UseVisualStyleBackColor = true;
-            this.btnEntry.Click += new System.EventHandler(this.btnEntry_Click_1);
+            this.btnEntry.Click += new System.EventHandler(this.btnEntry_Click);
             this.btnEntry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnEntry_KeyDown);
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImage = global::electronic_journal.MyResource.background4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(360, 265);
             this.Controls.Add(this.btnEntry);

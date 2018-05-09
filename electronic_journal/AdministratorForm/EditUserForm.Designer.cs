@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditUserForm));
             this.dataGridPerson = new System.Windows.Forms.DataGridView();
             this.roleComboBox = new System.Windows.Forms.ComboBox();
             this.pulpitComboBox = new System.Windows.Forms.ComboBox();
@@ -45,6 +46,7 @@
             this.dataGridPerson.Name = "dataGridPerson";
             this.dataGridPerson.Size = new System.Drawing.Size(600, 426);
             this.dataGridPerson.TabIndex = 0;
+            this.dataGridPerson.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridPerson_CellValueChanged);
             // 
             // roleComboBox
             // 
@@ -110,6 +112,7 @@
             // backButton
             // 
             this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backButton.Font = new System.Drawing.Font("Sitka Text", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.backButton.Location = new System.Drawing.Point(12, 407);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(95, 31);
@@ -122,7 +125,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImage = global::electronic_journal.MyResource.background4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.backButton);
@@ -132,6 +135,7 @@
             this.Controls.Add(this.pulpitComboBox);
             this.Controls.Add(this.roleComboBox);
             this.Controls.Add(this.dataGridPerson);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditUserForm";
             this.Text = "Администратор: Изменение данных";
             this.Load += new System.EventHandler(this.EditUserForm_Load);

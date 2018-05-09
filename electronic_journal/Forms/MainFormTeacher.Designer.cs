@@ -34,7 +34,6 @@
             this.courseComboBox = new System.Windows.Forms.ComboBox();
             this.openUserTeacherRoomButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
-            this.UpdateButton = new System.Windows.Forms.Button();
             this.dataGridNote = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.firstNoteTextBox = new System.Windows.Forms.TextBox();
@@ -121,18 +120,6 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
-            // UpdateButton
-            // 
-            this.UpdateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UpdateButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UpdateButton.Location = new System.Drawing.Point(12, 95);
-            this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.Size = new System.Drawing.Size(138, 27);
-            this.UpdateButton.TabIndex = 8;
-            this.UpdateButton.Text = "Обновить данные";
-            this.UpdateButton.UseVisualStyleBackColor = true;
-            this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
-            // 
             // dataGridNote
             // 
             this.dataGridNote.BackgroundColor = System.Drawing.Color.Aqua;
@@ -145,14 +132,14 @@
             this.dataGridNote.TabIndex = 9;
             this.dataGridNote.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellClick);
             this.dataGridNote.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellDoubleClick);
-            this.dataGridNote.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellEndEdit);
+            this.dataGridNote.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Sitka Text", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(12, 161);
+            this.label1.Location = new System.Drawing.Point(11, 142);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 19);
             this.label1.TabIndex = 11;
@@ -161,7 +148,7 @@
             // firstNoteTextBox
             // 
             this.firstNoteTextBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.firstNoteTextBox.Location = new System.Drawing.Point(131, 151);
+            this.firstNoteTextBox.Location = new System.Drawing.Point(130, 132);
             this.firstNoteTextBox.Name = "firstNoteTextBox";
             this.firstNoteTextBox.Size = new System.Drawing.Size(29, 31);
             this.firstNoteTextBox.TabIndex = 12;
@@ -171,7 +158,7 @@
             // secondNoteTextBox
             // 
             this.secondNoteTextBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.secondNoteTextBox.Location = new System.Drawing.Point(131, 188);
+            this.secondNoteTextBox.Location = new System.Drawing.Point(130, 169);
             this.secondNoteTextBox.Name = "secondNoteTextBox";
             this.secondNoteTextBox.Size = new System.Drawing.Size(29, 31);
             this.secondNoteTextBox.TabIndex = 14;
@@ -183,7 +170,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Sitka Text", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(12, 198);
+            this.label2.Location = new System.Drawing.Point(11, 179);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 19);
             this.label2.TabIndex = 13;
@@ -194,7 +181,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Sitka Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(21, 125);
+            this.label3.Location = new System.Drawing.Point(20, 106);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(122, 23);
             this.label3.TabIndex = 15;
@@ -205,7 +192,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Sitka Text", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(12, 234);
+            this.label4.Location = new System.Drawing.Point(11, 215);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 19);
             this.label4.TabIndex = 16;
@@ -219,7 +206,7 @@
             "+/-",
             "+",
             "-"});
-            this.plusMinusСomboBox.Location = new System.Drawing.Point(73, 225);
+            this.plusMinusСomboBox.Location = new System.Drawing.Point(72, 206);
             this.plusMinusСomboBox.Name = "plusMinusСomboBox";
             this.plusMinusСomboBox.Size = new System.Drawing.Size(87, 27);
             this.plusMinusСomboBox.TabIndex = 17;
@@ -230,7 +217,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::electronic_journal.MyResource.Background;
+            this.BackgroundImage = global::electronic_journal.MyResource.background4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(819, 463);
             this.Controls.Add(this.plusMinusСomboBox);
@@ -241,7 +228,6 @@
             this.Controls.Add(this.firstNoteTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridNote);
-            this.Controls.Add(this.UpdateButton);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.openUserTeacherRoomButton);
             this.Controls.Add(this.courseComboBox);
@@ -267,7 +253,6 @@
         private System.Windows.Forms.ComboBox courseComboBox;
         private System.Windows.Forms.Button openUserTeacherRoomButton;
         private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.DataGridView dataGridNote;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox firstNoteTextBox;

@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace electronic_journal.AdministratorForm
@@ -147,6 +147,25 @@ namespace electronic_journal.AdministratorForm
             var bytes = new UTF8Encoding().GetBytes(password);
             var hashBytes = SHA512.Create().ComputeHash(bytes);
             return Convert.ToBase64String(hashBytes);
+        }
+
+        private void SendData()
+        {
+            MailAddress fromMailAddress = new MailAddress("kursachgrahovskiy@mail.ru", "Denis Grahovskiy(admin)");
+            MailAddress toMailAddress = new MailAddress(emailTextBox.Text.Trim());
+
+            using (MailMessage mailMessage = new MailMessage(fromMailAddress, toMailAddress))
+            using (SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", 587))
+            {
+                string messageForMail = "Здравствуйте, " + nameTextBox.Text + " Вы зарегистрированы в системе 'Электронный журнал БГТУ'\nДанные для входа в систему:\nВаш логин: " + usernameTextBox.Text + "\nВаш пароль: " + passwordTextBox.Text;
+                mailMessage.Subject = "Данные для входа";
+                mailMessage.Body = messageForMail;
+                smtpClient.EnableSsl = true;
+                smtpClient.UseDefaultCredentials = true;
+                smtpClient.Credentials = new NetworkCredential(fromMailAddress.Address, "49atagaf");
+
+                smtpClient.Send(mailMessage);
+            }
         }
     }
 }

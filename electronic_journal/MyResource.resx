@@ -137,17 +137,6 @@
     <value>&lt;Предмет&gt;</value>
     <comment>in MainFormTeacher.cs</comment>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value>update Person set Photo = @img where [Name] = '" + LoginForm.nameTeacher + "'</value>
-    <comment>in UserRoomTeacher UpdateDataBase</comment>
-  </data>
-  <data name="String2" xml:space="preserve">
-    <value>select [Name] from Person inner join [User] on Person.IdPerson = [User].Id where Username = '" + login_textBox.Text.Trim() + "'</value>
-    <comment>in LoginForm Select Login, Password, Role</comment>
-  </data>
-  <data name="String3" xml:space="preserve">
-    <value>select RoleName from Roles inner join UserRoles on Roles.IdRole = UserRoles.RoleId inner join [User] on UserRoles.UserId = [User].Id where Username ='" + login_textBox.Text.Trim() + "' and PasswordHash = '" + password_textBox.Text.Trim() + "'</value>
-  </data>
   <data name="typeImage" xml:space="preserve">
     <value>JPG Files (*.jpg)|*.jpg|All Files (*.*)|*.*</value>
     <comment>in UserRoomTeacher OpenFileDialog</comment>
@@ -208,6 +197,39 @@
     <value>Resources\Ok-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="passwordMail" xml:space="preserve">
-    <value>DenisKubera</value>
+    <value>49atagaf</value>
+  </data>
+  <data name="dataForLogin" xml:space="preserve">
+    <value>Данные для входа</value>
+  </data>
+  <data name="host" xml:space="preserve">
+    <value>smtp.mail.ru</value>
+  </data>
+  <data name="mail" xml:space="preserve">
+    <value>kursachgrahovskiy@mail.ru</value>
+  </data>
+  <data name="NameSenderAdmin" xml:space="preserve">
+    <value>Denis Grahovskiy(admin)</value>
+  </data>
+  <data name="Background2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Background2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Background3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Background3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\background4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="images" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\images.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InternetConnectionLost" xml:space="preserve">
+    <value>Проблемы с интернет соединением!</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Сообщение отправлено</value>
+  </data>
+  <data name="UpdateDB" xml:space="preserve">
+    <value>Данные добавлены в базу данных</value>
   </data>
 </root>
