@@ -92,22 +92,41 @@
             this.groupComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupComboBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupComboBox.FormattingEnabled = true;
+            this.groupComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
             this.groupComboBox.Location = new System.Drawing.Point(12, 180);
             this.groupComboBox.Name = "groupComboBox";
             this.groupComboBox.Size = new System.Drawing.Size(170, 36);
             this.groupComboBox.TabIndex = 4;
             this.groupComboBox.Text = "<Группа>";
+            this.groupComboBox.SelectedIndexChanged += new System.EventHandler(this.groupComboBox_SelectedIndexChanged);
             // 
             // courseComboBox
             // 
             this.courseComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.courseComboBox.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.courseComboBox.FormattingEnabled = true;
+            this.courseComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
             this.courseComboBox.Location = new System.Drawing.Point(12, 138);
             this.courseComboBox.Name = "courseComboBox";
             this.courseComboBox.Size = new System.Drawing.Size(170, 36);
             this.courseComboBox.TabIndex = 5;
             this.courseComboBox.Text = "<Курс>";
+            this.courseComboBox.SelectedIndexChanged += new System.EventHandler(this.courseComboBox_SelectedIndexChanged);
             // 
             // backButton
             // 

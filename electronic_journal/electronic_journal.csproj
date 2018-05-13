@@ -86,6 +86,12 @@
     <Compile Include="AdministratorForm\AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdministratorForm\ConfirmationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministratorForm\ConfirmationForm.Designer.cs">
+      <DependentUpon>ConfirmationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdministratorForm\EditAllForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,11 +110,17 @@
     <Compile Include="AdministratorForm\ProgressForm.Designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdministratorForm\EditGroupForm.cs">
+    <Compile Include="AdministratorForm\EditSubjectForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdministratorForm\EditGroupForm.Designer.cs">
-      <DependentUpon>EditGroupForm.cs</DependentUpon>
+    <Compile Include="AdministratorForm\EditSubjectForm.Designer.cs">
+      <DependentUpon>EditSubjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdministratorForm\ShowDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministratorForm\ShowDataForm.Designer.cs">
+      <DependentUpon>ShowDataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainFormStudent.cs">
       <SubType>Form</SubType>
@@ -161,6 +173,9 @@
     <EmbeddedResource Include="AdministratorForm\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdministratorForm\ConfirmationForm.resx">
+      <DependentUpon>ConfirmationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdministratorForm\EditAllForm.resx">
       <DependentUpon>EditAllForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,8 +185,11 @@
     <EmbeddedResource Include="AdministratorForm\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AdministratorForm\EditGroupForm.resx">
-      <DependentUpon>EditGroupForm.cs</DependentUpon>
+    <EmbeddedResource Include="AdministratorForm\EditSubjectForm.resx">
+      <DependentUpon>EditSubjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdministratorForm\ShowDataForm.resx">
+      <DependentUpon>ShowDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainFormStudent.resx">
       <DependentUpon>MainFormStudent.cs</DependentUpon>
@@ -182,6 +200,10 @@
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MyResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MyResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -191,10 +213,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MyResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MyResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserRoomStudent.resx">
       <DependentUpon>UserRoomStudent.cs</DependentUpon>
     </EmbeddedResource>
@@ -216,13 +234,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Background.jpg" />
+    <None Include="Resources\WrongCross.ico" />
+    <None Include="Resources\Ok.ico" />
     <None Include="Resources\background4.jpg" />
-    <None Include="Resources\images.jpg" />
-    <None Include="Resources\Background3.jpg" />
-    <None Include="Resources\Background2.jpg" />
-    <None Include="Resources\Ok-icon.png" />
-    <None Include="Resources\no-image.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

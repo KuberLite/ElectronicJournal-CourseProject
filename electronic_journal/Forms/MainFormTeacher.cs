@@ -14,8 +14,6 @@ namespace electronic_journal.Forms
         string valueUpdate, idPerson, nameTeacher;
         private readonly string connectionString;
 
-        SqlDataAdapter sqlDataAdapter;
-        DataTable dataTable;
         DataGridViewCell cell;
         UserRoomStudent userRoomStudent;
 
@@ -30,33 +28,30 @@ namespace electronic_journal.Forms
         private void GetName()
         {
             DataTable table = new DataTable();
-            string query = "select [Name] from Person where IdPerson = '" + LoginForm.idPerson + "'";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(table);
+            SqlCommand sqlCommand = new SqlCommand("GetNameForMainFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@idPerson", LoginForm.idPerson);
+            SqlDataAdapter(sqlCommand).Fill(table);
             nameTeacher = table.Rows[0][0].ToString();
         }
 
         private void MainFormTeacher_Load(object sender, EventArgs e)
         {
-            GetTeacherPulpit(dataTable);
+            GetTeacherPulpit();
             GetSubjectForSubjectComboBox();
             SortedEnabled();
             GetName();
         }
 
-        int DropDownWidth(ComboBox myCombo)
-        {
-            int maxWidth = 0;
-
-            foreach (var obj in myCombo.Items)
-            {
-                maxWidth = 500;
-            }
-            return maxWidth;
-        }
-
         public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
         {
-            sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
+            return sqlDataAdapter;
+        }
+
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
             return sqlDataAdapter;
         }
 
@@ -177,19 +172,14 @@ namespace electronic_journal.Forms
         {
             try
             {
-                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                               "case " +
-                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                               "else '-' " +
-                               "end[Допуск] " +
-                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                               " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + " " +
-                               "and NoteFirst >= '" + note + "'";
-                dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("SortByFirstNoteMainFormTeacher", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@subject", subjectComboBox.Text);
+                sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@noteFirst", note);
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 dataGridNote.DataSource = dataTable;
                 DataGridMode();
             }
@@ -203,25 +193,62 @@ namespace electronic_journal.Forms
         {
             try
             {
-                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                               "case " +
-                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                               "else '-' " +
-                               "end[Допуск] " +
-                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                               " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + " " +
-                               "and NoteSecond >= '" + note + "'";
-                dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("SortBySecondNoteForMainFormTeacher", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@subject", subjectComboBox.Text);
+                sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@noteSecond", note);
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 dataGridNote.DataSource = dataTable;
                 DataGridMode();
             }
             catch (Exception)
             {
                 MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void SortMethodByAttestationMinus()
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SortByAttestationMinusForMainFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@subject", subjectComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+            sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridNote.DataSource = dataTable;
+            DataGridMode();
+        }
+
+        private void SortMethodByAttestationPlus()
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SortByAttestationPlusForMainFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@subject", subjectComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+            sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridNote.DataSource = dataTable;
+            DataGridMode();
+        }
+
+        private void plusMinusСomboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (plusMinusСomboBox.Text == "+")
+            {
+                SortMethodByAttestationPlus();
+            }
+            else if (plusMinusСomboBox.Text == "-")
+            {
+                SortMethodByAttestationMinus();
+            }
+            else
+            {
+                LoadDataGrid();
             }
         }
         #endregion
@@ -231,18 +258,13 @@ namespace electronic_journal.Forms
         {
             try
             {
-                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                               "case " +
-                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                               "else '-' " +
-                               "end[Допуск] " +
-                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                               " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + "";
-                dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("LoadProgressInfoForMainFormTeacher", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@subjectId", subjectComboBox.Text);
+                sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 dataGridNote.DataSource = dataTable;
                 DataGridMode();
             }
@@ -260,16 +282,13 @@ namespace electronic_journal.Forms
             UserRoomStudent_Load();
         }
 
-        private void dataGridNote_CellClick(object sender, DataGridViewCellEventArgs e)
+        private string GetTeacherPulpit()
         {
-            DataGridViewCell cellUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
-            valueUpdate = cellUpdate.Value.ToString();
-        }
-
-        private string GetTeacherPulpit(DataTable dataTable)
-        {
-            dataTable = new DataTable();
-            SqlDataAdapter("select Pulpit from Person where IdPerson = '" + LoginForm.idPerson + "'", ConnectionSQL()).Fill(dataTable);
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("GetTeacherPulpitForMainFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@idPerson", LoginForm.idPerson);
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             return dataTable.Rows[0][0].ToString();
         }
 
@@ -278,13 +297,15 @@ namespace electronic_journal.Forms
             try
             {
                 subjectComboBox.Text = MyResource.selectSubject;
-                dataTable = new DataTable();
-                SqlDataAdapter("select SubjectName from Subject inner join Pulpit on Subject.Pulpit = Pulpit.IdPulpit where Pulpit.IdPulpit = N'" + GetTeacherPulpit(dataTable).Trim() + "'", ConnectionSQL()).Fill(dataTable);
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("GetSubjectForSubjectComboBoxForMainFormTeacher", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@pulpitId", GetTeacherPulpit());
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
                     subjectComboBox.Items.Add(dataTable.Rows[i][0].ToString());
                 }
-                subjectComboBox.DropDownWidth = DropDownWidth(subjectComboBox);
             }
             catch (Exception ex)
             {
@@ -294,9 +315,11 @@ namespace electronic_journal.Forms
 
         private void GetIdPerson()
         {
-            string query = "select IdPerson from Person where [Name] = '" + valueUpdate.Trim() + "'";
             DataTable data = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetIdPersonForMainFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@namePerson", valueUpdate);
+            SqlDataAdapter(sqlCommand).Fill(data);
             idPerson = data.Rows[0][0].ToString();
         }
 
@@ -310,6 +333,8 @@ namespace electronic_journal.Forms
 
         private void dataGridNote_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            DataGridViewCell cellUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
+            valueUpdate = cellUpdate.Value.ToString();
             UpdateNote(e.ColumnIndex, e.RowIndex);
         }
 
@@ -319,11 +344,13 @@ namespace electronic_journal.Forms
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlDataReader dataReader;
             sqlConnection.Open();
-            SqlCommand update = new SqlCommand("update Progress set NoteFirst = " + Convert.ToInt32(dataGridNote["I Аттестация", row].Value) + ", NoteSecond = " + dataGridNote["II Аттестация", row].Value + " " +
-                                               "where IdStudent = '" + idPerson + "' " +
-                                               "and [Subject] = 'ООП'", sqlConnection);
-            dataReader = update.ExecuteReader();
-
+            SqlCommand sqlCommand = new SqlCommand("UpdateNoteForMainFormTeacher", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@noteFirst", Convert.ToInt32(dataGridNote["I Аттестация", row].Value));
+            sqlCommand.Parameters.AddWithValue("@noteSecond", Convert.ToInt32(dataGridNote["II Аттестация", row].Value));
+            sqlCommand.Parameters.AddWithValue("@subject", subjectComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@idPerson", idPerson);
+            dataReader = sqlCommand.ExecuteReader();
             dataReader.Close();
             LoadDataGrid();
             AddTimeTableUpdate();
@@ -336,16 +363,11 @@ namespace electronic_journal.Forms
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand("AddTimeUpdate", sqlConnection);
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            GetSqlCommand(sqlCommand);
-            sqlCommand.ExecuteNonQuery();
-        }
-
-        private void GetSqlCommand(SqlCommand sqlCommand)
-        {
             sqlCommand.Parameters.AddWithValue("@updateId", Guid.NewGuid());
             sqlCommand.Parameters.AddWithValue("@personName", nameTeacher);
             sqlCommand.Parameters.AddWithValue("@nameTable", subjectComboBox.Text + " " + courseComboBox.Text + " курс " + groupComboBox.Text + " группа");
             sqlCommand.Parameters.AddWithValue("@dateUpdate", DateTime.Now.ToString());
+            sqlCommand.ExecuteNonQuery();
         }
 
         #region StudentProfile
@@ -369,12 +391,11 @@ namespace electronic_journal.Forms
 
         private void LoadAllInfo()
         {
-            dataTable = new DataTable();
-            string query = "select [Name], Gender, NumberGroup, ProfessionName, Course, Birthday, Photo " +
-                           "from Person inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                           "inner join Profession on Groups.Profession = Profession.IdProfession " +
-                           "where Person.[Name] = '" + cell.Value.ToString().Trim() + "'";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("LoadInfoAboutStudentForMainFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@personName", cell.Value.ToString().Trim());
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             TextBoxLoadInfo(dataTable);
             LoadImage(dataTable);
         }
@@ -412,41 +433,6 @@ namespace electronic_journal.Forms
             }
         }
 
-        private void SortMethodByAttestationPlus()
-        {
-            string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                           "case " +
-                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                           "else '-' " +
-                           "end[Допуск] " +
-                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                           "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                           "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                           "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                           " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + " " +
-                           "and (Progress.NoteFirst + Progress.NoteSecond)/2 >= 4";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
-            dataGridNote.DataSource = dataTable;
-            DataGridMode();
-        }
-
-        private void plusMinusСomboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (plusMinusСomboBox.Text == "+")
-            {
-                SortMethodByAttestationPlus();
-            }
-            else if (plusMinusСomboBox.Text == "-")
-            {
-                SortMethodByAttestationMinus();
-            }
-            else
-            {
-                LoadDataGrid();
-            }
-        }
-
         private void firstNoteTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
@@ -457,25 +443,6 @@ namespace electronic_journal.Forms
         {
             if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
                 e.Handled = true;
-        }
-
-        private void SortMethodByAttestationMinus()
-        {
-            string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                           "case " +
-                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                           "else '-' " +
-                           "end[Допуск] " +
-                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                           "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                           "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                           "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                           " and NumberGroup = " + Convert.ToInt32(groupComboBox.Text.Trim()) + " " +
-                           "and (Progress.NoteFirst + Progress.NoteSecond)/2 < 4";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
-            dataGridNote.DataSource = dataTable;
-            DataGridMode();
         }
         #endregion
 

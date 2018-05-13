@@ -72,36 +72,6 @@ namespace electronic_journal {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Background {
-            get {
-                object obj = ResourceManager.GetObject("Background", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Background2 {
-            get {
-                object obj = ResourceManager.GetObject("Background2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Background3 {
-            get {
-                object obj = ResourceManager.GetObject("Background3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap background4 {
             get {
                 object obj = ResourceManager.GetObject("background4", resourceCulture);
@@ -115,6 +85,15 @@ namespace electronic_journal {
         internal static string checkInformation {
             get {
                 return ResourceManager.GetString("checkInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Верно.
+        /// </summary>
+        internal static string correctEmail {
+            get {
+                return ResourceManager.GetString("correctEmail", resourceCulture);
             }
         }
         
@@ -155,21 +134,20 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Такое сокращение кафедры уже существует.
+        /// </summary>
+        internal static string errorPulpit {
+            get {
+                return ResourceManager.GetString("errorPulpit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на smtp.mail.ru.
         /// </summary>
         internal static string host {
             get {
                 return ResourceManager.GetString("host", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap images {
-            get {
-                object obj = ResourceManager.GetObject("images", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -201,22 +179,21 @@ namespace electronic_journal {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
-        internal static System.Drawing.Bitmap no_image {
+        internal static System.Drawing.Icon Ok {
             get {
-                object obj = ResourceManager.GetObject("no_image", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("Ok", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        ///   Ищет локализованную строку, похожую на Неверный пароль!.
         /// </summary>
-        internal static System.Drawing.Bitmap Ok_icon {
+        internal static string passOff {
             get {
-                object obj = ResourceManager.GetObject("Ok_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("passOff", resourceCulture);
             }
         }
         
@@ -370,6 +347,16 @@ namespace electronic_journal {
         internal static string updateInformation {
             get {
                 return ResourceManager.GetString("updateInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        internal static System.Drawing.Icon WrongCross {
+            get {
+                object obj = ResourceManager.GetObject("WrongCross", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

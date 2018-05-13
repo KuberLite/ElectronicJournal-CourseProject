@@ -87,8 +87,8 @@ CREATE TABLE Progress
 (
     [Subject] nvarchar(50) foreign key references [Subject](SubjectId),
 	IdStudent varchar(50) foreign key references Person(IdPerson),
-	NoteFirst int check (NoteFirst between 1 and 10),
-	NoteSecond int check (NoteSecond between 1 and 10)
+	NoteFirst int check (NoteFirst between 0 and 10) default 0,
+	NoteSecond int check (NoteSecond between 0 and 10) default 0
 )
 
 

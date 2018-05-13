@@ -117,9 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="addStudent" xml:space="preserve">
+    <value>Добавление студента</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="background4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\background4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="checkInformation" xml:space="preserve">
+    <value>Проверьте введённые данные</value>
+  </data>
+  <data name="correctEmail" xml:space="preserve">
+    <value>Верно</value>
+  </data>
+  <data name="correctlyAdd" xml:space="preserve">
+    <value>Добавление прошло успешно</value>
+  </data>
+  <data name="dataForLogin" xml:space="preserve">
+    <value>Данные для входа</value>
+  </data>
   <data name="entry" xml:space="preserve">
     <value>Вход</value>
     <comment>in LoginForm MessageBox</comment>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="errorPulpit" xml:space="preserve">
+    <value>Такое сокращение кафедры уже существует</value>
+  </data>
+  <data name="host" xml:space="preserve">
+    <value>smtp.mail.ru</value>
+  </data>
+  <data name="InternetConnectionLost" xml:space="preserve">
+    <value>Проблемы с интернет соединением!</value>
+  </data>
+  <data name="mail" xml:space="preserve">
+    <value>kursachgrahovskiy@mail.ru</value>
+  </data>
+  <data name="NameSenderAdmin" xml:space="preserve">
+    <value>Denis Grahovskiy(admin)</value>
+  </data>
+  <data name="Ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\ok.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="passwordMail" xml:space="preserve">
+    <value>49atagaf</value>
   </data>
   <data name="personalArea" xml:space="preserve">
     <value>Личный кабинет</value>
@@ -129,13 +172,37 @@
     <value>Сохранить изменения?</value>
     <comment>in UserRoomTeacher MessageBox</comment>
   </data>
+  <data name="selectFaculty" xml:space="preserve">
+    <value>&lt;Факультет&gt;</value>
+  </data>
+  <data name="selectGender" xml:space="preserve">
+    <value>&lt;Пол&gt;</value>
+  </data>
+  <data name="selectGroup" xml:space="preserve">
+    <value>&lt;Группа&gt;</value>
+  </data>
   <data name="selectImage" xml:space="preserve">
     <value>Выберите изображение</value>
     <comment>in UserRoomTeacher OpenFileDialog</comment>
   </data>
+  <data name="selectProfession" xml:space="preserve">
+    <value>&lt;Специальность&gt;</value>
+  </data>
+  <data name="selectPulpit" xml:space="preserve">
+    <value>&lt;Кафедра&gt;</value>
+  </data>
   <data name="selectSubject" xml:space="preserve">
     <value>&lt;Предмет&gt;</value>
     <comment>in MainFormTeacher.cs</comment>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Сообщение отправлено</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>Студент</value>
+  </data>
+  <data name="teacher" xml:space="preserve">
+    <value>Преподаватель</value>
   </data>
   <data name="typeImage" xml:space="preserve">
     <value>JPG Files (*.jpg)|*.jpg|All Files (*.*)|*.*</value>
@@ -145,91 +212,21 @@
     <value>Обновлено</value>
     <comment>in MainFormTeacher.cs MessageBox</comment>
   </data>
+  <data name="UpdateDB" xml:space="preserve">
+    <value>Данные добавлены в базу данных</value>
+  </data>
   <data name="updateInformation" xml:space="preserve">
     <value>Информация обновлена </value>
     <comment>in MainFormTeacher.cs MessageBox</comment>
+  </data>
+  <data name="WrongCross" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\wrongcross.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wrongPass" xml:space="preserve">
     <value>Неверный логин или пароль!</value>
     <comment>in LoginForm MessageBox</comment>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="no_image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\no-image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="checkInformation" xml:space="preserve">
-    <value>Проверьте введённые данные</value>
-  </data>
-  <data name="selectFaculty" xml:space="preserve">
-    <value>&lt;Факультет&gt;</value>
-  </data>
-  <data name="selectPulpit" xml:space="preserve">
-    <value>&lt;Кафедра&gt;</value>
-  </data>
-  <data name="error" xml:space="preserve">
-    <value>Ошибка</value>
-  </data>
-  <data name="selectGender" xml:space="preserve">
-    <value>&lt;Пол&gt;</value>
-  </data>
-  <data name="selectGroup" xml:space="preserve">
-    <value>&lt;Группа&gt;</value>
-  </data>
-  <data name="selectProfession" xml:space="preserve">
-    <value>&lt;Специальность&gt;</value>
-  </data>
-  <data name="addStudent" xml:space="preserve">
-    <value>Добавление студента</value>
-  </data>
-  <data name="correctlyAdd" xml:space="preserve">
-    <value>Добавление прошло успешно</value>
-  </data>
-  <data name="student" xml:space="preserve">
-    <value>Студент</value>
-  </data>
-  <data name="teacher" xml:space="preserve">
-    <value>Преподаватель</value>
-  </data>
-  <data name="Ok_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Ok-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="passwordMail" xml:space="preserve">
-    <value>49atagaf</value>
-  </data>
-  <data name="dataForLogin" xml:space="preserve">
-    <value>Данные для входа</value>
-  </data>
-  <data name="host" xml:space="preserve">
-    <value>smtp.mail.ru</value>
-  </data>
-  <data name="mail" xml:space="preserve">
-    <value>kursachgrahovskiy@mail.ru</value>
-  </data>
-  <data name="NameSenderAdmin" xml:space="preserve">
-    <value>Denis Grahovskiy(admin)</value>
-  </data>
-  <data name="Background2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Background2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Background3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Background3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="background4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\background4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="images" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\images.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="InternetConnectionLost" xml:space="preserve">
-    <value>Проблемы с интернет соединением!</value>
-  </data>
-  <data name="SendMessage" xml:space="preserve">
-    <value>Сообщение отправлено</value>
-  </data>
-  <data name="UpdateDB" xml:space="preserve">
-    <value>Данные добавлены в базу данных</value>
+  <data name="passOff" xml:space="preserve">
+    <value>Неверный пароль!</value>
   </data>
 </root>

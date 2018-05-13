@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -36,13 +37,19 @@ namespace electronic_journal.AdministratorForm
             return dataAdapter;
         }
 
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            return sqlDataAdapter;
+        }
+
         private void GetPulpitForPulpitComboBox()
         {
             DataTable data = new DataTable();
-            string query = "select IdPulpit from Faculty inner join Pulpit " +
-                           "on Faculty.IdFaculty = Pulpit.Faculty " +
-                           "where Faculty.IdFaculty = '" + facultyComboBox.Text + "'";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetPulpitForPulpitComboBox", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 pulpitComboBox.Items.Add(data.Rows[i][0].ToString());
@@ -53,12 +60,22 @@ namespace electronic_journal.AdministratorForm
         {
             DataTable data = new DataTable();
             facultyComboBox.Text = MyResource.selectFaculty;
-            string query = "select IdFaculty from Faculty";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetFacultyId", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 facultyComboBox.Items.Add(data.Rows[i][0].ToString());
             }
+        }
+
+        [DllImport("wininet.dll")]
+        private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
+
+        public static bool IsConnectedToInternet()
+        {
+            int Desc;
+            return InternetGetConnectedState(out Desc, 0);
         }
 
         private void facultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,8 +90,17 @@ namespace electronic_journal.AdministratorForm
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            AddNewTeacher();
-            ClearWindow();
+            if (IsConnectedToInternet())
+            {
+                AddNewTeacher();
+                SendData();
+                MessageBox.Show(MyResource.SendMessage, MyResource.dataForLogin, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearWindow();
+            }
+            else
+            {
+                MessageBox.Show(MyResource.InternetConnectionLost, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
         }
 
         private void ClearWindow()
@@ -137,11 +163,6 @@ namespace electronic_journal.AdministratorForm
             else errorProviderWrong.SetError(emailTextBox, "Not Valid Email");
         }
 
-        private void emailTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            ValidateEmail(emailTextBox.Text);
-        }
-
         private string Hash(string password)
         {
             var bytes = new UTF8Encoding().GetBytes(password);
@@ -151,20 +172,28 @@ namespace electronic_journal.AdministratorForm
 
         private void SendData()
         {
-            MailAddress fromMailAddress = new MailAddress("kursachgrahovskiy@mail.ru", "Denis Grahovskiy(admin)");
+            MailAddress fromMailAddress = new MailAddress(MyResource.mail, MyResource.NameSenderAdmin);
             MailAddress toMailAddress = new MailAddress(emailTextBox.Text.Trim());
 
             using (MailMessage mailMessage = new MailMessage(fromMailAddress, toMailAddress))
-            using (SmtpClient smtpClient = new SmtpClient("smtp.mail.ru", 587))
+            using (SmtpClient smtpClient = new SmtpClient(MyResource.host, 587))
             {
                 string messageForMail = "Здравствуйте, " + nameTextBox.Text + " Вы зарегистрированы в системе 'Электронный журнал БГТУ'\nДанные для входа в систему:\nВаш логин: " + usernameTextBox.Text + "\nВаш пароль: " + passwordTextBox.Text;
-                mailMessage.Subject = "Данные для входа";
+                mailMessage.Subject = MyResource.dataForLogin;
                 mailMessage.Body = messageForMail;
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = true;
-                smtpClient.Credentials = new NetworkCredential(fromMailAddress.Address, "49atagaf");
+                smtpClient.Credentials = new NetworkCredential(fromMailAddress.Address, MyResource.passwordMail);
 
                 smtpClient.Send(mailMessage);
+            }
+        }
+
+        private void emailTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (emailTextBox.Text != "")
+            {
+                ValidateEmail(emailTextBox.Text);
             }
         }
     }

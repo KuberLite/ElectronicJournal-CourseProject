@@ -11,8 +11,6 @@ namespace electronic_journal.AdministratorForm
     {
         private readonly string connectionString;
         string role;
-        DataTable dataTable;
-        SqlDataAdapter sqlDataAdapter;
         int count = 0;
 
         public EditUserForm()
@@ -39,13 +37,25 @@ namespace electronic_journal.AdministratorForm
             GetfacultyForFacultyCombobox();
         }
 
+        public SqlConnection ConnectionSQL()
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            return connection;
+        }
+
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            return sqlDataAdapter;
+        }
+
         private void GetPulpitForPulpitComboBox()
         {
             DataTable data = new DataTable();
-            string query = "select PulpitName from Faculty inner join Pulpit " +
-                           "on Faculty.IdFaculty = Pulpit.Faculty " +
-                           "where Faculty.IdFaculty = '" + facultyComboBox.Text + "'";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetPulpitForPulpitComboBoxByAdmin", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 pulpitComboBox.Items.Add(data.Rows[i][0].ToString());
@@ -56,8 +66,9 @@ namespace electronic_journal.AdministratorForm
         {
             DataTable data = new DataTable();
             facultyComboBox.Text = MyResource.selectFaculty;
-            string query = "select IdFaculty from Faculty";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetFacultyId", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 facultyComboBox.Items.Add(data.Rows[i][0].ToString());
@@ -74,23 +85,6 @@ namespace electronic_journal.AdministratorForm
             {
                 role = "Student";
             }
-        }
-
-        private void backButton_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
-
-        public SqlConnection ConnectionSQL()
-        {
-            SqlConnection connection = new SqlConnection(connectionString);
-            return connection;
-        }
-
-        public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
-        {
-            sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
-            return sqlDataAdapter;
         }
 
         #region DataGridModes
@@ -121,7 +115,7 @@ namespace electronic_journal.AdministratorForm
 
         public void DataGridReadOnly(DataGridView dataGridNote)
         {
-            dataGridPerson.Columns[0].ReadOnly = true;
+
         }
 
         public void DataGridAllowUserToAddRows(DataGridView dataGridNote)
@@ -141,6 +135,7 @@ namespace electronic_journal.AdministratorForm
         }
         #endregion
 
+        #region SelectedIndexChanged
         private void facultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
         { 
             if (count != 0)
@@ -152,22 +147,20 @@ namespace electronic_journal.AdministratorForm
             count++;
             if (role == "Teacher")
             {
-                string query = "select IdPerson[ID], [Name][ФИО], Pulpit[Кафедра], Gender[Пол], Birthday[Дата рождения] " +
-                           "from Person inner join Pulpit on Person.Pulpit = Pulpit.IdPulpit " +
-                           "where Pulpit.Faculty = '" + facultyComboBox.Text.Trim() + "'";
-                dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                SqlCommand sqlCommand = new SqlCommand("SelectAllTeacherByFaculty", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+                DataTable dataTable = new DataTable();
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 dataGridPerson.DataSource = dataTable;
             }
             else
             {
-                string query = "select IdPerson[ID], [Name] [ФИО], NumberGroup[Группа], Gender[Пол], Birthday[Дата рождения] " +
-                               "from Person inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                               "inner join Faculty on Groups.Faculty = Faculty.IdFaculty " +
-                               "where Faculty.IdFaculty = '" + facultyComboBox.Text.Trim() + "'";
-
-                dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                SqlCommand sqlCommand = new SqlCommand("SelectAllStudentByFaculty", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+                DataTable dataTable = new DataTable();
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 dataGridPerson.DataSource = dataTable;
             }
             DataGridMode();
@@ -196,33 +189,107 @@ namespace electronic_journal.AdministratorForm
 
         private void pulpitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string query = "select IdPerson[ID], [Name][ФИО], Pulpit[Кафедра], Gender[Пол], Birthday[Дата рождения] " +
-                           "from Person inner join Pulpit on Person.Pulpit = Pulpit.IdPulpit " +
-                           "where Pulpit.PulpitName = '" + pulpitComboBox.Text.Trim() + "'";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            SqlCommand sqlCommand = new SqlCommand("SelectAllTeacherByPulpit", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@pulpit", pulpitComboBox.Text);
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             dataGridPerson.DataSource = dataTable;
             DataGridMode();
         }
 
+        private void courseComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlCommand sqlCommand = new SqlCommand("SelectAllSudentByFacultyCourse", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridPerson.DataSource = dataTable;
+        }
+
+        private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlCommand sqlCommand = new SqlCommand("SelectAllSudentByGroupCourseFaculty", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+            sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridPerson.DataSource = dataTable;
+        }
+        #endregion
+
         private void dataGridPerson_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            UpdateStudentInfo(e.ColumnIndex, e.RowIndex);
+            if (role == "Teacher")
+            {
+                UpdateTeacherInfo(e.ColumnIndex, e.RowIndex);
+            }
+            else
+            {
+                UpdateStudentInfo(e.ColumnIndex, e.RowIndex);
+            }
         }
 
         private void UpdateStudentInfo(int column, int row)
         {
+            try
+            {
+                int numberGroup = 0;
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlDataReader dataReader;
+                sqlConnection.Open();
+                SqlCommand selectGroupId = new SqlCommand("SelectGroupId", sqlConnection);
+                selectGroupId.CommandType = CommandType.StoredProcedure;
+                selectGroupId.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+                selectGroupId.Parameters.AddWithValue("@group", dataGridPerson["Группа", row].Value);
+                selectGroupId.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+                dataReader = selectGroupId.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    numberGroup = Convert.ToInt32(dataReader["IdGroup"]);
+                }
+                SqlCommand update = new SqlCommand("UpdateStudent", sqlConnection);
+                update.CommandType = CommandType.StoredProcedure;
+                update.Parameters.AddWithValue("@name", dataGridPerson["ФИО", row].Value.ToString());
+                update.Parameters.AddWithValue("@gender", dataGridPerson["Пол", row].Value.ToString());
+                update.Parameters.AddWithValue("@birthday", Convert.ToDateTime(dataGridPerson["Дата рождения", row].Value));
+                update.Parameters.AddWithValue("@idGroup", numberGroup);
+                update.Parameters.AddWithValue("@idPerson", dataGridPerson["ID", row].Value.ToString());
+                dataReader.Close();
+                dataReader = update.ExecuteReader();
+                dataReader.Close();
+                dataGridPerson.UpdateCellValue(column, row);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.checkInformation, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void UpdateTeacherInfo(int column, int row)
+        {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlDataReader dataReader;
             sqlConnection.Open();
-            SqlCommand update = new SqlCommand("UPDATE Person SET [Name] = '" + dataGridPerson["ФИО", row].Value.ToString() + "', " +
-                                               "Pulpit = '" + dataGridPerson["Кафедра", row].Value.ToString() + "', " +
-                                               "Gender = '" + dataGridPerson["Пол", row].Value.ToString() + "', " +
-                                               "Birthday = '" + Convert.ToDateTime(dataGridPerson["Дата рождения", row].Value) + "' " +
-                                               "WHERE IdPerson = '" + dataGridPerson["ID", row].Value + "'", sqlConnection);
+            SqlCommand update = new SqlCommand("UpdateTeacher", sqlConnection);
+            update.CommandType = CommandType.StoredProcedure;
+            update.Parameters.AddWithValue("@name", dataGridPerson["ФИО", row].Value.ToString());
+            update.Parameters.AddWithValue("@pulpit", dataGridPerson["Кафедра", row].Value.ToString());
+            update.Parameters.AddWithValue("@gender", dataGridPerson["Пол", row].Value.ToString());
+            update.Parameters.AddWithValue("@birthday", Convert.ToDateTime(dataGridPerson["Дата рождения", row].Value));
+            update.Parameters.AddWithValue("@idPerson", dataGridPerson["ID", row].Value);
             dataReader = update.ExecuteReader();
             dataReader.Close();
             dataGridPerson.UpdateCellValue(column, row);
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

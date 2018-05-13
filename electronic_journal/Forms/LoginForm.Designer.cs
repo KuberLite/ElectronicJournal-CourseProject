@@ -63,7 +63,7 @@
             this.password_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.password_textBox.Location = new System.Drawing.Point(114, 141);
             this.password_textBox.Name = "password_textBox";
-            this.password_textBox.PasswordChar = '*';
+            this.password_textBox.PasswordChar = '•';
             this.password_textBox.Size = new System.Drawing.Size(194, 29);
             this.password_textBox.TabIndex = 2;
             this.password_textBox.Text = "admin";

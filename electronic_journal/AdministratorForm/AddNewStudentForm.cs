@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Net;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
@@ -43,6 +44,12 @@ namespace electronic_journal.AdministratorForm
             return dataAdapter;
         }
 
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            return sqlDataAdapter;
+        }
+
         [DllImport("wininet.dll")]
         private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
 
@@ -55,9 +62,9 @@ namespace electronic_journal.AdministratorForm
         private void GetFacultyForFacultyCombobox()
         {
             DataTable data = new DataTable();
-            facultyComboBox.Text = MyResource.selectFaculty;
-            string query = "select IdFaculty from Faculty";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetFacultyId", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 facultyComboBox.Items.Add(data.Rows[i][0].ToString());
@@ -67,10 +74,11 @@ namespace electronic_journal.AdministratorForm
         private void GetGroupForGroupComboBox()
         {
             DataTable data = new DataTable();
-            string query = "select numberGroup from Groups inner join Faculty " +
-                           "on Groups.Faculty = Faculty.IdFaculty " +
-                           "where Faculty.IdFaculty = '" + facultyComboBox.Text.Trim() + "' and Groups.Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) + "";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetGroupForGroupComboBox", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));            
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 groupComboBox.Items.Add(data.Rows[i][0].ToString());
@@ -147,15 +155,16 @@ namespace electronic_journal.AdministratorForm
             }
         }
 
-        private void ValidateEmail(string email)
+        private void SetErrorProvider(ErrorProvider provider, Icon icon, Control control, string message)
         {
-            if (IsValidEmailAddress(email)) errorProvider.SetError(emailTextBox, "OK");
-            else errorProvider.SetError(emailTextBox, "Not Valid Email");
+            provider.Icon = icon;
+            provider.SetError(control, message);
         }
 
-        private void emailTextBox_Validating(object sender, CancelEventArgs e)
+        private void ValidateEmail(string email)
         {
-            ValidateEmail(emailTextBox.Text);
+            if (IsValidEmailAddress(email)) SetErrorProvider(errorProvider, MyResource.Ok, emailTextBox, MyResource.correctEmail);
+            else SetErrorProvider(errorProvider, MyResource.WrongCross, emailTextBox, MyResource.error);
         }
 
         private string Hash(string password)
@@ -192,12 +201,21 @@ namespace electronic_journal.AdministratorForm
         private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataTable tableData = new DataTable();
-            string query = "select IdGroup from Groups inner join Faculty " +
-                           "on Groups.Faculty = Faculty.IdFaculty " +
-                           "where Faculty.IdFaculty = '" + facultyComboBox.Text.Trim() + "' and Groups.Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) + " " +
-                           "and Groups.NumberGroup  = " + Convert.ToInt32(groupComboBox.Text.Trim()) + "";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(tableData);
+            SqlCommand sqlCommand = new SqlCommand("SelectGroupId", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text.Trim()));
+            sqlCommand.Parameters.AddWithValue("@group", Convert.ToInt32(groupComboBox.Text.Trim()));
+            SqlDataAdapter(sqlCommand).Fill(tableData);
             groupId = tableData.Rows[0][0].ToString();
+        }
+
+        private void emailTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (emailTextBox.Text != "")
+            {
+                ValidateEmail(emailTextBox.Text);
+            }
         }
     }
 }

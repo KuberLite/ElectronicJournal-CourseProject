@@ -32,10 +32,8 @@
             this.resultDataGrid = new System.Windows.Forms.DataGridView();
             this.progressButton = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
-            this.addTeacherButton = new System.Windows.Forms.Button();
-            this.addStudentButton = new System.Windows.Forms.Button();
-            this.addPulpitButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.showDataButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.resultDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,42 +69,6 @@
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
-            // addTeacherButton
-            // 
-            this.addTeacherButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addTeacherButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addTeacherButton.Location = new System.Drawing.Point(403, 4);
-            this.addTeacherButton.Name = "addTeacherButton";
-            this.addTeacherButton.Size = new System.Drawing.Size(129, 53);
-            this.addTeacherButton.TabIndex = 3;
-            this.addTeacherButton.Text = "Добавить преподавателя";
-            this.addTeacherButton.UseVisualStyleBackColor = true;
-            this.addTeacherButton.Click += new System.EventHandler(this.addTeacherButton_Click);
-            // 
-            // addStudentButton
-            // 
-            this.addStudentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addStudentButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addStudentButton.Location = new System.Drawing.Point(538, 4);
-            this.addStudentButton.Name = "addStudentButton";
-            this.addStudentButton.Size = new System.Drawing.Size(129, 53);
-            this.addStudentButton.TabIndex = 4;
-            this.addStudentButton.Text = "Добавить студента";
-            this.addStudentButton.UseVisualStyleBackColor = true;
-            this.addStudentButton.Click += new System.EventHandler(this.addStudentButton_Click);
-            // 
-            // addPulpitButton
-            // 
-            this.addPulpitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addPulpitButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addPulpitButton.Location = new System.Drawing.Point(673, 4);
-            this.addPulpitButton.Name = "addPulpitButton";
-            this.addPulpitButton.Size = new System.Drawing.Size(115, 53);
-            this.addPulpitButton.TabIndex = 5;
-            this.addPulpitButton.Text = "Добавить кафедру";
-            this.addPulpitButton.UseVisualStyleBackColor = true;
-            this.addPulpitButton.Click += new System.EventHandler(this.addPulpitButton_Click);
-            // 
             // exitButton
             // 
             this.exitButton.Location = new System.Drawing.Point(12, 406);
@@ -117,6 +79,18 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // showDataButton
+            // 
+            this.showDataButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.showDataButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.showDataButton.Location = new System.Drawing.Point(403, 4);
+            this.showDataButton.Name = "showDataButton";
+            this.showDataButton.Size = new System.Drawing.Size(129, 53);
+            this.showDataButton.TabIndex = 7;
+            this.showDataButton.Text = "Просмотр данных";
+            this.showDataButton.UseVisualStyleBackColor = true;
+            this.showDataButton.Click += new System.EventHandler(this.showDataButton_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -124,10 +98,8 @@
             this.BackgroundImage = global::electronic_journal.MyResource.background4;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.showDataButton);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.addPulpitButton);
-            this.Controls.Add(this.addStudentButton);
-            this.Controls.Add(this.addTeacherButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.progressButton);
             this.Controls.Add(this.resultDataGrid);
@@ -147,9 +119,7 @@
         private System.Windows.Forms.DataGridView resultDataGrid;
         private System.Windows.Forms.Button progressButton;
         private System.Windows.Forms.Button updateButton;
-        private System.Windows.Forms.Button addTeacherButton;
-        private System.Windows.Forms.Button addStudentButton;
-        private System.Windows.Forms.Button addPulpitButton;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Button showDataButton;
     }
 }

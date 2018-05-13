@@ -14,7 +14,6 @@ namespace electronic_journal.AdministratorForm
     {
         DataGridViewCell cell;
         UserRoomStudent userRoomStudent;
-        DataTable dataTable;
         private readonly string connectionString;
         string valueUpdate;
         int count = 0;
@@ -40,10 +39,10 @@ namespace electronic_journal.AdministratorForm
             return connection;
         }
 
-        public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
         {
-            SqlDataAdapter data = new SqlDataAdapter(query, ConnectionSQL());
-            return data;
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            return sqlDataAdapter;
         }
 
         #region DataGridModes
@@ -93,7 +92,6 @@ namespace electronic_journal.AdministratorForm
         public void DataGridRowHeadersVisible(DataGridView dataGridView)
         {
             dataGridProgress.RowHeadersVisible = false;
-
         }
         #endregion
 
@@ -111,10 +109,10 @@ namespace electronic_journal.AdministratorForm
         private void GetSubjectForSubjectComboBox()
         {
             DataTable data = new DataTable();
-            string query = "select SubjectName from [Subject] inner join Pulpit " +
-                           "on [Subject].Pulpit = Pulpit.IdPulpit inner join Faculty " +
-                           "on Pulpit.Faculty = Faculty.IdFaculty where Faculty.IdFaculty = '" + facultyComboBox.Text + "'";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetSubjectForSubjectComboBox", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 subjectComboBox.Items.Add(data.Rows[i][0].ToString());
@@ -125,30 +123,26 @@ namespace electronic_journal.AdministratorForm
         {
             DataTable data = new DataTable();
             facultyComboBox.Text = MyResource.selectFaculty;
-            string query = "select IdFaculty from Faculty";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetFacultyId", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(data);
             for(int i = 0; i < data.Rows.Count; i++)
             {
                 facultyComboBox.Items.Add(data.Rows[i][0].ToString());
             }
         }
 
-        private void GetProgressFromFaculty()
+        private void GetProgress()
         {
             try
             {
-                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                               "case " +
-                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                               "else 'н.а.' " +
-                               "end[Принято] " +
-                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                               " and NumberGroup = " + Convert.ToInt32(numberGroupComboBox.Text.Trim()) + "";
+                SqlCommand sqlCommand = new SqlCommand("LoadProgressByAdmin", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@subjectName", subjectComboBox.Text.Trim());
+                sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(numberGroupComboBox.Text.Trim()));
+                sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text.Trim()));
                 DataTable dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 dataGridProgress.DataSource = dataTable;
                 DataGridMode();
             }
@@ -162,19 +156,7 @@ namespace electronic_journal.AdministratorForm
         {
             try
             {
-                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                               "case " +
-                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                               "else '-' " +
-                               "end[Допуск] " +
-                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                               " and NumberGroup = " + Convert.ToInt32(numberGroupComboBox.Text.Trim()) + "";
-                DataTable dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
-                dataGridProgress.DataSource = dataTable;
+                GetProgress();
                 DataGridMode();
             }
             catch (Exception)
@@ -192,14 +174,6 @@ namespace electronic_journal.AdministratorForm
             GetSubjectForSubjectComboBox();
             subjectComboBox.DropDownWidth = DropDownWidth(subjectComboBox);
             count++;
-        }
-
-        private void courseComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadDataGrid();
-            firstNoteTextBox.Enabled = true;
-            secondNoteTextBox.Enabled = true;
-            plusMinusСomboBox.Enabled = true;
         }
 
         #region UserProfile
@@ -250,11 +224,10 @@ namespace electronic_journal.AdministratorForm
         private void LoadAllInfo()
         {
             DataTable dataTable = new DataTable();
-            string query = "select [Name], Gender, NumberGroup, ProfessionName, Course, Birthday, Photo " +
-                           "from Person inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                           "inner join Profession on Groups.Profession = Profession.IdProfession " +
-                           "where Person.[Name] = '" + cell.Value.ToString().Trim() + "'";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            SqlCommand sqlCommand = new SqlCommand("LoadInfoAboutStudentForMainFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@personName", cell.Value.ToString());
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             TextBoxLoadInfo(dataTable);
             LoadImage(dataTable);
         }
@@ -287,19 +260,14 @@ namespace electronic_journal.AdministratorForm
         {
             try
             {
-                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                               "case " +
-                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                               "else '-' " +
-                               "end[Допуск] " +
-                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                               " and NumberGroup = " + Convert.ToInt32(numberGroupComboBox.Text.Trim()) + " " +
-                               "and NoteFirst >= '" + note + "'";
-                dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("SortByFirstNoteByAdmin", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@subjectName", subjectComboBox.Text);
+                sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(numberGroupComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@noteFirst", note);
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 dataGridProgress.DataSource = dataTable;
                 DataGridMode();
             }
@@ -313,19 +281,14 @@ namespace electronic_journal.AdministratorForm
         {
             try
             {
-                string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                               "case " +
-                               "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                               "else '-' " +
-                               "end[Допуск] " +
-                               "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                               "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                               "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                               "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                               " and NumberGroup = " + Convert.ToInt32(numberGroupComboBox.Text.Trim()) + " " +
-                               "and NoteSecond >= '" + note + "'";
-                dataTable = new DataTable();
-                SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("SortBySecondNoteByAdmin", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@subjectName", subjectComboBox.Text);
+                sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(numberGroupComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@noteSecond", note);
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
                 dataGridProgress.DataSource = dataTable;
                 DataGridMode();
             }
@@ -353,19 +316,13 @@ namespace electronic_journal.AdministratorForm
 
         private void SortMethodByAttestationPlus()
         {
-            string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                           "case " +
-                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                           "else '-' " +
-                           "end[Допуск] " +
-                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                           "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                           "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                           "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                           " and NumberGroup = " + Convert.ToInt32(numberGroupComboBox.Text.Trim()) + " " +
-                           "and (Progress.NoteFirst + Progress.NoteSecond)/2 >= 4";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SortByAttestationPlusByAdmin", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@subjectName", subjectComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+            sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(numberGroupComboBox.Text));
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             dataGridProgress.DataSource = dataTable;
             DataGridMode();
         }
@@ -406,19 +363,13 @@ namespace electronic_journal.AdministratorForm
 
         private void SortMethodByAttestationMinus()
         {
-            string query = "select [Name][ФИО], [Subject][Дисциплина], NumberGroup[Номер группы], Course[Курс], NoteFirst[I Аттестация], NoteSecond[II Аттестация]," +
-                           "case " +
-                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                           "else '-' " +
-                           "end[Допуск] " +
-                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                           "inner join Groups on Person.IdGroup = Groups.IdGroup " +
-                           "inner join [Subject] on Progress.[Subject] = [Subject].SubjectId " +
-                           "where SubjectName = '" + subjectComboBox.Text.Trim() + "' and Course = " + Convert.ToInt32(courseComboBox.Text.Trim()) +
-                           " and NumberGroup = " + Convert.ToInt32(numberGroupComboBox.Text.Trim()) + " " +
-                           "and (Progress.NoteFirst + Progress.NoteSecond)/2 < 4";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SortByAttestationMinusByAdmin", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@subjectName", subjectComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+            sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(numberGroupComboBox.Text));
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             dataGridProgress.DataSource = dataTable;
             DataGridMode();
         }
@@ -455,6 +406,14 @@ namespace electronic_journal.AdministratorForm
         private void ProgressForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
+        }
+
+        private void numberGroupComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDataGrid();
+            firstNoteTextBox.Enabled = true;
+            secondNoteTextBox.Enabled = true;
+            plusMinusСomboBox.Enabled = true;
         }
     }
 }

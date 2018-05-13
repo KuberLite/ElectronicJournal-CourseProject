@@ -79,11 +79,12 @@
             "8",
             "9",
             "10"});
-            this.numberGroupComboBox.Location = new System.Drawing.Point(12, 100);
+            this.numberGroupComboBox.Location = new System.Drawing.Point(12, 144);
             this.numberGroupComboBox.Name = "numberGroupComboBox";
             this.numberGroupComboBox.Size = new System.Drawing.Size(173, 38);
             this.numberGroupComboBox.TabIndex = 2;
             this.numberGroupComboBox.Text = "<Группа>";
+            this.numberGroupComboBox.SelectedIndexChanged += new System.EventHandler(this.numberGroupComboBox_SelectedIndexChanged);
             // 
             // courseComboBox
             // 
@@ -95,12 +96,11 @@
             "3",
             "4",
             "5"});
-            this.courseComboBox.Location = new System.Drawing.Point(12, 144);
+            this.courseComboBox.Location = new System.Drawing.Point(12, 100);
             this.courseComboBox.Name = "courseComboBox";
             this.courseComboBox.Size = new System.Drawing.Size(173, 38);
             this.courseComboBox.TabIndex = 3;
             this.courseComboBox.Text = "<Курс>";
-            this.courseComboBox.SelectedIndexChanged += new System.EventHandler(this.courseComboBox_SelectedIndexChanged);
             // 
             // backButton
             // 

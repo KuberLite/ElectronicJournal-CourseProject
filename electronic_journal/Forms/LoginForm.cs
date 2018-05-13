@@ -15,9 +15,9 @@ namespace electronic_journal.Forms
 
         public static string idPerson { get; set; }
 
+        public static string loginName { get; set; }
+
         private readonly string connectionString;
-        DataTable dataTable;
-        SqlDataAdapter sqlDataAdapter;
 
         public LoginForm()
         {
@@ -29,12 +29,13 @@ namespace electronic_journal.Forms
 
         private void btnEntry_Click(object sender, EventArgs e)
         {
-            string loginQuery = "select RoleName from Roles " +
-                                "inner join UserRoles on Roles.IdRole = UserRoles.RoleId " +
-                                "inner join [User] on UserRoles.UserId = [User].Id where Username ='" +
-                                login_textBox.Text.Trim() + "' and PasswordHash = '" + UnHash(password_textBox.Text.Trim()) + "'";
-            dataTable = new DataTable();
-            SqlDataAdapter(loginQuery, ConnectionSQL()).Fill(dataTable);
+            SqlCommand sqlCommand = new SqlCommand("LoginIn", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@login", login_textBox.Text.Trim());
+            sqlCommand.Parameters.AddWithValue("@pass", UnHash(password_textBox.Text.Trim()));
+            DataTable dataTable = new DataTable();
+            loginName = login_textBox.Text;
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             if (dataTable.Rows.Count == 1)
             {
                 if (dataTable.Rows[0][0].ToString() == "Teacher")
@@ -94,16 +95,18 @@ namespace electronic_journal.Forms
 
         public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
         {
-            sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
             return sqlDataAdapter;
         }
         #endregion
 
         private void GetIdPerson()
         {
-            string query = "select IdPerson from Person inner join [User] on Person.IdPerson = [User].Id where Username = '" + login_textBox.Text.Trim() + "'";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            SqlCommand sqlCommand = new SqlCommand("GetIdPersonByUsernameForLoginForm", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@username", login_textBox.Text);
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             if (dataTable.Rows.Count == 1)
             {
                 idPerson = dataTable.Rows[0][0].ToString();
@@ -121,6 +124,12 @@ namespace electronic_journal.Forms
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            return sqlDataAdapter;
         }
     }
 }

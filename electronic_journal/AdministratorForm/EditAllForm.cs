@@ -14,19 +14,39 @@ namespace electronic_journal.AdministratorForm
 
         private void editGroupButton_Click(object sender, EventArgs e)
         {
-            EditGroupForm editGroupForm = new EditGroupForm();
-            editGroupForm.Show();
+            EditSubjectForm editGroupForm = new EditSubjectForm();
+            editGroupForm.ShowDialog();
+            this.Hide();
         }
 
         private void editUserButton_Click(object sender, EventArgs e)
         {
             EditUserForm editUserForm = new EditUserForm();
-            editUserForm.Show();
+            editUserForm.ShowDialog();
+            this.Hide();
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void AddPulpitButton_Click(object sender, EventArgs e)
+        {
+            AddNewPulpitForm pulpitForm = new AddNewPulpitForm();
+            pulpitForm.ShowDialog();
+        }
+
+        private void addTeacherButton_Click(object sender, EventArgs e)
+        {
+            AddNewTeacherForm addNewTeacher = new AddNewTeacherForm();
+            addNewTeacher.ShowDialog();
+        }
+
+        private void addStudentButton_Click(object sender, EventArgs e)
+        {
+            AddNewStudentForm studentForm = new AddNewStudentForm();
+            studentForm.ShowDialog();
         }
     }
 }

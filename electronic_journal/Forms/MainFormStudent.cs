@@ -9,8 +9,7 @@ namespace electronic_journal.Forms
 {
     public partial class MainFormStudent : Form, IConnection, IDataGridModes
     {
-        public string connectionString;
-        DataTable dataTable;
+        private readonly string connectionString;
         SqlDataAdapter sqlDataAdapter;
         
         public MainFormStudent()
@@ -28,15 +27,11 @@ namespace electronic_journal.Forms
 
         private void LoadInfo()
         {
-            string query = "select SubjectName[Дисциплина], NoteFirst[I Аттестация], NoteSecond[II Аттестация], round((Progress.NoteFirst + Progress.NoteSecond) / 2, 2)[Среднее], " +
-                           "case " + 
-                           "when(Progress.NoteFirst + Progress.NoteSecond) / 2 >= 4 then '+' " +
-                           "else 'н.а.' " + 
-                           "end[Принято] " +
-                           "from Person inner join Progress on Person.IdPerson = Progress.IdStudent " +
-                           "inner join[Subject] on Progress.[Subject] = [Subject].SubjectId where Person.IdPerson = '" + LoginForm.idPerson + "'";
-            dataTable = new DataTable();
-            SqlDataAdapter(query, ConnectionSQL()).Fill(dataTable);
+            SqlCommand sqlCommand = new SqlCommand("LoadNoteForMainFormStudent", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@idPerson", LoginForm.idPerson);
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             dataGridNote.DataSource = dataTable;
             DataGridMode();
         }
@@ -44,6 +39,12 @@ namespace electronic_journal.Forms
         public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
         {
             sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
+            return sqlDataAdapter;
+        }
+
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
             return sqlDataAdapter;
         }
 
@@ -64,6 +65,7 @@ namespace electronic_journal.Forms
             Application.Exit();
         }
 
+        #region DataGridModes
         public void DataGridMode()
         {
             DataGridColumnsSize(dataGridNote);
@@ -109,6 +111,7 @@ namespace electronic_journal.Forms
             dataGridNote.AllowUserToResizeColumns = false;
             dataGridNote.AllowUserToResizeRows = false; ;
         }
+        #endregion
 
         private void closeButton_Click(object sender, EventArgs e)
         {

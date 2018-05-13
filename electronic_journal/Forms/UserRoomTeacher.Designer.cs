@@ -55,9 +55,7 @@
             // picture
             // 
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.picture.ErrorImage = global::electronic_journal.MyResource.no_image;
             this.picture.ImageLocation = "";
-            this.picture.InitialImage = global::electronic_journal.MyResource.no_image;
             this.picture.Location = new System.Drawing.Point(12, 39);
             this.picture.Name = "picture";
             this.picture.Size = new System.Drawing.Size(100, 100);

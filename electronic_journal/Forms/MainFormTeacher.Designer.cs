@@ -130,7 +130,6 @@
             this.dataGridNote.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridNote.Size = new System.Drawing.Size(641, 404);
             this.dataGridNote.TabIndex = 9;
-            this.dataGridNote.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellClick);
             this.dataGridNote.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellDoubleClick);
             this.dataGridNote.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNote_CellValueChanged);
             // 

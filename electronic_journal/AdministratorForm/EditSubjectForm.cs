@@ -7,15 +7,13 @@ using System.Windows.Forms;
 
 namespace electronic_journal.AdministratorForm
 {
-    public partial class EditGroupForm : Form, IConnection, IDataGridModes
+    public partial class EditSubjectForm : Form, IConnection, IDataGridModes
     {
-        DataTable dataForUpdate;
-        SqlDataAdapter dataAdapterForUpdate;
         private readonly string connectionString;
-        string querySubject;
+        string valueUpdate;
         int count = 0;
 
-        public EditGroupForm()
+        public EditSubjectForm()
         {
             InitializeComponent();
             MaximizeBox = false;
@@ -41,6 +39,19 @@ namespace electronic_journal.AdministratorForm
             return maxWidth;
         }
 
+        public SqlConnection ConnectionSQL()
+        {
+            SqlConnection sql = new SqlConnection(connectionString);
+            return sql;
+        }
+
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            return sqlDataAdapter;
+        }
+
+        #region DataGridModes
         public void DataGridMode()
         {
             DataGridAligment(dataGridView);
@@ -49,12 +60,6 @@ namespace electronic_journal.AdministratorForm
             DataGridAllowUserToResize(dataGridView);
             DataGridReadOnly(dataGridView);
             DataGridRowHeadersVisible(dataGridView);
-        }
-
-        public SqlConnection ConnectionSQL()
-        {
-            SqlConnection sql = new SqlConnection(connectionString);
-            return sql;
         }
 
         public void DataGridAligment(DataGridView dataGridView)
@@ -90,31 +95,25 @@ namespace electronic_journal.AdministratorForm
         {
             dataGridView.RowHeadersVisible = false;
         }
-
-        public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
-        {
-            SqlDataAdapter dataAdapter = new SqlDataAdapter(query, ConnectionSQL());
-            return dataAdapter;
-        }
+        #endregion
 
         private void GetSubjectForUpdate()
         {
-            dataForUpdate = new DataTable();
-            querySubject = "select SubjectId[ID Предмета], Pulpit[Кафедра], SubjectName[Название предмета] from [Subject] inner join Pulpit " +
-                           "on [Subject].Pulpit = Pulpit.IdPulpit inner join Faculty " +
-                           "on Pulpit.Faculty = Faculty.IdFaculty where Faculty.IdFaculty = '" + facultyComboBox.Text + "'";
-            dataAdapterForUpdate = new SqlDataAdapter(querySubject, ConnectionSQL());
-            dataAdapterForUpdate.Fill(dataForUpdate);
+            DataTable dataForUpdate = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("GetSubjectForUpdate", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            SqlDataAdapter(sqlCommand).Fill(dataForUpdate);
             dataGridView.DataSource = dataForUpdate;
         }
 
         private void GetPulpitForPulpitComboBox()
         {
             DataTable data = new DataTable();
-            string query = "select PulpitName from Faculty inner join Pulpit " +
-                           "on Faculty.IdFaculty = Pulpit.Faculty " +
-                           "where Faculty.IdFaculty = '" + facultyComboBox.Text + "'";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetPulpitForPulpitComboBoxByAdmin", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 pulpitComboBox.Items.Add(data.Rows[i][0].ToString());
@@ -124,18 +123,13 @@ namespace electronic_journal.AdministratorForm
         private void GetfacultyForFacultyCombobox()
         {
             DataTable data = new DataTable();
-            facultyComboBox.Text = MyResource.selectFaculty;
-            string query = "select IdFaculty from Faculty";
-            SqlDataAdapter(query, ConnectionSQL()).Fill(data);
+            SqlCommand sqlCommand = new SqlCommand("GetFacultyId", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(data);
             for (int i = 0; i < data.Rows.Count; i++)
             {
                 facultyComboBox.Items.Add(data.Rows[i][0].ToString());
             }
-        }
-
-        private void backButton_Click(object sender, EventArgs e)
-        {
-            this.Hide();
         }
 
         private void facultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -149,16 +143,17 @@ namespace electronic_journal.AdministratorForm
             count++;
         }
 
-        private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.Hide();
-        }
-
         private void pulpitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                GetSubjectForUpdate();
+                DataTable dataForUpdate = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("SelectSubjectByFacultyAndPulpit", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+                sqlCommand.Parameters.AddWithValue("@pulpit", pulpitComboBox.Text);
+                SqlDataAdapter(sqlCommand).Fill(dataForUpdate);
+                dataGridView.DataSource = dataForUpdate;
                 DataGridMode();
             }
             catch (Exception)
@@ -167,16 +162,44 @@ namespace electronic_journal.AdministratorForm
             }
         }
 
-        private void dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-
+            DataGridViewCell cellUpdate = (DataGridViewCell)dataGridView.Rows[e.RowIndex].Cells[0];
+            valueUpdate = cellUpdate.Value.ToString();
+            UpdateGroup(e.ColumnIndex, e.RowIndex);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void UpdateGroup(int column, int row)
         {
-            dataForUpdate = new DataTable();
-            SqlCommandBuilder builder = new SqlCommandBuilder(dataAdapterForUpdate);
-            dataAdapterForUpdate.Update(dataForUpdate);
+            try
+            {
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlDataReader dataReader;
+                sqlConnection.Open();
+                //"update Subject set SubjectName = '" + dataGridView["Название предмета", row].Value + "', Pulpit = '" + dataGridView["Кафедра", row].Value + "'" +  "where SubjectId = '" + valueUpdate + "'"
+                SqlCommand update = new SqlCommand("UpdateGroup", sqlConnection);
+                update.CommandType = CommandType.StoredProcedure;
+                update.Parameters.AddWithValue("@subjectName", dataGridView["Название предмета", row].Value);
+                update.Parameters.AddWithValue("@pulpit", dataGridView["Кафедра", row].Value);
+                update.Parameters.AddWithValue("@subjectId", valueUpdate);
+                dataReader = update.ExecuteReader();
+                dataReader.Close();
+                GetSubjectForUpdate();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.checkInformation, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
         }
     }
 }

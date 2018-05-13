@@ -30,7 +30,10 @@ namespace electronic_journal.Forms
         private void LoadAllInfo()
         {
             DataTable dataTable = new DataTable();
-            SqlDataAdapter("select [Name], Gender, Pulpit, Birthday, Photo from Person where IdPerson = '" + LoginForm.idPerson + "'", ConnectionSQL()).Fill(dataTable);
+            SqlCommand sqlCommand = new SqlCommand("LoadUserInfoForUserFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@idPerson", LoginForm.idPerson);
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
             TextBoxLoadInfo(dataTable);
             LoadImage(dataTable);
         }
@@ -39,15 +42,18 @@ namespace electronic_journal.Forms
         {
             if (dataTable.Rows.Count == 1)
             {
-                byte[] img = (byte[])(dataTable.Rows[0][4]);
-                if (img == null)
+                if (dataTable.Rows[0][4] != DBNull.Value)
                 {
-                    picture.Image = null;
-                }
-                else
-                {
-                    MemoryStream ms = new MemoryStream(img);
-                    picture.Image = Image.FromStream(ms);
+                    byte[] img = (byte[])(dataTable.Rows[0][4]);
+                    if (img == null)
+                    {
+                        picture.Image = null;
+                    }
+                    else
+                    {
+                        MemoryStream ms = new MemoryStream(img);
+                        picture.Image = Image.FromStream(ms);
+                    }
                 }
             }
         }
@@ -75,6 +81,12 @@ namespace electronic_journal.Forms
         {
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
             return sqlDataAdapter;
+        }
+
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
+        {
+            SqlDataAdapter sqlData = new SqlDataAdapter(sqlCommand);
+            return sqlData;
         }
 
         public SqlConnection ConnectionSQL()
@@ -116,12 +128,13 @@ namespace electronic_journal.Forms
                         FileStream fileStream = new FileStream(imgLoc, FileMode.Open, FileAccess.Read);
                         BinaryReader binaryReader = new BinaryReader(fileStream);
                         img = binaryReader.ReadBytes((int)fileStream.Length);
-                        string UpdateQuery = "update Person set Photo = @img where IdPerson = '" + LoginForm.idPerson + "'";
-                        SqlConnection sql = new SqlConnection(connectionString);
-                        sql.Open();
-                        SqlCommand sqlCommand = new SqlCommand(UpdateQuery, sql);
-                        sqlCommand.Parameters.Add(new SqlParameter("@img", img));
-                        sqlCommand.ExecuteNonQuery();
+                        SqlConnection sqlConnection = new SqlConnection(connectionString);
+                        sqlConnection.Open();
+                        SqlCommand sqlCommand = new SqlCommand("LoadImage", sqlConnection);
+                        sqlCommand.Parameters.AddWithValue("@idPerson", LoginForm.idPerson);
+                        sqlCommand.Parameters.AddWithValue("@img", img);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.ExecuteReader();
                         MessageBox.Show(MyResource.updateInformation, MyResource.personalArea, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
