@@ -35,6 +35,7 @@
             this.login_label = new System.Windows.Forms.Label();
             this.password_label = new System.Windows.Forms.Label();
             this.btnEntry = new System.Windows.Forms.Button();
+            this.forgotPasswordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label_entry
@@ -103,13 +104,25 @@
             this.btnEntry.Click += new System.EventHandler(this.btnEntry_Click);
             this.btnEntry.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnEntry_KeyDown);
             // 
+            // forgotPasswordButton
+            // 
+            this.forgotPasswordButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.forgotPasswordButton.Location = new System.Drawing.Point(232, 230);
+            this.forgotPasswordButton.Name = "forgotPasswordButton";
+            this.forgotPasswordButton.Size = new System.Drawing.Size(116, 23);
+            this.forgotPasswordButton.TabIndex = 6;
+            this.forgotPasswordButton.Text = "Забыли пароль?";
+            this.forgotPasswordButton.UseVisualStyleBackColor = true;
+            this.forgotPasswordButton.Click += new System.EventHandler(this.forgotPasswordButton_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::electronic_journal.MyResource.background4;
+            this.BackgroundImage = global::electronic_journal.MyResource.background5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(360, 265);
+            this.Controls.Add(this.forgotPasswordButton);
             this.Controls.Add(this.btnEntry);
             this.Controls.Add(this.password_label);
             this.Controls.Add(this.login_label);
@@ -137,5 +150,6 @@
         private System.Windows.Forms.Label login_label;
         private System.Windows.Forms.Label password_label;
         private System.Windows.Forms.Button btnEntry;
+        private System.Windows.Forms.Button forgotPasswordButton;
     }
 }

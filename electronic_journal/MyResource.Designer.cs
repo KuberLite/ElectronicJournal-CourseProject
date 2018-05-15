@@ -72,9 +72,9 @@ namespace electronic_journal {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap background4 {
+        internal static System.Drawing.Bitmap background5 {
             get {
-                object obj = ResourceManager.GetObject("background4", resourceCulture);
+                object obj = ResourceManager.GetObject("background5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -179,6 +179,15 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Восстановление пароля.
+        /// </summary>
+        internal static string newPass {
+            get {
+                return ResourceManager.GetString("newPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
         internal static System.Drawing.Icon Ok {
@@ -212,6 +221,15 @@ namespace electronic_journal {
         internal static string personalArea {
             get {
                 return ResourceManager.GetString("personalArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пароль сброшен. Новый пароль оправлен на почту..
+        /// </summary>
+        internal static string requestSend {
+            get {
+                return ResourceManager.GetString("requestSend", resourceCulture);
             }
         }
         
@@ -357,6 +375,15 @@ namespace electronic_journal {
             get {
                 object obj = ResourceManager.GetObject("WrongCross", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Такой Email не зарегистрирован!.
+        /// </summary>
+        internal static string wrongEmail {
+            get {
+                return ResourceManager.GetString("wrongEmail", resourceCulture);
             }
         }
         

@@ -122,6 +122,12 @@
     <Compile Include="AdministratorForm\ShowDataForm.Designer.cs">
       <DependentUpon>ShowDataForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ForgotPasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ForgotPasswordForm.Designer.cs">
+      <DependentUpon>ForgotPasswordForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainFormStudent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,6 +197,9 @@
     <EmbeddedResource Include="AdministratorForm\ShowDataForm.resx">
       <DependentUpon>ShowDataForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ForgotPasswordForm.resx">
+      <DependentUpon>ForgotPasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainFormStudent.resx">
       <DependentUpon>MainFormStudent.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +212,7 @@
     <EmbeddedResource Include="MyResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MyResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -236,8 +246,9 @@
   <ItemGroup>
     <None Include="Resources\WrongCross.ico" />
     <None Include="Resources\Ok.ico" />
-    <None Include="Resources\background4.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\background5.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
