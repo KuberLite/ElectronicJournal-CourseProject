@@ -56,11 +56,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.pulpitUserComboBox = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.professionButton = new System.Windows.Forms.Button();
+            this.facultyForProfessionComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
             // 
+            this.dataGridView.BackgroundColor = System.Drawing.Color.Aqua;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(248, 157);
             this.dataGridView.Name = "dataGridView";
@@ -165,6 +168,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 30);
@@ -175,10 +179,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(12, 85);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 30);
+            this.label2.Size = new System.Drawing.Size(122, 30);
             this.label2.TabIndex = 10;
             this.label2.Text = "Фамилия:";
             // 
@@ -223,10 +228,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(52, 119);
+            this.label3.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(55, 119);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 30);
+            this.label3.Size = new System.Drawing.Size(79, 30);
             this.label3.TabIndex = 18;
             this.label3.Text = "email:";
             // 
@@ -244,10 +250,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(66, 154);
+            this.label4.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label4.Location = new System.Drawing.Point(71, 154);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 30);
+            this.label4.Size = new System.Drawing.Size(63, 30);
             this.label4.TabIndex = 20;
             this.label4.Text = "Пол:";
             // 
@@ -269,10 +276,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label5.Location = new System.Drawing.Point(23, 48);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 30);
+            this.label5.Size = new System.Drawing.Size(71, 30);
             this.label5.TabIndex = 22;
             this.label5.Text = "Роль:";
             // 
@@ -291,20 +299,22 @@
             "8",
             "9",
             "10"});
-            this.groupComboBox.Location = new System.Drawing.Point(133, 231);
+            this.groupComboBox.Location = new System.Drawing.Point(133, 268);
             this.groupComboBox.Name = "groupComboBox";
             this.groupComboBox.Size = new System.Drawing.Size(109, 31);
             this.groupComboBox.TabIndex = 23;
             this.groupComboBox.Text = "<Группа>";
+            this.groupComboBox.SelectedIndexChanged += new System.EventHandler(this.groupComboBox_SelectedIndexChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(35, 228);
+            this.label6.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label6.Location = new System.Drawing.Point(35, 265);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 30);
+            this.label6.Size = new System.Drawing.Size(99, 30);
             this.label6.TabIndex = 24;
             this.label6.Text = "Группа:";
             // 
@@ -312,20 +322,22 @@
             // 
             this.facultyUserComboBox.Font = new System.Drawing.Font("Sitka Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.facultyUserComboBox.FormattingEnabled = true;
-            this.facultyUserComboBox.Location = new System.Drawing.Point(133, 268);
+            this.facultyUserComboBox.Location = new System.Drawing.Point(133, 194);
             this.facultyUserComboBox.Name = "facultyUserComboBox";
             this.facultyUserComboBox.Size = new System.Drawing.Size(109, 31);
             this.facultyUserComboBox.TabIndex = 25;
             this.facultyUserComboBox.Text = "<Факультет>";
+            this.facultyUserComboBox.SelectedIndexChanged += new System.EventHandler(this.facultyUserComboBox_SelectedIndexChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label7.Location = new System.Drawing.Point(23, 302);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 30);
+            this.label7.Size = new System.Drawing.Size(113, 30);
             this.label7.TabIndex = 26;
             this.label7.Text = "Кафедра:";
             // 
@@ -339,20 +351,22 @@
             "3",
             "4",
             "5"});
-            this.courseComboBox.Location = new System.Drawing.Point(133, 194);
+            this.courseComboBox.Location = new System.Drawing.Point(133, 231);
             this.courseComboBox.Name = "courseComboBox";
             this.courseComboBox.Size = new System.Drawing.Size(109, 31);
             this.courseComboBox.TabIndex = 27;
             this.courseComboBox.Text = "<Курс>";
+            this.courseComboBox.SelectedIndexChanged += new System.EventHandler(this.courseComboBox_SelectedIndexChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(60, 191);
+            this.label8.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label8.Location = new System.Drawing.Point(63, 228);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 30);
+            this.label8.Size = new System.Drawing.Size(71, 30);
             this.label8.TabIndex = 28;
             this.label8.Text = "Курс:";
             // 
@@ -365,17 +379,42 @@
             this.pulpitUserComboBox.Size = new System.Drawing.Size(109, 31);
             this.pulpitUserComboBox.TabIndex = 29;
             this.pulpitUserComboBox.Text = "<Кафедра>";
+            this.pulpitUserComboBox.SelectedIndexChanged += new System.EventHandler(this.pulpitUserComboBox_SelectedIndexChanged);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(2, 265);
+            this.label9.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label9.Location = new System.Drawing.Point(2, 191);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(125, 30);
+            this.label9.Size = new System.Drawing.Size(132, 30);
             this.label9.TabIndex = 30;
             this.label9.Text = "Факультет:";
+            // 
+            // professionButton
+            // 
+            this.professionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.professionButton.Font = new System.Drawing.Font("Sitka Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.professionButton.Location = new System.Drawing.Point(710, 13);
+            this.professionButton.Name = "professionButton";
+            this.professionButton.Size = new System.Drawing.Size(161, 33);
+            this.professionButton.TabIndex = 31;
+            this.professionButton.Text = "Специальности";
+            this.professionButton.UseVisualStyleBackColor = true;
+            this.professionButton.Click += new System.EventHandler(this.professionButton_Click);
+            // 
+            // facultyForProfessionComboBox
+            // 
+            this.facultyForProfessionComboBox.Font = new System.Drawing.Font("Sitka Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.facultyForProfessionComboBox.FormattingEnabled = true;
+            this.facultyForProfessionComboBox.Location = new System.Drawing.Point(711, 52);
+            this.facultyForProfessionComboBox.Name = "facultyForProfessionComboBox";
+            this.facultyForProfessionComboBox.Size = new System.Drawing.Size(160, 38);
+            this.facultyForProfessionComboBox.TabIndex = 32;
+            this.facultyForProfessionComboBox.Text = "<Факультет>";
+            this.facultyForProfessionComboBox.SelectedIndexChanged += new System.EventHandler(this.facultyForProfessionComboBox_SelectedIndexChanged);
             // 
             // ShowDataForm
             // 
@@ -384,6 +423,8 @@
             this.BackgroundImage = global::electronic_journal.MyResource.background5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(966, 579);
+            this.Controls.Add(this.facultyForProfessionComboBox);
+            this.Controls.Add(this.professionButton);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.pulpitUserComboBox);
             this.Controls.Add(this.label8);
@@ -452,5 +493,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox pulpitUserComboBox;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button professionButton;
+        private System.Windows.Forms.ComboBox facultyForProfessionComboBox;
     }
 }

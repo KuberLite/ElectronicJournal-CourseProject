@@ -42,10 +42,11 @@
             // 
             this.label_entry.AutoSize = true;
             this.label_entry.BackColor = System.Drawing.Color.Transparent;
-            this.label_entry.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_entry.Location = new System.Drawing.Point(107, 53);
+            this.label_entry.Font = new System.Drawing.Font("Sitka Text", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_entry.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label_entry.Location = new System.Drawing.Point(107, 48);
             this.label_entry.Name = "label_entry";
-            this.label_entry.Size = new System.Drawing.Size(97, 37);
+            this.label_entry.Size = new System.Drawing.Size(102, 42);
             this.label_entry.TabIndex = 0;
             this.label_entry.Text = "Вход:";
             // 
@@ -67,17 +68,18 @@
             this.password_textBox.PasswordChar = '•';
             this.password_textBox.Size = new System.Drawing.Size(194, 29);
             this.password_textBox.TabIndex = 2;
-            this.password_textBox.Text = "admin";
+            this.password_textBox.Text = "KB5gFKnXb0";
             this.password_textBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnEntry_KeyDown);
             // 
             // login_label
             // 
             this.login_label.AutoSize = true;
             this.login_label.BackColor = System.Drawing.Color.Transparent;
-            this.login_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.login_label.Location = new System.Drawing.Point(53, 99);
+            this.login_label.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.login_label.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.login_label.Location = new System.Drawing.Point(27, 93);
             this.login_label.Name = "login_label";
-            this.login_label.Size = new System.Drawing.Size(59, 20);
+            this.login_label.Size = new System.Drawing.Size(81, 28);
             this.login_label.TabIndex = 3;
             this.login_label.Text = "Логин:";
             // 
@@ -85,10 +87,11 @@
             // 
             this.password_label.AutoSize = true;
             this.password_label.BackColor = System.Drawing.Color.Transparent;
-            this.password_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.password_label.Location = new System.Drawing.Point(37, 147);
+            this.password_label.Font = new System.Drawing.Font("Sitka Text", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.password_label.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.password_label.Location = new System.Drawing.Point(17, 141);
             this.password_label.Name = "password_label";
-            this.password_label.Size = new System.Drawing.Size(71, 20);
+            this.password_label.Size = new System.Drawing.Size(91, 28);
             this.password_label.TabIndex = 4;
             this.password_label.Text = "Пароль:";
             // 

@@ -107,6 +107,7 @@ namespace electronic_journal.AdministratorForm
                 facultyComboBox.Items.Add(dataTable.Rows[i][0].ToString());
                 facultyForSubjectСomboBox.Items.Add(dataTable.Rows[i][0].ToString());
                 facultyUserComboBox.Items.Add(dataTable.Rows[i][0].ToString());
+                facultyForProfessionComboBox.Items.Add(dataTable.Rows[i][0].ToString());
             }
         }
 
@@ -140,6 +141,19 @@ namespace electronic_journal.AdministratorForm
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 pulpitForSubjectComboBox.Items.Add(dataTable.Rows[i][0].ToString());
+            }
+        }
+
+        private void GetPulpitForPulpitComboBoxForUser()
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("GetPulpitForPulpitComboBox", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyUserComboBox.Text);
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                pulpitUserComboBox.Items.Add(dataTable.Rows[i][0].ToString());
             }
         }
 
@@ -271,6 +285,7 @@ namespace electronic_journal.AdministratorForm
             groupComboBox.Enabled = false;
             pulpitUserComboBox.Enabled = false;
             facultyUserComboBox.Enabled = false;
+            facultyForProfessionComboBox.Enabled = false;
         }
 
         private void secondNameTextBox_TextChanged(object sender, EventArgs e)
@@ -377,7 +392,37 @@ namespace electronic_journal.AdministratorForm
 
         private void genderComboBox_Leave(object sender, EventArgs e)
         {
-            genderComboBox.Text = MyResource.selectPulpit;
+            genderComboBox.Text = MyResource.selectGender;
+        }
+
+        private void professionButton_Click(object sender, EventArgs e)
+        {
+            facultyForProfessionComboBox.Enabled = true;
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("ShowAllProfession", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridView.DataSource = dataTable;
+            DataGridMode();
+            dataGridView.Columns[0].Width = 100;
+            dataGridView.Columns[1].Width = 100;
+            dataGridView.Columns[2].Width = 250;
+            dataGridView.Columns[3].Width = 250;
+        }
+
+        private void facultyForProfessionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("ShowAllProfessionByFaculty", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyForProfessionComboBox.Text);
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridView.DataSource = dataTable;
+            facultyForProfessionComboBox.Enabled = false;
+            DataGridMode();
+            dataGridView.Columns[0].Width = 200;
+            dataGridView.Columns[1].Width = 250;
+            dataGridView.Columns[2].Width = 250;
         }
 
         public void ShowDataLogin()
@@ -393,6 +438,101 @@ namespace electronic_journal.AdministratorForm
             dataGridView.Columns[2].Width = 138;
             dataGridView.Columns[3].Width = 138;
             dataGridView.Columns[4].Width = 98;
+        }
+
+        private void courseComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SelectAllSudentByFacultyCourseOnShowForm", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyUserComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridView.DataSource = dataTable;
+            DataGridMode();
+            dataGridView.Columns[0].Width = 138;
+            dataGridView.Columns[1].Width = 191;
+            dataGridView.Columns[2].Width = 58;
+            dataGridView.Columns[3].Width = 58;
+            dataGridView.Columns[4].Width = 98;
+            dataGridView.Columns[5].Width = 158;
+        }
+
+        private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SelectAllSudentByGroupCourseFacultyOnShowForm", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@faculty", facultyUserComboBox.Text);
+            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+            sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridView.DataSource = dataTable;
+            DataGridMode();
+            dataGridView.Columns[0].Width = 138;
+            dataGridView.Columns[1].Width = 191;
+            dataGridView.Columns[2].Width = 58;
+            dataGridView.Columns[3].Width = 58;
+            dataGridView.Columns[4].Width = 98;
+            dataGridView.Columns[5].Width = 158;
+        }
+
+        private void pulpitUserComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SelectAllTeacherByPulpitOnShowForm", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@pulpit", pulpitUserComboBox.Text);
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            dataGridView.DataSource = dataTable;
+            DataGridMode();
+            dataGridView.Columns[0].Width = 138;
+            dataGridView.Columns[1].Width = 191;
+            dataGridView.Columns[2].Width = 58;
+            dataGridView.Columns[3].Width = 58;
+            dataGridView.Columns[4].Width = 98;
+            dataGridView.Columns[5].Width = 158;
+        }
+
+        private void facultyUserComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (count != 0)
+            {
+                pulpitUserComboBox.Items.Clear();
+            }
+            GetPulpitForPulpitComboBoxForUser();
+            count++;
+            if (role == "Teacher")
+            {
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("SelectAllTeacherByFacultyOnShowForm", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@faculty", facultyUserComboBox.Text);
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
+                dataGridView.DataSource = dataTable;
+                dataGridView.Columns[0].Width = 138;
+                dataGridView.Columns[1].Width = 191;
+                dataGridView.Columns[2].Width = 58;
+                dataGridView.Columns[3].Width = 58;
+                dataGridView.Columns[4].Width = 98;
+                dataGridView.Columns[5].Width = 158;
+            }
+            else
+            {
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = new SqlCommand("SelectAllStudentByFacultyOnShowForm", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@faculty", facultyUserComboBox.Text);
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
+                dataGridView.DataSource = dataTable;
+                DataGridMode();
+                dataGridView.Columns[0].Width = 138;
+                dataGridView.Columns[1].Width = 191;
+                dataGridView.Columns[2].Width = 58;
+                dataGridView.Columns[3].Width = 58;
+                dataGridView.Columns[4].Width = 98;
+                dataGridView.Columns[5].Width = 158;
+            }
         }
     }
 }

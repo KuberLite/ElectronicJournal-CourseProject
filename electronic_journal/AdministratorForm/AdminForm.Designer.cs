@@ -34,11 +34,14 @@
             this.updateButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.showDataButton = new System.Windows.Forms.Button();
+            this.showRequestButton = new System.Windows.Forms.Button();
+            this.showEditButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.resultDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // resultDataGrid
             // 
+            this.resultDataGrid.BackgroundColor = System.Drawing.Color.Aqua;
             this.resultDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.resultDataGrid.Location = new System.Drawing.Point(133, 63);
             this.resultDataGrid.Name = "resultDataGrid";
@@ -91,6 +94,32 @@
             this.showDataButton.UseVisualStyleBackColor = true;
             this.showDataButton.Click += new System.EventHandler(this.showDataButton_Click);
             // 
+            // showRequestButton
+            // 
+            this.showRequestButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.showRequestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.showRequestButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.showRequestButton.Location = new System.Drawing.Point(538, 4);
+            this.showRequestButton.Name = "showRequestButton";
+            this.showRequestButton.Size = new System.Drawing.Size(145, 53);
+            this.showRequestButton.TabIndex = 8;
+            this.showRequestButton.Text = "Просмотр заявок на восстановление пароля";
+            this.showRequestButton.UseVisualStyleBackColor = true;
+            this.showRequestButton.Click += new System.EventHandler(this.showRequestButton_Click);
+            // 
+            // showEditButton
+            // 
+            this.showEditButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.showEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.showEditButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.showEditButton.Location = new System.Drawing.Point(689, 4);
+            this.showEditButton.Name = "showEditButton";
+            this.showEditButton.Size = new System.Drawing.Size(99, 53);
+            this.showEditButton.TabIndex = 9;
+            this.showEditButton.Text = "Просмотр изменений";
+            this.showEditButton.UseVisualStyleBackColor = true;
+            this.showEditButton.Click += new System.EventHandler(this.showEditButton_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -98,6 +127,8 @@
             this.BackgroundImage = global::electronic_journal.MyResource.background5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.showEditButton);
+            this.Controls.Add(this.showRequestButton);
             this.Controls.Add(this.showDataButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.updateButton);
@@ -121,5 +152,7 @@
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button showDataButton;
+        private System.Windows.Forms.Button showRequestButton;
+        private System.Windows.Forms.Button showEditButton;
     }
 }

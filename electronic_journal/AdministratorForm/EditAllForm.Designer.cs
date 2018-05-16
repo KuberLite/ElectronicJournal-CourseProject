@@ -65,9 +65,9 @@
             // 
             this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.backButton.Location = new System.Drawing.Point(12, 183);
+            this.backButton.Location = new System.Drawing.Point(12, 77);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(115, 31);
+            this.backButton.Size = new System.Drawing.Size(115, 59);
             this.backButton.TabIndex = 3;
             this.backButton.Text = "Назад";
             this.backButton.UseVisualStyleBackColor = true;
@@ -89,7 +89,7 @@
             // 
             this.addStudentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addStudentButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addStudentButton.Location = new System.Drawing.Point(12, 77);
+            this.addStudentButton.Location = new System.Drawing.Point(133, 77);
             this.addStudentButton.Name = "addStudentButton";
             this.addStudentButton.Size = new System.Drawing.Size(115, 59);
             this.addStudentButton.TabIndex = 5;
@@ -101,7 +101,7 @@
             // 
             this.addTeacherButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addTeacherButton.Font = new System.Drawing.Font("Sitka Text", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.addTeacherButton.Location = new System.Drawing.Point(375, 12);
+            this.addTeacherButton.Location = new System.Drawing.Point(254, 77);
             this.addTeacherButton.Name = "addTeacherButton";
             this.addTeacherButton.Size = new System.Drawing.Size(115, 59);
             this.addTeacherButton.TabIndex = 6;
@@ -115,7 +115,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::electronic_journal.MyResource.background5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(502, 226);
+            this.ClientSize = new System.Drawing.Size(384, 151);
             this.Controls.Add(this.addTeacherButton);
             this.Controls.Add(this.addStudentButton);
             this.Controls.Add(this.AddPulpitButton);
@@ -124,6 +124,8 @@
             this.Controls.Add(this.editGroupButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(400, 190);
+            this.MinimumSize = new System.Drawing.Size(400, 190);
             this.Name = "EditAllForm";
             this.Text = "Администратор: Внести изменения";
             this.ResumeLayout(false);

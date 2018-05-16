@@ -41,6 +41,7 @@
             // 
             // dataGridPerson
             // 
+            this.dataGridPerson.BackgroundColor = System.Drawing.Color.Aqua;
             this.dataGridPerson.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPerson.Location = new System.Drawing.Point(188, 12);
             this.dataGridPerson.Name = "dataGridPerson";

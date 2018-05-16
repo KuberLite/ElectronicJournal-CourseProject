@@ -73,9 +73,7 @@ namespace electronic_journal.AdministratorForm
 
         public void DataGridColumnsSize(DataGridView dataGridView)
         {
-            resultDataGrid.Columns[0].Width = 200;
-            resultDataGrid.Columns[1].Width = 340;
-            resultDataGrid.Columns[2].Width = 95;
+            
         }
 
         public void DataGridReadOnly(DataGridView dataGridView)
@@ -91,12 +89,15 @@ namespace electronic_journal.AdministratorForm
 
         private void LoadDataGrid()
         {
+            DataTable dataTable = new DataTable();
             SqlCommand sqlCommand = new SqlCommand("SelectAllFromTimeUpdateForAdminForm", ConnectionSQL());
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            DataTable dataTable = new DataTable();
             SqlDataAdapter(sqlCommand).Fill(dataTable);
             resultDataGrid.DataSource = dataTable;
             DataGridMode();
+            resultDataGrid.Columns[0].Width = 200;
+            resultDataGrid.Columns[1].Width = 340;
+            resultDataGrid.Columns[2].Width = 95;
         }
 
         private void progressButton_Click(object sender, EventArgs e)
@@ -127,6 +128,31 @@ namespace electronic_journal.AdministratorForm
         private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void showRequestButton_Click(object sender, EventArgs e)
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("ShowAllRequest", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            resultDataGrid.DataSource = dataTable;
+            DataGridMode();
+            resultDataGrid.Columns[0].Width = 310;
+            resultDataGrid.Columns[1].Width = 340;
+        }
+
+        private void showEditButton_Click(object sender, EventArgs e)
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SelectAllFromTimeUpdateForAdminForm", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            resultDataGrid.DataSource = dataTable;
+            DataGridMode();
+            resultDataGrid.Columns[0].Width = 200;
+            resultDataGrid.Columns[1].Width = 340;
+            resultDataGrid.Columns[2].Width = 95;
         }
     }
 }

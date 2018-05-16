@@ -128,7 +128,6 @@ namespace electronic_journal.Forms
             }
         }
 
-
         private string Hash(string password)
         {
             var bytes = new UTF8Encoding().GetBytes(password);
@@ -180,6 +179,11 @@ namespace electronic_journal.Forms
         private void ForgotPasswordForm_Load(object sender, EventArgs e)
         {
             GetAllEmail();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }
