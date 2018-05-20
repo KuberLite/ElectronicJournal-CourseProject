@@ -41,7 +41,7 @@
             // 
             // dataGridPerson
             // 
-            this.dataGridPerson.BackgroundColor = System.Drawing.Color.Aqua;
+            this.dataGridPerson.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridPerson.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPerson.Location = new System.Drawing.Point(188, 12);
             this.dataGridPerson.Name = "dataGridPerson";
@@ -158,6 +158,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditUserForm";
             this.Text = "Администратор: Изменение данных";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditUserForm_FormClosing);
             this.Load += new System.EventHandler(this.EditUserForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPerson)).EndInit();
             this.ResumeLayout(false);

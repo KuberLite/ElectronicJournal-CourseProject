@@ -41,7 +41,7 @@
             // 
             // resultDataGrid
             // 
-            this.resultDataGrid.BackgroundColor = System.Drawing.Color.Aqua;
+            this.resultDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.resultDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.resultDataGrid.Location = new System.Drawing.Point(133, 63);
             this.resultDataGrid.Name = "resultDataGrid";

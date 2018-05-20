@@ -75,13 +75,16 @@ namespace electronic_journal.AdministratorForm
 
         public void DataGridColumnsSize(DataGridView dataGridView)
         {
-            dataGridProgress.Columns[0].Width = 210;
-            dataGridProgress.Columns[1].Width = 80;
-            dataGridProgress.Columns[2].Width = 50;
-            dataGridProgress.Columns[3].Width = 45;
-            dataGridProgress.Columns[4].Width = 75;
-            dataGridProgress.Columns[5].Width = 75;
-            dataGridProgress.Columns[6].Width = 58;
+            if (dataGridView.DataSource != null)
+            {
+                dataGridProgress.Columns[0].Width = 210;
+                dataGridProgress.Columns[1].Width = 80;
+                dataGridProgress.Columns[2].Width = 50;
+                dataGridProgress.Columns[3].Width = 45;
+                dataGridProgress.Columns[4].Width = 75;
+                dataGridProgress.Columns[5].Width = 75;
+                dataGridProgress.Columns[6].Width = 58;
+            }
         }
 
         public void DataGridReadOnly(DataGridView dataGridView)
@@ -154,15 +157,8 @@ namespace electronic_journal.AdministratorForm
 
         private void LoadDataGrid()
         {
-            try
-            {
-                GetProgress();
-                DataGridMode();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(MyResource.checkInformation, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            GetProgress();
+            DataGridMode();
         }
 
         private void facultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -411,9 +407,12 @@ namespace electronic_journal.AdministratorForm
         private void numberGroupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadDataGrid();
-            firstNoteTextBox.Enabled = true;
-            secondNoteTextBox.Enabled = true;
-            plusMinusСomboBox.Enabled = true;
+            if (dataGridProgress.DataSource != null)
+            {
+                firstNoteTextBox.Enabled = true;
+                secondNoteTextBox.Enabled = true;
+                plusMinusСomboBox.Enabled = true;
+            }
         }
     }
 }

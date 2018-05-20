@@ -37,7 +37,7 @@
             // 
             // dataGridNote
             // 
-            this.dataGridNote.BackgroundColor = System.Drawing.Color.Aqua;
+            this.dataGridNote.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridNote.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridNote.Location = new System.Drawing.Point(125, 12);
             this.dataGridNote.Name = "dataGridNote";

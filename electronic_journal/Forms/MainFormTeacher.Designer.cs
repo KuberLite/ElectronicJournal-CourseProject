@@ -122,7 +122,7 @@
             // 
             // dataGridNote
             // 
-            this.dataGridNote.BackgroundColor = System.Drawing.Color.Aqua;
+            this.dataGridNote.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridNote.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridNote.Location = new System.Drawing.Point(166, 46);
             this.dataGridNote.MultiSelect = false;

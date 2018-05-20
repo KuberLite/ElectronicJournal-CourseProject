@@ -38,6 +38,7 @@ namespace electronic_journal.AdministratorForm
             {
                 Correctly = true;
                 this.Hide();
+                MessageBox.Show(MyResource.pressAgain, MyResource.good, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

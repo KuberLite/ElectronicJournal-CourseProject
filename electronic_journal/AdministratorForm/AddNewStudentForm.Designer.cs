@@ -51,6 +51,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.courseComboBox = new System.Windows.Forms.ComboBox();
             this.courseLabel = new System.Windows.Forms.Label();
+            this.generateButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -285,6 +286,18 @@
             this.courseLabel.TabIndex = 67;
             this.courseLabel.Text = "Курс:";
             // 
+            // generateButton
+            // 
+            this.generateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.generateButton.Font = new System.Drawing.Font("Sitka Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.generateButton.Location = new System.Drawing.Point(201, 389);
+            this.generateButton.Name = "generateButton";
+            this.generateButton.Size = new System.Drawing.Size(122, 31);
+            this.generateButton.TabIndex = 68;
+            this.generateButton.Text = "Generate";
+            this.generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
+            // 
             // AddNewStudentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,6 +305,7 @@
             this.BackgroundImage = global::electronic_journal.MyResource.background5;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(578, 430);
+            this.Controls.Add(this.generateButton);
             this.Controls.Add(this.courseLabel);
             this.Controls.Add(this.courseComboBox);
             this.Controls.Add(this.emailTextBox);
@@ -349,5 +363,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label courseLabel;
         private System.Windows.Forms.ComboBox courseComboBox;
+        private System.Windows.Forms.Button generateButton;
     }
 }

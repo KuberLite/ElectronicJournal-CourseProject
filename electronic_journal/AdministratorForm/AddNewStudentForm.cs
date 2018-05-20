@@ -1,5 +1,6 @@
 ﻿using electronic_journal.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
@@ -17,6 +18,7 @@ namespace electronic_journal.AdministratorForm
     {
         private readonly string connectionString;
         string groupId;
+        List<string> listEmail;
 
         public AddNewStudentForm()
         {
@@ -29,6 +31,7 @@ namespace electronic_journal.AdministratorForm
         private void AddNewStudentForm_Load(object sender, EventArgs e)
         {
             GetFacultyForFacultyCombobox();
+            GetAllEmail();
             groupComboBox.Text = MyResource.selectGroup;
         }
 
@@ -87,13 +90,26 @@ namespace electronic_journal.AdministratorForm
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            if(IsConnectedToInternet() == true)
+            if (IsConnectedToInternet() == true)
             {
-                AddNewStudent();
-                SendData();
-                MessageBox.Show(MyResource.SendMessage, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearWindow();
-                MessageBox.Show(MyResource.UpdateDB, MyResource.update, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (nameTextBox.Text != "" && facultyComboBox.Text != MyResource.selectFaculty && courseComboBox.Text != MyResource.selectedCourse && groupComboBox.Text != MyResource.selectGroup && usernameTextBox.Text != "" && passwordTextBox.Text != "" && IsValidEmailAddress(emailTextBox.Text) && genderComboBox.Text != MyResource.selectGender)
+                {
+                    if (!TestEmail())
+                    {
+                        AddNewStudent();
+                        SendData();
+                        MessageBox.Show(MyResource.SendMessage, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearWindow();
+                    }
+                    else
+                    {
+                        MessageBox.Show(MyResource.haveEmail, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(MyResource.checkAllForms, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -114,20 +130,13 @@ namespace electronic_journal.AdministratorForm
 
         private void AddNewStudent()
         {
-            try
-            {
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-                sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand("StudentAdd", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                GetSqlCommand(sqlCommand);
-                sqlCommand.ExecuteNonQuery();
-                MessageBox.Show(MyResource.correctlyAdd, MyResource.addStudent);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("StudentAdd", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            GetSqlCommand(sqlCommand);
+            sqlCommand.ExecuteNonQuery();
+            MessageBox.Show(MyResource.correctlyAdd, MyResource.addStudent);
         }
 
         private void GetSqlCommand(SqlCommand sqlCommand)
@@ -159,6 +168,34 @@ namespace electronic_journal.AdministratorForm
         {
             provider.Icon = icon;
             provider.SetError(control, message);
+        }
+
+        private bool TestEmail()
+        {
+            bool test = true;
+            foreach (string email in listEmail)
+            {
+                if (emailTextBox.Text == email)
+                {
+                    test = true;
+                    break;
+                }
+                else test = false;
+            }
+            return test;
+        }
+
+        private void GetAllEmail()
+        {
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("SelectAllEmail", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            listEmail = new List<string>();
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                listEmail.Add(dataTable.Rows[i][0].ToString());
+            }
         }
 
         private void ValidateEmail(string email)
@@ -216,6 +253,22 @@ namespace electronic_journal.AdministratorForm
             {
                 ValidateEmail(emailTextBox.Text);
             }
+        }
+
+        private void generateButton_Click(object sender, EventArgs e)
+        {
+            passwordTextBox.Clear();
+            passwordTextBox.Text = GetRandomPassword();
+        }
+
+        private string GetRandomPassword()
+        {
+            string ch = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789";
+            Random random = new Random();
+            char[] pwd = new char[10];
+            for (int i = 0; i < pwd.Length; i++)
+                pwd[i] = ch[random.Next(ch.Length)];
+            return new string(pwd);
         }
     }
 }

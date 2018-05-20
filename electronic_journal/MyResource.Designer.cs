@@ -80,6 +80,15 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Корректно заполните все поля.
+        /// </summary>
+        internal static string checkAllForms {
+            get {
+                return ResourceManager.GetString("checkAllForms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Проверьте введённые данные.
         /// </summary>
         internal static string checkInformation {
@@ -107,11 +116,29 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите число от 1 до 10.
+        /// </summary>
+        internal static string correctNote {
+            get {
+                return ResourceManager.GetString("correctNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Данные для входа.
         /// </summary>
         internal static string dataForLogin {
             get {
                 return ResourceManager.GetString("dataForLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите электронную почту!.
+        /// </summary>
+        internal static string emptyForm {
+            get {
+                return ResourceManager.GetString("emptyForm", resourceCulture);
             }
         }
         
@@ -139,6 +166,24 @@ namespace electronic_journal {
         internal static string errorPulpit {
             get {
                 return ResourceManager.GetString("errorPulpit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Успешно.
+        /// </summary>
+        internal static string good {
+            get {
+                return ResourceManager.GetString("good", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Такой Email уже существует.
+        /// </summary>
+        internal static string haveEmail {
+            get {
+                return ResourceManager.GetString("haveEmail", resourceCulture);
             }
         }
         
@@ -225,6 +270,15 @@ namespace electronic_journal {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Подтверждено. Повторите запрос..
+        /// </summary>
+        internal static string pressAgain {
+            get {
+                return ResourceManager.GetString("pressAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Пароль сброшен. Новый пароль оправлен на почту..
         /// </summary>
         internal static string requestSend {
@@ -239,6 +293,15 @@ namespace electronic_journal {
         internal static string saveСhanges {
             get {
                 return ResourceManager.GetString("saveСhanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Курс&gt;.
+        /// </summary>
+        internal static string selectedCourse {
+            get {
+                return ResourceManager.GetString("selectedCourse", resourceCulture);
             }
         }
         

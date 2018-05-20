@@ -171,19 +171,19 @@ namespace electronic_journal.AdministratorForm
             GetRole();
             if (role == "Teacher")
             {
-                groupComboBox.Enabled = false;
-                courseComboBox.Enabled = false;
-                roleComboBox.Enabled = true;
-                pulpitComboBox.Enabled = true;
-                facultyComboBox.Enabled = true;
+                groupComboBox.Visible = false;
+                courseComboBox.Visible = false;
+                roleComboBox.Visible = true;
+                pulpitComboBox.Visible = true;
+                facultyComboBox.Visible = true;
             }
             else
             {
-                groupComboBox.Enabled = true;
-                courseComboBox.Enabled = true;
-                roleComboBox.Enabled = true;
-                pulpitComboBox.Enabled = false;
-                facultyComboBox.Enabled = true;
+                groupComboBox.Visible = true;
+                courseComboBox.Visible = true;
+                roleComboBox.Visible = true;
+                pulpitComboBox.Visible = false;
+                facultyComboBox.Visible = true;
             }
         }
 
@@ -211,14 +211,21 @@ namespace electronic_journal.AdministratorForm
 
         private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SqlCommand sqlCommand = new SqlCommand("SelectAllSudentByGroupCourseFaculty", ConnectionSQL());
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
-            sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
-            sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
-            DataTable dataTable = new DataTable();
-            SqlDataAdapter(sqlCommand).Fill(dataTable);
-            dataGridPerson.DataSource = dataTable;
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("SelectAllSudentByGroupCourseFaculty", ConnectionSQL());
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@faculty", facultyComboBox.Text);
+                sqlCommand.Parameters.AddWithValue("@course", Convert.ToInt32(courseComboBox.Text));
+                sqlCommand.Parameters.AddWithValue("@numberGroup", Convert.ToInt32(groupComboBox.Text));
+                DataTable dataTable = new DataTable();
+                SqlDataAdapter(sqlCommand).Fill(dataTable);
+                dataGridPerson.DataSource = dataTable;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.checkInformation, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         #endregion
 
@@ -272,22 +279,34 @@ namespace electronic_journal.AdministratorForm
 
         private void UpdateTeacherInfo(int column, int row)
         {
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlDataReader dataReader;
-            sqlConnection.Open();
-            SqlCommand update = new SqlCommand("UpdateTeacher", sqlConnection);
-            update.CommandType = CommandType.StoredProcedure;
-            update.Parameters.AddWithValue("@name", dataGridPerson["ФИО", row].Value.ToString());
-            update.Parameters.AddWithValue("@pulpit", dataGridPerson["Кафедра", row].Value.ToString());
-            update.Parameters.AddWithValue("@gender", dataGridPerson["Пол", row].Value.ToString());
-            update.Parameters.AddWithValue("@birthday", Convert.ToDateTime(dataGridPerson["Дата рождения", row].Value));
-            update.Parameters.AddWithValue("@idPerson", dataGridPerson["ID", row].Value);
-            dataReader = update.ExecuteReader();
-            dataReader.Close();
-            dataGridPerson.UpdateCellValue(column, row);
+            try
+            {
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                SqlDataReader dataReader;
+                sqlConnection.Open();
+                SqlCommand update = new SqlCommand("UpdateTeacher", sqlConnection);
+                update.CommandType = CommandType.StoredProcedure;
+                update.Parameters.AddWithValue("@name", dataGridPerson["ФИО", row].Value.ToString());
+                update.Parameters.AddWithValue("@pulpit", dataGridPerson["Кафедра", row].Value.ToString());
+                update.Parameters.AddWithValue("@gender", dataGridPerson["Пол", row].Value.ToString());
+                update.Parameters.AddWithValue("@birthday", Convert.ToDateTime(dataGridPerson["Дата рождения", row].Value));
+                update.Parameters.AddWithValue("@idPerson", dataGridPerson["ID", row].Value);
+                dataReader = update.ExecuteReader();
+                dataReader.Close();
+                dataGridPerson.UpdateCellValue(column, row);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.checkInformation, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
         }
 
         private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void EditUserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
         }

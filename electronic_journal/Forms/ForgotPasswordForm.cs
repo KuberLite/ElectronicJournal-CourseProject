@@ -150,24 +150,32 @@ namespace electronic_journal.Forms
         {
             if (IsConnectedToInternet())
             {
-                if (TestEmail()) {
-                    SqlConnection sqlConnection = new SqlConnection(connectionString);
-                    sqlConnection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("AddRequest", sqlConnection);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@id", Guid.NewGuid().ToString());
-                    sqlCommand.Parameters.AddWithValue("@email", emailTextBox.Text);
-                    sqlCommand.Parameters.AddWithValue("@time", DateTime.Now.ToString());
-                    sqlCommand.ExecuteReader();
-                    MessageBox.Show(MyResource.requestSend, MyResource.correctEmail, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    GetRandomPassword();
-                    SendData();
-                    UpdatePassword();
-                    this.Hide();
+                if (emailTextBox.Text != "")
+                {
+                    if (TestEmail())
+                    {
+                        SqlConnection sqlConnection = new SqlConnection(connectionString);
+                        sqlConnection.Open();
+                        SqlCommand sqlCommand = new SqlCommand("AddRequest", sqlConnection);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.Parameters.AddWithValue("@id", Guid.NewGuid().ToString());
+                        sqlCommand.Parameters.AddWithValue("@email", emailTextBox.Text);
+                        sqlCommand.Parameters.AddWithValue("@time", DateTime.Now.ToString());
+                        sqlCommand.ExecuteReader();
+                        MessageBox.Show(MyResource.requestSend, MyResource.correctEmail, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        GetRandomPassword();
+                        SendData();
+                        UpdatePassword();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show(MyResource.wrongEmail, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(MyResource.wrongEmail, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(MyResource.emptyForm, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

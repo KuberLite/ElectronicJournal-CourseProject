@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="electronic_journal.Program" Collapsed="true">
+    <Position X="12.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.AddNewPulpitForm" Collapsed="true">
+    <Position X="5.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAIAAAAACgAABgIAACAAAACAEAAEAACgAAgACAIAAA=</HashCode>
+      <FileName>AdministratorForm\AddNewPulpitForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.Forms.LoginForm" Collapsed="true">
+    <Position X="10" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAhAAAAEACIAAAgKAACAAAICAAAAQKACEAAAAABiCQA=</HashCode>
+      <FileName>Forms\LoginForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.Forms.ForgotPasswordForm" Collapsed="true">
+    <Position X="7.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAACBCAEKIAABkMEACCAAACAQABAAACAAQAIAIAAAg=</HashCode>
+      <FileName>Forms\ForgotPasswordForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Windows.Forms.Form" Collapsed="true">
+    <Position X="8" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="electronic_journal.Forms.MainFormStudent" Collapsed="true">
+    <Position X="10.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAIAAADgAABgIIACAAAgCAEAIAAACIABAAIAAKBI=</HashCode>
+      <FileName>Forms\MainFormStudent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.Forms.MainFormTeacher" Collapsed="true">
+    <Position X="4.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoREAAARADAUEXoKJADAQgECIEASAqwSAQAEAAADLDY=</HashCode>
+      <FileName>Forms\MainFormTeacher.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.Forms.UserRoomTeacher" Collapsed="true">
+    <Position X="4.25" Y="2.25" Width="1.5" />
+    <InheritanceLine Type="System.Windows.Forms.Form" ManuallyRouted="true">
+      <Path>
+        <Point X="8.75" Y="4.25" />
+        <Point X="8.75" Y="3.316" />
+        <Point X="6.333" Y="3.316" Type="JumpStart" />
+        <Point X="6.167" Y="3.316" Type="JumpEnd" />
+        <Point X="5" Y="3.316" />
+        <Point X="5" Y="2.941" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAMKAAAR0IBACAAABCIAAAAAQCEQAAAAgAAAA=</HashCode>
+      <FileName>Forms\UserRoomTeacher.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.Forms.UserRoomStudent" Collapsed="true">
+    <Position X="10.5" Y="2.25" Width="1.5" />
+    <InheritanceLine Type="System.Windows.Forms.Form" ManuallyRouted="true">
+      <Path>
+        <Point X="8.75" Y="4.25" />
+        <Point X="8.75" Y="2.92" />
+        <Point X="11.25" Y="2.92" />
+        <Point X="11.25" Y="2.941" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAEKCEARkJBACAAAACIAAAAQQSAQAQQAgAAAA=</HashCode>
+      <FileName>Forms\UserRoomStudent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.AddNewStudentForm" Collapsed="true">
+    <Position X="11.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGAAAJAQEKIwBBgKACDApQACAECCAIACwgAwACAIAAA=</HashCode>
+      <FileName>AdministratorForm\AddNewStudentForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.AddNewTeacherForm" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAJAAEaIgABgKACDgJgACAEAAAAAC2AQgACAIAAA=</HashCode>
+      <FileName>AdministratorForm\AddNewTeacherForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.ConfirmationForm" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAABgIACCAAAACAAAEAJACAAAAAAAQAAA=</HashCode>
+      <FileName>AdministratorForm\ConfirmationForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.AdminForm" Collapsed="true">
+    <Position X="13.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgCBAAAAEDAAQggIIAGIAABCAEAAAYACIAEAIAACKAY=</HashCode>
+      <FileName>AdministratorForm\AdminForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.EditAllForm" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADAAAACEAAgQAAACgAAgCAQAAAQAAAAAAAgAAQAg=</HashCode>
+      <FileName>AdministratorForm\EditAllForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.EditSubjectForm" Collapsed="true">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgAADAAAATAAAEgIBQCAAiACAUAAAAQCGAAAAAAAKQo=</HashCode>
+      <FileName>AdministratorForm\EditSubjectForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.EditUserForm" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JgAAAAEAATAQgBgIBASAghBCAWACAIACGAAQAAAAKRo=</HashCode>
+      <FileName>AdministratorForm\EditUserForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.ProgressForm" Collapsed="true">
+    <Position X="8.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IoREAAABADgkAVgIBADQQgACIUESAgwSEQAEACATKK4=</HashCode>
+      <FileName>AdministratorForm\ProgressForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="electronic_journal.AdministratorForm.ShowDataForm" Collapsed="true">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ByFEhIEIFDAQ0NgaJgOgghTCJ8ADCIGiCAAAQEhiqAs=</HashCode>
+      <FileName>AdministratorForm\ShowDataForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="electronic_journal.Interfaces.IConnection" Collapsed="true">
+    <Position X="12.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IConnection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="electronic_journal.Interfaces.IDataGridModes" Collapsed="true">
+    <Position X="12.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAABAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAKAI=</HashCode>
+      <FileName>Interfaces\IDataGridModes.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

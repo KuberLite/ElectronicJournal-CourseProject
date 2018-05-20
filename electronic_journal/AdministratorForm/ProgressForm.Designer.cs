@@ -47,7 +47,7 @@
             // 
             // dataGridProgress
             // 
-            this.dataGridProgress.BackgroundColor = System.Drawing.Color.Aqua;
+            this.dataGridProgress.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridProgress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridProgress.Location = new System.Drawing.Point(191, 12);
             this.dataGridProgress.Name = "dataGridProgress";

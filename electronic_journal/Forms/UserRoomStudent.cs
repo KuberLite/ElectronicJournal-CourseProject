@@ -13,7 +13,6 @@ namespace electronic_journal.Forms
     {
         private readonly string connectionString;
         string imgLoc = "";
-        int count = 0;
 
         public UserRoomStudent()
         {
@@ -69,18 +68,18 @@ namespace electronic_journal.Forms
                 groupTextBox.Text = dataTable.Rows[0][2].ToString();
                 professionTextBox.Text = dataTable.Rows[0][3].ToString();
                 courseTextBox.Text = dataTable.Rows[0][4].ToString();
-                birthdayTextBox.Text = dataTable.Rows[0][5].ToString();
+                birthdayTextBox.Text = Convert.ToDateTime(dataTable.Rows[0][5].ToString()).ToShortDateString();
             }
         }
 
         private void UserRoomTextBoxEnabled()
         {
-            fullNameTextBox.Enabled = false;
-            groupTextBox.Enabled = false;
-            courseTextBox.Enabled = false;
-            genderTextBox.Enabled = false;
-            professionTextBox.Enabled = false;
-            birthdayTextBox.Enabled = false;
+            fullNameTextBox.ReadOnly = true;
+            groupTextBox.ReadOnly = true;
+            courseTextBox.ReadOnly = true;
+            genderTextBox.ReadOnly = true;
+            professionTextBox.ReadOnly = true;
+            birthdayTextBox.ReadOnly = true;
         }
 
         public SqlConnection ConnectionSQL()
@@ -103,9 +102,10 @@ namespace electronic_journal.Forms
 
         private void UserRoomStudent_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (count != 0)
+            if (imgLoc != "")
             {
                 DialogResult dialogResult = MessageBox.Show(MyResource.saveСhanges, MyResource.personalArea, MessageBoxButtons.YesNo);
+
                 if (dialogResult == DialogResult.Yes)
                 {
                     byte[] img = null;
@@ -123,8 +123,7 @@ namespace electronic_journal.Forms
                 }
                 else if (dialogResult == DialogResult.No) { }
             }
-            else
-            { this.Hide(); }
+            else { this.Hide(); }
         }
 
         private void LoadImageButton_Click(object sender, EventArgs e)
@@ -137,7 +136,6 @@ namespace electronic_journal.Forms
                 imgLoc = openFile.FileName.ToString();
                 picture.ImageLocation = imgLoc;
             }
-            count++;
         }
     }
 }

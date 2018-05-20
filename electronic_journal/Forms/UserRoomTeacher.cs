@@ -15,15 +15,13 @@ namespace electronic_journal.Forms
 
         string imgLoc = "";
 
-        int count = 0;
-
         public UserRoomTeacher()
         {
             InitializeComponent();
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            TextBoxEnabled();
+            TextBoxReadOnly();
             LoadAllInfo();
         }
 
@@ -65,22 +63,16 @@ namespace electronic_journal.Forms
                 textBox1.Text = dataTable.Rows[0][0].ToString();
                 textBox2.Text = dataTable.Rows[0][2].ToString();
                 textBox3.Text = dataTable.Rows[0][1].ToString();
-                textBox4.Text = dataTable.Rows[0][3].ToString();
+                textBox4.Text = Convert.ToDateTime((dataTable.Rows[0][3])).ToShortDateString();
             }
         }
 
-        private void TextBoxEnabled()
+        private void TextBoxReadOnly()
         {
-            textBox1.Enabled = false;
-            textBox2.Enabled = false;
-            textBox3.Enabled = false;
-            textBox4.Enabled = false;
-        }
-
-        public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
-        {
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
-            return sqlDataAdapter;
+            textBox1.ReadOnly = true;
+            textBox2.ReadOnly = true;
+            textBox3.ReadOnly = true;
+            textBox4.ReadOnly = true;
         }
 
         public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
@@ -97,50 +89,35 @@ namespace electronic_journal.Forms
 
         private void LoadImageButtton_Click(object sender, EventArgs e)
         {
-            try
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = MyResource.typeImage;
+            openFile.Title = MyResource.selectImage;
+            if (openFile.ShowDialog() == DialogResult.OK)
             {
-                OpenFileDialog openFile = new OpenFileDialog();
-                openFile.Filter = MyResource.typeImage;
-                openFile.Title = MyResource.selectImage;
-                if(openFile.ShowDialog() == DialogResult.OK)
-                {
-                    imgLoc = openFile.FileName.ToString();
-                    picture.ImageLocation = imgLoc;
-                }
-                count++;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                imgLoc = openFile.FileName.ToString();
+                picture.ImageLocation = imgLoc;
             }
         }
 
         private void UserRoomTeacher_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (count != 0)
+            if (imgLoc != "")
             {
                 DialogResult dialogResult = MessageBox.Show(MyResource.saveСhanges, MyResource.personalArea, MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    try
-                    {
-                        byte[] img = null;
-                        FileStream fileStream = new FileStream(imgLoc, FileMode.Open, FileAccess.Read);
-                        BinaryReader binaryReader = new BinaryReader(fileStream);
-                        img = binaryReader.ReadBytes((int)fileStream.Length);
-                        SqlConnection sqlConnection = new SqlConnection(connectionString);
-                        sqlConnection.Open();
-                        SqlCommand sqlCommand = new SqlCommand("LoadImage", sqlConnection);
-                        sqlCommand.Parameters.AddWithValue("@idPerson", LoginForm.idPerson);
-                        sqlCommand.Parameters.AddWithValue("@img", img);
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
-                        sqlCommand.ExecuteReader();
-                        MessageBox.Show(MyResource.updateInformation, MyResource.personalArea, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    byte[] img = null;
+                    FileStream fileStream = new FileStream(imgLoc, FileMode.Open, FileAccess.Read);
+                    BinaryReader binaryReader = new BinaryReader(fileStream);
+                    img = binaryReader.ReadBytes((int)fileStream.Length);
+                    SqlConnection sqlConnection = new SqlConnection(connectionString);
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("LoadImage", sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@idPerson", LoginForm.idPerson);
+                    sqlCommand.Parameters.AddWithValue("@img", img);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.ExecuteReader();
+                    MessageBox.Show(MyResource.updateInformation, MyResource.personalArea, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (dialogResult == DialogResult.No) { }
             }

@@ -16,14 +16,12 @@ namespace electronic_journal.AdministratorForm
         {
             EditSubjectForm editGroupForm = new EditSubjectForm();
             editGroupForm.ShowDialog();
-            this.Hide();
         }
 
         private void editUserButton_Click(object sender, EventArgs e)
         {
             EditUserForm editUserForm = new EditUserForm();
             editUserForm.ShowDialog();
-            this.Hide();
         }
 
         private void backButton_Click(object sender, EventArgs e)

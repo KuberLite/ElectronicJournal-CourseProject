@@ -63,11 +63,11 @@
             // 
             // dataGridView
             // 
-            this.dataGridView.BackgroundColor = System.Drawing.Color.Aqua;
+            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(248, 157);
+            this.dataGridView.Location = new System.Drawing.Point(248, 139);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(706, 410);
+            this.dataGridView.Size = new System.Drawing.Size(706, 428);
             this.dataGridView.TabIndex = 0;
             // 
             // facultyButton

@@ -135,7 +135,7 @@ namespace electronic_journal.Forms
         private void forgotPasswordButton_Click(object sender, EventArgs e)
         {
             ForgotPasswordForm forgotPasswordForm = new ForgotPasswordForm();
-            forgotPasswordForm.Show();
+            forgotPasswordForm.ShowDialog();
         }
     }
 }

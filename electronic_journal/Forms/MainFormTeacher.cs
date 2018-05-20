@@ -276,10 +276,13 @@ namespace electronic_journal.Forms
 
         private void dataGridNote_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            cell = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
-            userRoomStudent = new UserRoomStudent();
-            userRoomStudent.Show();
-            UserRoomStudent_Load();
+            if (e.RowIndex != -1)
+            {
+                cell = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
+                userRoomStudent = new UserRoomStudent();
+                UserRoomStudent_Load();
+                userRoomStudent.ShowDialog();
+            }
         }
 
         private string GetTeacherPulpit()
@@ -294,22 +297,15 @@ namespace electronic_journal.Forms
 
         private void GetSubjectForSubjectComboBox()
         {
-            try
+            subjectComboBox.Text = MyResource.selectSubject;
+            DataTable dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("GetSubjectForSubjectComboBoxForMainFormTeacher", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@pulpitId", GetTeacherPulpit());
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                subjectComboBox.Text = MyResource.selectSubject;
-                DataTable dataTable = new DataTable();
-                SqlCommand sqlCommand = new SqlCommand("GetSubjectForSubjectComboBoxForMainFormTeacher", ConnectionSQL());
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("@pulpitId", GetTeacherPulpit());
-                SqlDataAdapter(sqlCommand).Fill(dataTable);
-                for (int i = 0; i < dataTable.Rows.Count; i++)
-                {
-                    subjectComboBox.Items.Add(dataTable.Rows[i][0].ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                subjectComboBox.Items.Add(dataTable.Rows[i][0].ToString());
             }
         }
 
@@ -322,7 +318,7 @@ namespace electronic_journal.Forms
             SqlDataAdapter(sqlCommand).Fill(data);
             idPerson = data.Rows[0][0].ToString();
         }
-
+         
         private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadDataGrid();
@@ -333,9 +329,19 @@ namespace electronic_journal.Forms
 
         private void dataGridNote_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewCell cellUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
-            valueUpdate = cellUpdate.Value.ToString();
-            UpdateNote(e.ColumnIndex, e.RowIndex);
+            try
+            {
+                if (e.RowIndex != -1)
+                {
+                    DataGridViewCell cellUpdate = (DataGridViewCell)dataGridNote.Rows[e.RowIndex].Cells[0];
+                    valueUpdate = cellUpdate.Value.ToString();
+                    UpdateNote(e.ColumnIndex, e.RowIndex);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MyResource.correctNote, MyResource.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void UpdateNote(int column, int row)
@@ -449,7 +455,7 @@ namespace electronic_journal.Forms
         private void openUserTeacherRoomButton_Click(object sender, EventArgs e)
         {
             UserRoomTeacher userRoomTeacher = new UserRoomTeacher();
-            userRoomTeacher.Show();
+            userRoomTeacher.ShowDialog();
         }
 
         private void closeButton_Click(object sender, EventArgs e)

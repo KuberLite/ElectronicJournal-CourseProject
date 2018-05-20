@@ -1,8 +1,11 @@
 ﻿using electronic_journal.Interfaces;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Windows.Forms;
 
 namespace electronic_journal.Forms
@@ -57,7 +60,7 @@ namespace electronic_journal.Forms
         private void userRoomButton_Click(object sender, EventArgs e)
         {
             UserRoomStudent userRoomStudent = new UserRoomStudent();
-            userRoomStudent.Show();
+            userRoomStudent.ShowDialog();
         }
 
         private void MainFormStudent_FormClosing(object sender, FormClosingEventArgs e)
