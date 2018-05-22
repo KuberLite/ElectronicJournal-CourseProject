@@ -219,7 +219,9 @@ namespace electronic_journal.AdministratorForm
             using (MailMessage mailMessage = new MailMessage(fromMailAddress, toMailAddress))
             using (SmtpClient smtpClient = new SmtpClient(MyResource.host, 587))
             {
-                string messageForMail = "Здравствуйте, " + nameTextBox.Text + ", Вы зарегистрированы в системе 'Электронный журнал БГТУ'\nДанные для входа в систему:\nВаш логин: " + usernameTextBox.Text + "\nВаш пароль: " + passwordTextBox.Text;
+                string messageForMail = "Здравствуйте, " + nameTextBox.Text + ", Вы зарегистрированы в системе " +
+                                        "'Электронный журнал БГТУ'\nДанные для входа в систему:\nВаш логин: " +
+                                        usernameTextBox.Text + "\nВаш пароль: " + passwordTextBox.Text;
                 mailMessage.Subject = MyResource.dataForLogin;
                 mailMessage.Body = messageForMail;
                 smtpClient.EnableSsl = true;

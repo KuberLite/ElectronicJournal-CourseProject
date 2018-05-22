@@ -8,9 +8,9 @@ using electronic_journal.Interfaces;
 using electronic_journal.AdministratorForm;
 
 namespace electronic_journal.Forms
-{ 
+{
     public partial class LoginForm : Form, IConnection
-    { 
+    {
         public static string str { get; set; }
 
         public static string idPerson { get; set; }
@@ -18,6 +18,8 @@ namespace electronic_journal.Forms
         public static string loginName { get; set; }
 
         private readonly string connectionString;
+
+        DataTable dataTable;
 
         public LoginForm()
         {
@@ -27,37 +29,45 @@ namespace electronic_journal.Forms
             connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
 
-        private void btnEntry_Click(object sender, EventArgs e)
+        private void RoleEqualsTeacher()
         {
-            SqlCommand sqlCommand = new SqlCommand("LoginIn", ConnectionSQL());
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.AddWithValue("@login", login_textBox.Text.Trim());
-            sqlCommand.Parameters.AddWithValue("@pass", UnHash(password_textBox.Text.Trim()));
-            DataTable dataTable = new DataTable();
-            loginName = login_textBox.Text;
-            SqlDataAdapter(sqlCommand).Fill(dataTable);
+            GetIdPerson();
+            MainFormTeacher mainFormTeacher = new MainFormTeacher();
+            mainFormTeacher.Show();
+            this.Hide();
+        }
+
+        private void RoleEqualsStudent()
+        {
+            GetIdPerson();
+            MainFormStudent mainFormStudent = new MainFormStudent();
+            mainFormStudent.Show();
+            this.Hide();
+        }
+
+        private void RoleEqualsAdmin()
+        {
+            GetIdPerson();
+            AdminForm admin = new AdminForm();
+            admin.Show();
+            this.Hide();
+        }
+
+        private void OpenMainWindowByRole(DataTable dataTable)
+        {
             if (dataTable.Rows.Count == 1)
             {
                 if (dataTable.Rows[0][0].ToString() == "Teacher")
                 {
-                    GetIdPerson();
-                    MainFormTeacher mainFormTeacher = new MainFormTeacher();
-                    mainFormTeacher.Show();
-                    this.Hide();
+                    RoleEqualsTeacher();
                 }
                 else if (dataTable.Rows[0][0].ToString() == "Student")
                 {
-                    GetIdPerson();
-                    MainFormStudent mainFormStudent = new MainFormStudent();
-                    mainFormStudent.Show();
-                    this.Hide();
+                    RoleEqualsStudent();
                 }
                 else
                 {
-                    GetIdPerson();
-                    AdminForm admin = new AdminForm();
-                    admin.Show();
-                    this.Hide();
+                    RoleEqualsAdmin();
                 }
             }
             else
@@ -66,25 +76,29 @@ namespace electronic_journal.Forms
             }
         }
 
-        #region HashPassword
+        private void GetRoleForLogin()
+        {
+            dataTable = new DataTable();
+            SqlCommand sqlCommand = new SqlCommand("LoginIn", ConnectionSQL());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@login", login_textBox.Text.Trim());
+            sqlCommand.Parameters.AddWithValue("@pass", Hash(password_textBox.Text.Trim()));
+            loginName = login_textBox.Text;
+            SqlDataAdapter(sqlCommand).Fill(dataTable);
+        }
+
+        private void btnEntry_Click(object sender, EventArgs e)
+        {
+            GetRoleForLogin();
+            OpenMainWindowByRole(dataTable);
+        }
+
         public string Hash(string password)
         {
             var bytes = new UTF8Encoding().GetBytes(password);
             var hashBytes = System.Security.Cryptography.SHA512.Create().ComputeHash(bytes);
             return Convert.ToBase64String(hashBytes);
         }
-
-        private string UnHash(string password)
-        {
-            var bytes = new UTF8Encoding().GetBytes(password);
-            byte[] hashBytes;
-            using (var algorithm = new System.Security.Cryptography.SHA512Managed())
-            {
-                hashBytes = algorithm.ComputeHash(bytes);
-            }
-            return Convert.ToBase64String(hashBytes);
-        }
-        #endregion
 
         #region Connection to DataBase
         public SqlConnection ConnectionSQL()
@@ -93,9 +107,9 @@ namespace electronic_journal.Forms
             return sqlConnection;
         }
 
-        public SqlDataAdapter SqlDataAdapter(string query, SqlConnection sqlConnection)
+        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
         {
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, ConnectionSQL());
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
             return sqlDataAdapter;
         }
         #endregion
@@ -124,12 +138,6 @@ namespace electronic_journal.Forms
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
-        }
-
-        public SqlDataAdapter SqlDataAdapter(SqlCommand sqlCommand)
-        {
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-            return sqlDataAdapter;
         }
 
         private void forgotPasswordButton_Click(object sender, EventArgs e)
